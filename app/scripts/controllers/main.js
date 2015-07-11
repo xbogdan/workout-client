@@ -8,10 +8,13 @@
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('MainCtrl', function () {
+  .controller('MainCtrl', ['$scope', 'programs', function () {
     this.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
-  });
+    programs.success(function(data) {
+      $scope.programs = data;
+    });
+  }]);
