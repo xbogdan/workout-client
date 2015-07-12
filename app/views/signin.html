@@ -1,0 +1,14 @@
+<div ng-app="" class="authentication-container">
+  <form ng-submit="login()" ng-controller="LoginCtrl" role="form">
+    <div class="form-group">
+      <input type="text" name="email" ng-model="email" class="form-control" placeholder="Email">
+    </div>
+    <div class="form-group">
+      <input type="password" name="password" ng-model="password" class="form-control" placeholder="Password">
+    </div>
+    <div class="form-actions">
+      <input type="submit" value="Sign in" class="btn btn-success">
+    </div>
+    <br>
+  </form>
+</div>
