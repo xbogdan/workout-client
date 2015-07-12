@@ -42,4 +42,18 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+  }])
+  .run(['$rootScope', '$cookies', '$http', '$location', function ($rootScope, $cookies, $http, $location) {
+    // keep user logged in after page refresh
+    $rootScope.globals = JSON.parse(String($cookies.get('globals'))) || {};
+    if ($rootScope.globals.currentUser) {
+      $http.defaults.headers.common['Authorization'] = $rootScope.globals.currentUser.token;
+    }
+
+    $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        // redirect to login page if not logged in
+        if ($location.path() !== '/signin' && !$rootScope.globals.currentUser) {
+          $location.path('/signin');
+        }
+    });
   }]);

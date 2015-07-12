@@ -8,13 +8,20 @@
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('LoginCtrl', ['$scope', '$cookies', 'authentication', function ($scope, $cookies, authentication) {
+  .controller('LoginCtrl', ['$scope', '$cookies', 'AuthenticationService', function ($scope, $cookies, AuthenticationService) {
     var self = this;
     $scope.login = function() {
-      authentication.Login($scope.email, $scope.password, function(data) {
-        $cookies.put('token', data.token);
-        $cookies.put('user', data.email);
-        console.log($cookies.get('token'));
+      AuthenticationService.ClearCredentials();
+      AuthenticationService.Login($scope.email, $scope.password, function(data, status) {
+        if (status == 200) {
+          AuthenticationService.SetCredentials({
+            email: data.email,
+            name: data.name,
+            token: data.auth_token
+          });
+        } else {
+          alert(data.error);
+        }
       });
     };
   }]);
