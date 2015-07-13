@@ -8,7 +8,7 @@
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('LoginCtrl', ['$scope', '$cookies', 'AuthenticationService', function ($scope, $cookies, AuthenticationService) {
+  .controller('LoginCtrl', ['$scope', '$cookies', 'AuthenticationService', '$location', function ($scope, $cookies, AuthenticationService, $location) {
     var self = this;
     $scope.login = function() {
       AuthenticationService.ClearCredentials();
@@ -19,6 +19,7 @@ angular.module('workoutClientApp')
             name: data.name,
             token: data.auth_token
           });
+          $location.path('/');
         } else {
           alert(data.error);
         }
