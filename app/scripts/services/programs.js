@@ -18,7 +18,7 @@ angular.module('workoutClientApp')
       .success(function(data) {
         callback(data);
       })
-      .error(function(err) {
+      .error(function(err, status) {
          callback(err);
       });
     }

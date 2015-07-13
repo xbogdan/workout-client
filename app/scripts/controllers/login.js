@@ -8,8 +8,15 @@
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('LoginCtrl', ['$scope', '$cookies', 'AuthenticationService', '$location', function ($scope, $cookies, AuthenticationService, $location) {
+  .controller('LoginCtrl', ['$scope', '$cookies', 'AuthenticationService', '$location', '$rootScope', function ($scope, $cookies, AuthenticationService, $location, $rootScope) {
     var self = this;
+
+    // Redirect to / if user is signed in
+    if ($rootScope.globals.currentUser) {
+      $location.path('/');
+    };
+
+    // Action for the login form
     $scope.login = function() {
       AuthenticationService.ClearCredentials();
       AuthenticationService.Login($scope.email, $scope.password, function(data, status) {

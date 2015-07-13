@@ -23,6 +23,7 @@ angular
     delete $httpProvider.defaults.headers.common["X-Requested-With"];
     $httpProvider.defaults.headers.common["Accept"] = "application/json";
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+    $httpProvider.interceptors.push('authInterceptor');
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -45,9 +46,14 @@ angular
   }])
   .run(['$rootScope', '$cookies', '$http', '$location', function ($rootScope, $cookies, $http, $location) {
     // keep user logged in after page refresh
-    $rootScope.globals = JSON.parse(String($cookies.get('globals'))) || {};
-    if ($rootScope.globals.currentUser) {
-      $http.defaults.headers.common['Authorization'] = $rootScope.globals.currentUser.token;
+    var globals = $cookies.get('globals') || null;
+    if (globals) {
+      $rootScope.globals = JSON.parse(String(globals));
+      if ($rootScope.globals.currentUser) {
+        $http.defaults.headers.common.Authorization = $rootScope.globals.currentUser.token;
+      }
+    } else {
+      $rootScope.globals = {};
     }
 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
