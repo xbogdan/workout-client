@@ -9,12 +9,8 @@
  */
 angular.module('workoutClientApp')
   .controller('MainCtrl', ['$scope', 'programs', function ($scope, programs) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
     programs.Programs(function(data) {
-      $scope.programs = data;
+      $scope.programs = data.programs;
     });
+    $scope.ceva = 'ceva';
   }]);

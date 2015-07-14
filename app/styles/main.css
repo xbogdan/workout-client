@@ -81,3 +81,26 @@ body {
     border-bottom: 0;
   }
 }
+
+
+ul.programs-list {
+  padding: 0;
+  list-style: none;
+}
+
+ul.programs-list li {
+  display: block;
+}
+
+ul.programs-list li a {
+  padding: 20px;
+  font-size: 20px;
+  display: block;
+  background-color: #27ae60;
+  color: white;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+ul.programs-list li a:hover {
+  text-decoration: none;
+}

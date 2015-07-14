@@ -27,8 +27,11 @@ angular.module('workoutClientApp')
             token: data.auth_token
           });
           $location.path('/');
+        }
+        if (status == 401) {
+          alert('Login Failed');
         } else {
-          alert(data.error);
+          alert('Error. Please try again later.');
         }
       });
     };
