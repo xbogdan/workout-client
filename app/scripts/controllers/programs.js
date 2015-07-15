@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name workoutClientApp.controller:MainCtrl
+ * @name workoutClientApp.controller:ProgramsCtrl
  * @description
- * # MainCtrl
+ * # ProgramsCtrl
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('MainCtrl', ['$scope', 'programs', function ($scope, programs) {
+  .controller('ProgramsCtrl', ['$scope', 'programs', function ($scope, programs) {
     programs.Programs(function(data) {
       $scope.programs = data.programs;
     });

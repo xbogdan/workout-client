@@ -26,9 +26,14 @@ angular
     $httpProvider.interceptors.push('authInterceptor');
     $routeProvider
       .when('/', {
-        templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        templateUrl: 'views/programs.html',
+        controller: 'ProgramsCtrl',
+        controllerAs: 'programs'
+      })
+      .when('/program/:id', {
+        templateUrl: 'views/program.html',
+        controller: 'ProgramCtrl',
+        controllerAs: 'program'
       })
       .when('/signin', {
         templateUrl: 'views/signin.html',

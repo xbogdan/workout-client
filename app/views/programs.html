@@ -2,7 +2,7 @@
   <div class="col-sm-12 col-md-6">
     <ul class="programs-list">
       <li ng-repeat="p in programs" class="program">
-        <a>{{ p.name }}</a>
+        <a ng-href="#/program/{{ p.id }}">{{ p.name }}</a>
       </li>
     </ul>
   </div>
