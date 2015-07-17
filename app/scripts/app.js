@@ -35,6 +35,11 @@ angular
         controller: 'ProgramCtrl',
         controllerAs: 'program'
       })
+      .when('/new', {
+        templateUrl: 'views/program.html',
+        controller: 'ProgramCtrl',
+        controllerAs: 'newProgram'
+      })
       .when('/signin', {
         templateUrl: 'views/signin.html',
         controller: 'LoginCtrl',

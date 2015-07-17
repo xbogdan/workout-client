@@ -1,1 +1,47 @@
-<h1>{{ program.name }}</h1>
+<button ng-click='toggleEdit()' ng-show='showEditButton'>Edit</button>
+<div ng-hide='editing'>
+  <h1>{{ program.name }}</h1>
+  <p><strong>Goal:</strong> {{ program.goal }}</p>
+  <p><strong>Level:</strong> {{ program.level }}</p>
+  <p><strong>Days:</strong></p>
+  <ul>
+    <li ng-repeat="day in program.days">
+      <strong>{{ day.name }}</strong>
+      <ul>
+        <li ng-repeat="ex in day.exercises">
+          {{ ex.name }}
+          <ul>
+            <li ng-repeat="(i, set) in ex.sets">
+              Set {{ i+1 }}: {{ set.reps }} reps<br>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+<div ng-show='editing'>
+  <form novalidate>
+    <h1><input type="text" placeholder="Name" value="{{ master.name }}"></h1>
+    <div class="form-group"><strong>Goal:</strong><input type="text" value="{{ master.goal }}"></div>
+    <div class="form-group"><strong>Level:</strong><input type="text" value="{{ master.level }}"></div>
+    <div class="form-group">
+      <strong>Days:</strong>
+      <ul>
+        <li ng-repeat="day in master.days">
+          <input type="text" value="{{ day.name }}"> -- <a href="">remove</a>
+          <ul>
+            <li ng-repeat="ex in day.exercises">
+              <input type="text" value="{{ ex.name }}"> -- <a href="">remove</a>
+              <ul>
+                <li ng-repeat="(i, set) in ex.sets">
+                  Set {{ i+1 }}: <input type="number" value="{{ set.reps }}"> reps -- <a href="">remove</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </form>
+</div>
