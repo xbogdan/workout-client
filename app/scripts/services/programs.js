@@ -13,6 +13,7 @@ angular.module('workoutClientApp')
 
     service.Programs = Programs;
     service.Program = Program;
+    service.editProgram = editProgram;
 
     return service;
 
@@ -35,6 +36,22 @@ angular.module('workoutClientApp')
         url: 'http://localhost:3000/api/v1/program?id='+id
       })
       .success(function(data) {
+        callback(data);
+      })
+      .error(function(err, status) {
+         callback(err);
+      });
+    };
+
+    function editProgram(program, callback) {
+      $http({
+        method: 'PUT',
+        url: 'http://localhost:3000/api/v1/updateProgram',
+        data: {
+          program: program
+        }
+      })
+      .success(function(data, status) {
         callback(data);
       })
       .error(function(err, status) {

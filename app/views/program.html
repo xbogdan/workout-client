@@ -1,17 +1,17 @@
-<button ng-click='toggleEdit()' ng-show='showEditButton'>Edit</button>
+<button ng-click='toggleEdit(false)' ng-show='showEditButton'>Edit</button>
 <div ng-hide='editing'>
   <h1>{{ program.name }}</h1>
   <p><strong>Goal:</strong> {{ program.goal }}</p>
   <p><strong>Level:</strong> {{ program.level }}</p>
   <p><strong>Days:</strong></p>
   <ul>
-    <li ng-repeat="day in program.days">
+    <li ng-repeat="day in program.program_days_attributes">
       <strong>{{ day.name }}</strong>
       <ul>
-        <li ng-repeat="ex in day.exercises">
+        <li ng-repeat="ex in day.program_day_exercises_attributes">
           {{ ex.name }}
           <ul>
-            <li ng-repeat="(i, set) in ex.sets">
+            <li ng-repeat="(i, set) in ex.program_day_exercise_sets_attributes">
               Set {{ i+1 }}: {{ set.reps }} reps<br>
             </li>
           </ul>
@@ -21,21 +21,21 @@
   </ul>
 </div>
 <div ng-show='editing'>
-  <form novalidate>
-    <h1><input type="text" placeholder="Name" value="{{ master.name }}"></h1>
-    <div class="form-group"><strong>Goal:</strong><input type="text" value="{{ master.goal }}"></div>
-    <div class="form-group"><strong>Level:</strong><input type="text" value="{{ master.level }}"></div>
+  <form novalidate ng-submit="submit()">
+    <h1><input type="text" placeholder="Name" ng-model="master.name" value="{{ master.name }}"> <input type="submit"></h1>
+    <div class="form-group"><strong>Goal:</strong><input type="text" ng-model="master.goal" value="{{ master.goal }}"></div>
+    <div class="form-group"><strong>Level:</strong><input type="text" ng-model="master.level" value="{{ master.level }}"></div>
     <div class="form-group">
       <strong>Days:</strong>
       <ul>
-        <li ng-repeat="day in master.days">
-          <input type="text" value="{{ day.name }}"> -- <a href="">remove</a>
+        <li ng-repeat="day in master.program_days_attributes">
+          <input type="text" name="program_days_attributes[][name]" ng-model="day.name" value="{{ day.name }}"> -- <a href="">remove</a>
           <ul>
-            <li ng-repeat="ex in day.exercises">
-              <input type="text" value="{{ ex.name }}"> -- <a href="">remove</a>
+            <li ng-repeat="ex in day.program_day_exercises_attributes">
+              <input type="text" name="program_days_attributes[][program_day_exercises_attributes][][name]" ng-model="ex.name" value="{{ ex.name }}"> -- <a href="">remove</a>
               <ul>
-                <li ng-repeat="(i, set) in ex.sets">
-                  Set {{ i+1 }}: <input type="number" value="{{ set.reps }}"> reps -- <a href="">remove</a>
+                <li ng-repeat="(i, set) in ex.program_day_exercise_sets_attributes">
+                  Set {{ i+1 }}: <input type="number" name="program_days_attributes[][program_day_exercises_attributes][][program_day_exercise_sets_attributes][][reps]" ng-model="set.reps" value="{{ set.reps }}"> reps -- <a href="">remove</a>
                 </li>
               </ul>
             </li>
