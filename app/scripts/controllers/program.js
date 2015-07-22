@@ -18,7 +18,14 @@ angular.module('workoutClientApp')
         var destType = destNodes.$element.attr('data-type');
         return (sourceType == destType);
       },
-      // dropped: function(event) {}
+      dropped: function(e) {
+        e.source.nodeScope.$modelValue.ord = e.dest.index
+        var nodes = e.dest.nodesScope.childNodes();
+        for (var i = 0; i < nodes.length; i++) {
+          var c = nodes[i];
+          c.$modelValue.ord = i;
+        }
+      }
     };
 
     if ($routeParams.id) {
