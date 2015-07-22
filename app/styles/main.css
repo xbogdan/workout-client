@@ -104,3 +104,12 @@ ul.programs-list li a {
 ul.programs-list li a:hover {
   text-decoration: none;
 }
+
+.edit-list {
+  list-style: none;
+  padding: 0;
+}
+
+.edit-list ul li {
+  margin-bottom: 10px;
+}

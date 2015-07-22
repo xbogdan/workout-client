@@ -12,6 +12,11 @@ angular.module('workoutClientApp')
     // Action for the login form
     $scope.toggleEdit = toggleEdit;
     $scope.submit = submit;
+    $scope.treeOptions = {
+      dropped: function() {
+        // console.log('eee');
+      }
+    };
 
     if ($routeParams.id) {
       $scope.showEditButton = true;
