@@ -13,15 +13,21 @@ angular.module('workoutClientApp')
     $scope.toggleEdit = toggleEdit;
     $scope.submit = submit;
     $scope.treeOptions = {
-      dropped: function() {
-        // console.log('eee');
-      }
+      accept: function(sourceNode, destNodes, destIndex) {
+        var sourceType = sourceNode.$element.attr('data-type');
+        var destType = destNodes.$element.attr('data-type');
+        return (sourceType == destType);
+      },
+      // dropped: function(event) {}
     };
 
     if ($routeParams.id) {
       $scope.showEditButton = true;
       programs.Program($routeParams.id, function(data) {
         $scope.program = data.program;
+        for (var i = 0; i < $scope.program.program_days_attributes.length; i++) {
+          $scope.program.program_days_attributes[i].type = 'ceva';
+        }
       });
     } else {
       $scope.editing = true;
