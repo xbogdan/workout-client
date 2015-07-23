@@ -29,13 +29,13 @@
       <strong>Days:</strong>
       <ul ng-model="master.program_days_attributes" class="edit-list" ui-tree-nodes="" data-type="day">
         <li ng-repeat="day in master.program_days_attributes" data-id="{{ day.id }}" style="background-color: lightblue;" ui-tree-node data-type="day">
-          <input type="text" name="program_days_attributes[][name]" ng-model="day.name" value="{{ day.name }}"> -- <a href="">remove</a>
+          <input type="text" name="program_days_attributes[][name]" ng-model="day.name" value="{{ day.name }}"> -- <a href ng-click="toggleDestroyElement(day, $event)" ng-model="day">remove</a>
           <ul ng-model="day.program_day_exercises_attributes" ui-tree-nodes="" data-type="exercise">
             <li ng-repeat="ex in day.program_day_exercises_attributes" ui-tree-node data-type="exercise">
-              <input type="text" name="program_days_attributes[][program_day_exercises_attributes][][name]" ng-model="ex.name" value="{{ ex.name }}"> -- <a href="">remove</a>
+              <input type="text" name="program_days_attributes[][program_day_exercises_attributes][][name]" ng-model="ex.name" value="{{ ex.name }}"> -- <a href ng-click="toggleDestroyElement(ex, $event)" ng-model="ex">remove</a>
               <ul ng-model="ex.program_day_exercise_sets_attributes" ui-tree-nodes="" data-type="set">
                 <li ng-repeat="(i, set) in ex.program_day_exercise_sets_attributes" ui-tree-node data-type="set">
-                  Set {{ i+1 }}: <input type="number" name="program_days_attributes[][program_day_exercises_attributes][][program_day_exercise_sets_attributes][][reps]" ng-model="set.reps" value="{{ set.reps }}"> reps -- <a href="">remove</a>
+                  Set {{ i+1 }}: <input type="number" name="program_days_attributes[][program_day_exercises_attributes][][program_day_exercise_sets_attributes][][reps]" ng-model="set.reps" value="{{ set.reps }}"> reps -- <a href ng-click="toggleDestroyElement(set, $event)" ng-model="set">remove</a>
                 </li>
               </ul>
             </li>

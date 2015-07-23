@@ -113,3 +113,7 @@ ul.programs-list li a:hover {
 .edit-list ul li {
   margin-bottom: 10px;
 }
+
+.destroy  {
+  opacity: 0.5;
+}
