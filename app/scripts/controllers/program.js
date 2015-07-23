@@ -2,17 +2,18 @@
 
 /**
  * @ngdoc function
- * @name workoutClientApp.controller:LoginCtrl
+ * @name workoutClientApp.controller:ProgramCtrl
  * @description
- * # LoginCtrl
+ * # ProgramCtrl
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('ProgramCtrl', ['$scope', '$routeParams', 'programs', function ($scope, $routeParams, programs) {
+  .controller('ProgramCtrl', ['$scope', '$routeParams', 'ProgramsService', function ($scope, $routeParams, ProgramsService) {
     // Action for the login form
     $scope.toggleEdit = toggleEdit;
     $scope.submit = submit;
     $scope.toggleDestroyElement = toggleDestroyElement;
+
     $scope.treeOptions = {
       accept: function(sourceNode, destNodes, destIndex) {
         var sourceType = sourceNode.$element.attr('data-type');
@@ -30,7 +31,7 @@ angular.module('workoutClientApp')
 
     if ($routeParams.id) {
       $scope.showEditButton = true;
-      programs.Program($routeParams.id, function(data) {
+      ProgramsService.Program($routeParams.id, function(data) {
         $scope.program = data.program;
       });
     } else {
@@ -60,15 +61,15 @@ angular.module('workoutClientApp')
 
     function submit() {
       if ($routeParams.id) {
-        programs.editProgram($scope.master, function(data) {
+        ProgramsService.editProgram($scope.master, function(data) {
           $scope.toggleEdit(true);
-          programs.Program($routeParams.id, function(data) {
+          ProgramsService.Program($routeParams.id, function(data) {
             $scope.program = data.program;
           });
           $scope.program = $scope.master;
         });
       } else {
-        // programs
+        // ProgramsService
 
       }
     };

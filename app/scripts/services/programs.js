@@ -8,7 +8,7 @@
  * Factory of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .factory('programs', ['$http', '$cookies', '$rootScope', function($http, $cookies, $rootScope) {
+  .factory('ProgramsService', ['$http', '$cookies', '$rootScope', function($http, $cookies, $rootScope) {
     var service = {};
 
     service.Programs = Programs;
