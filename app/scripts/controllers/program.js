@@ -16,34 +16,31 @@ angular.module('workoutClientApp')
     $scope.addExercise = addExercise;
     $scope.addSet = addSet;
     $scope.addDay = addDay;
-    $scope.exerciseKeyUp = exerciseKeyUp;
     $scope.exerciseOnChange = exerciseOnChange;
 
-    function exerciseKeyUp(event, model) {
-      var value = event.target.value;
-      var datalist = $(event.target.list);
-      var exercises_found = [];
+    init();
 
-      datalist.empty();
-      ProgramsService.Exercises(value, function(data, status) {
+    function init() {
+      $scope.exercisesList = $('#json-datalist');
+      initExercises();
+    };
+
+    function initExercises() {
+      ProgramsService.Exercises('', function(data, status) {
+        var exercises_found = [];
         for (var i = 0; i < data.exercises.length; i++) {
           var ex = data.exercises[i];
           var option = document.createElement('option');
           option.value = ex.name;
           option.dataset.id = ex.id;
           exercises_found.push(option);
-          if (value === ex.name) {
-            model.$modelValue.exercise_id = ex.id;
-          } else {
-            model.$modelValue.exercise_id = null;
-          }
         };
-        datalist.html(exercises_found);
+        $scope.exercisesList.html(exercises_found);
       });
     };
 
     function exerciseOnChange(model) {
-      var exercise = $('#json-datalist option[value="'+model.$modelValue.name+'"]');
+      var exercise = $scope.exercisesList.find('option[value="'+model.$modelValue.name+'"]');
       if (exercise.length) {
         var exercise_id = exercise.attr('data-id');
         model.$modelValue.exercise_id = exercise_id;
@@ -135,7 +132,7 @@ angular.module('workoutClientApp')
       var dayIndex = $scope.program.program_days_attributes.length - 1;
       $scope.program.program_days_attributes[dayIndex].ord = $scope.program.program_days_attributes[dayIndex-1].ord + 1;
       addExercise(dayIndex);
-      
+
       $scope.master = $scope.program;
     };
   }]);
