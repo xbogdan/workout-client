@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name workoutClientApp.factory:Programs
+ * @name workoutClientApp.factory:ProgramsService
  * @description
- * # Programs
+ * # ProgramsService
  * Factory of the workoutClientApp
  */
 angular.module('workoutClientApp')
@@ -14,6 +14,7 @@ angular.module('workoutClientApp')
     service.Programs = Programs;
     service.Program = Program;
     service.editProgram = editProgram;
+    service.Exercises = Exercises;
 
     return service;
 
@@ -50,6 +51,19 @@ angular.module('workoutClientApp')
         data: {
           program: program
         }
+      })
+      .success(function(data, status) {
+        callback(data);
+      })
+      .error(function(err, status) {
+         callback(err);
+      });
+    };
+
+    function Exercises(filter, callback) {
+      $http({
+        method: 'GET',
+        url: 'http://localhost:3000/api/v1/exercises?filter='+filter
       })
       .success(function(data, status) {
         callback(data);

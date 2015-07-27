@@ -117,3 +117,10 @@ ul.programs-list li a:hover {
 .destroy  {
   opacity: 0.5;
 }
+
+.ui-tree-handle {
+  display: inline-block;
+  opacity: .5;
+  font-size: 12px;
+  margin-right: 5px;
+}

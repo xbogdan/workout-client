@@ -8,9 +8,8 @@
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('ProgramsCtrl', ['$scope', 'programs', function ($scope, programs) {
-    programs.Programs(function(data) {
+  .controller('ProgramsCtrl', ['$scope', 'ProgramsService', function ($scope, ProgramsService) {
+    ProgramsService.Programs(function(data) {
       $scope.programs = data.programs;
     });
-    $scope.ceva = 'ceva';
   }]);
