@@ -3,6 +3,7 @@
   <h1>{{ program.name }}</h1>
   <p><strong>Goal:</strong> {{ program.goal }}</p>
   <p><strong>Level:</strong> {{ program.level }}</p>
+  <p><strong>Private:</strong> {{ program.private ? 'Yes' : 'No' }}</p>
   <p><strong>Days:</strong></p>
   <ul>
     <li ng-repeat="day in program.program_days_attributes">
@@ -26,6 +27,7 @@
     <h1><input type="text" placeholder="Name" ng-model="master.name" value="{{ master.name }}"> <input type="submit"></h1>
     <div class="form-group"><strong>Goal:</strong><input type="text" ng-model="master.goal" value="{{ master.goal }}"></div>
     <div class="form-group"><strong>Level:</strong><input type="text" ng-model="master.level" value="{{ master.level }}"></div>
+    <div class="form-group"><strong>Private:</strong><input type="checkbox" ng-model="master.private" value="{{ master.private }}"></div>
     <div class="form-group" ui-tree="treeOptions">
       <strong>Days:</strong>
       <!-- Days -->
