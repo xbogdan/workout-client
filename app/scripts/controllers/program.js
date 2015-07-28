@@ -8,7 +8,7 @@
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('ProgramCtrl', ['$scope', '$routeParams', 'ProgramsService', function ($scope, $routeParams, ProgramsService) {
+  .controller('ProgramCtrl', ['$scope', '$routeParams', '$location', 'ProgramsService', function ($scope, $routeParams, $location, ProgramsService) {
     // Action for the login form
     $scope.toggleEdit = toggleEdit;
     $scope.submit = submit;
@@ -23,6 +23,18 @@ angular.module('workoutClientApp')
     function init() {
       $scope.exercisesList = $('#json-datalist');
       initExercises();
+      if ($routeParams.id) {
+        $scope.showEditButton = true;
+        ProgramsService.Program($routeParams.id, function(data) {
+          $scope.program = data.program;
+        });
+      } else {
+        $scope.editing = true;
+        $scope.showEditButton = false;
+        $scope.program = {};
+        $scope.master = $scope.program;
+        addDay();
+      }
     };
 
     function initExercises() {
@@ -62,17 +74,6 @@ angular.module('workoutClientApp')
       }
     };
 
-    if ($routeParams.id) {
-      $scope.showEditButton = true;
-      ProgramsService.Program($routeParams.id, function(data) {
-        $scope.program = data.program;
-      });
-    } else {
-      $scope.editing = true;
-      $scope.showEditButton = false;
-      $scope.master = {};
-    }
-
     function toggleDestroyElement(element, event) {
       if (typeof element._destroy === 'undefined' || element._destroy === false) {
         $(event.target).html('cancel').closest('li').addClass('destroy');
@@ -102,7 +103,13 @@ angular.module('workoutClientApp')
           $scope.program = $scope.master;
         });
       } else {
-        // ProgramsService
+        ProgramsService.createProgram($scope.master, function(data, status) {
+          if (status === 200) {
+            $location.path('/');
+          } else {
+            alert('error');
+          }
+        });
 
       }
     };
@@ -128,9 +135,14 @@ angular.module('workoutClientApp')
     };
 
     function addDay() {
+      if (typeof $scope.program.program_days_attributes === 'undefined') {
+        $scope.program.program_days_attributes = [];
+      }
       $scope.program.program_days_attributes.push({});
       var dayIndex = $scope.program.program_days_attributes.length - 1;
-      $scope.program.program_days_attributes[dayIndex].ord = $scope.program.program_days_attributes[dayIndex-1].ord + 1;
+      if (dayIndex > 0) {
+        $scope.program.program_days_attributes[dayIndex].ord = $scope.program.program_days_attributes[dayIndex-1].ord + 1;
+      }
       addExercise(dayIndex);
 
       $scope.master = $scope.program;

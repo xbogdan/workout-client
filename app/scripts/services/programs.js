@@ -14,6 +14,7 @@ angular.module('workoutClientApp')
     service.Programs = Programs;
     service.Program = Program;
     service.editProgram = editProgram;
+    service.createProgram = createProgram;
     service.Exercises = Exercises;
 
     return service;
@@ -41,6 +42,22 @@ angular.module('workoutClientApp')
       })
       .error(function(err, status) {
          callback(err);
+      });
+    };
+
+    function createProgram(program, callback) {
+      $http({
+        method: 'POST',
+        url: 'http://localhost:3000/api/v1/createProgram',
+        data: {
+          program: program
+        }
+      })
+      .success(function(data, status) {
+        callback(data, status);
+      })
+      .error(function(err, status) {
+         callback(err, status);
       });
     };
 
