@@ -32,6 +32,7 @@ angular.module('workoutClientApp')
         $scope.editing = true;
         $scope.showEditButton = false;
         $scope.program = {};
+        $scope.program.private = false;
         $scope.master = $scope.program;
         addDay();
       }
@@ -104,7 +105,7 @@ angular.module('workoutClientApp')
         });
       } else {
         ProgramsService.createProgram($scope.master, function(data, status) {
-          if (status === 200) {
+          if (status === 201) {
             $location.path('/');
           } else {
             alert('error');
