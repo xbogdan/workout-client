@@ -15,6 +15,7 @@ angular.module('workoutClientApp')
     service.Program = Program;
     service.editProgram = editProgram;
     service.createProgram = createProgram;
+    service.deleteProgram = deleteProgram;
     service.Exercises = Exercises;
 
     return service;
@@ -24,11 +25,11 @@ angular.module('workoutClientApp')
         method: 'GET',
         url: 'http://localhost:3000/api/v1/programs'
       })
-      .success(function(data) {
-        callback(data);
+      .success(function(data, status) {
+        callback(data, status);
       })
       .error(function(err, status) {
-         callback(err);
+         callback(err, status);
       });
     };
 
@@ -37,11 +38,11 @@ angular.module('workoutClientApp')
         method: 'GET',
         url: 'http://localhost:3000/api/v1/program?id='+id
       })
-      .success(function(data) {
-        callback(data);
+      .success(function(data, status) {
+        callback(data, status);
       })
       .error(function(err, status) {
-         callback(err);
+         callback(err, status);
       });
     };
 
@@ -70,10 +71,26 @@ angular.module('workoutClientApp')
         }
       })
       .success(function(data, status) {
-        callback(data);
+        callback(data, status);
       })
       .error(function(err, status) {
-         callback(err);
+         callback(err, status);
+      });
+    };
+
+    function deleteProgram(program_id, callback) {
+      $http({
+        method: 'DELETE',
+        url: 'http://localhost:3000/api/v1/deleteProgram',
+        data: {
+          id: program_id
+        }
+      })
+      .success(function(data, status) {
+        callback(data, status);
+      })
+      .error(function(err, status) {
+         callback(err, status);
       });
     };
 

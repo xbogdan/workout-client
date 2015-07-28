@@ -95,10 +95,18 @@ ul.programs-list li {
 ul.programs-list li a {
   padding: 20px;
   font-size: 20px;
-  display: block;
+  display: inline-block;
   background-color: #27ae60;
   color: white;
   border-bottom: 1px solid #ecf0f1;
+}
+
+ul.programs-list li a.program-btn {
+  width: 200px;
+}
+
+ul.programs-list li a.program-delete-btn {
+  background-color: red;
 }
 
 ul.programs-list li a:hover {

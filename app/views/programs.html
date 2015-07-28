@@ -2,7 +2,9 @@
   <div class="col-sm-12 col-md-6">
     <ul class="programs-list">
       <li ng-repeat="p in programs" class="program">
-        <a ng-href="#/program/{{ p.id }}">{{ p.name }}</a>
+        <div>
+          <a ng-href="#/program/{{ p.id }}" class="program-btn">{{ p.name }}</a><a href ng-click="deleteProgram({{p.id}})" class="program-delete-btn">x</a>
+        </div>
       </li>
     </ul>
   </div>

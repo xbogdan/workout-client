@@ -9,7 +9,7 @@
  */
 angular.module('workoutClientApp')
   .controller('ProgramCtrl', ['$scope', '$routeParams', '$location', 'ProgramsService', function ($scope, $routeParams, $location, ProgramsService) {
-    // Action for the login form
+
     $scope.toggleEdit = toggleEdit;
     $scope.submit = submit;
     $scope.toggleDestroyElement = toggleDestroyElement;
@@ -35,6 +35,21 @@ angular.module('workoutClientApp')
         $scope.master = $scope.program;
         addDay();
       }
+
+      $scope.treeOptions = {
+        accept: function(sourceNode, destNodes, destIndex) {
+          var sourceType = sourceNode.$element.attr('data-type');
+          var destType = destNodes.$element.attr('data-type');
+          return (sourceType == destType);
+        },
+        dropped: function(e) {
+          e.source.nodeScope.$modelValue.ord = e.dest.index
+          var nodes = e.dest.nodesScope.childNodes();
+          for (var i = 0; i < nodes.length; i++) {
+            nodes[i].$modelValue.ord = i;
+          }
+        }
+      };
     };
 
     function initExercises() {
@@ -56,21 +71,6 @@ angular.module('workoutClientApp')
       if (exercise.length) {
         var exercise_id = exercise.attr('data-id');
         model.$modelValue.exercise_id = exercise_id;
-      }
-    };
-
-    $scope.treeOptions = {
-      accept: function(sourceNode, destNodes, destIndex) {
-        var sourceType = sourceNode.$element.attr('data-type');
-        var destType = destNodes.$element.attr('data-type');
-        return (sourceType == destType);
-      },
-      dropped: function(e) {
-        e.source.nodeScope.$modelValue.ord = e.dest.index
-        var nodes = e.dest.nodesScope.childNodes();
-        for (var i = 0; i < nodes.length; i++) {
-          nodes[i].$modelValue.ord = i;
-        }
       }
     };
 
