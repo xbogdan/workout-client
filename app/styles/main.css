@@ -128,7 +128,20 @@ ul.programs-list li a:hover {
 
 .ui-tree-handle {
   display: inline-block;
-  opacity: .5;
-  font-size: 12px;
-  margin-right: 5px;
+  /*opacity: .5;*/
+  /*font-size: 12px;*/
+  margin-left: 5px;
+  color: black;
+}
+
+.expand-btn, .expand-btn:visited {
+  color: black;
+}
+
+.remove-btn {
+  color: red;
+}
+
+.add-btn {
+  color: #27ae60;
 }

@@ -75,13 +75,20 @@ angular.module('workoutClientApp')
       }
     };
 
+    function toggleScope(scope) {
+      
+    };
+
     function toggleDestroyElement(element, event) {
+      console.log(element);
       if (typeof element._destroy === 'undefined' || element._destroy === false) {
         $(event.target).html('cancel').closest('li').addClass('destroy');
         element._destroy = true;
+        $(event.target).parents('li').children('ul').hide();
       } else if (element._destroy === true) {
         $(event.target).html('remove').closest('li').removeClass('destroy');
         element._destroy = false;
+        $(event.target).parents('li').children('ul').show();
       }
     };
 
@@ -111,7 +118,6 @@ angular.module('workoutClientApp')
             alert('error');
           }
         });
-
       }
     };
 
