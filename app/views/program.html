@@ -26,7 +26,11 @@
   <form novalidate ng-submit="submit()">
     <h1><input type="text" placeholder="Name" ng-model="master.name" value="{{ master.name }}"> <input type="submit"></h1>
     <div class="form-group"><strong>Goal:</strong><input type="text" ng-model="master.goal" value="{{ master.goal }}"></div>
-    <div class="form-group"><strong>Level:</strong><input type="text" ng-model="master.level" value="{{ master.level }}"></div>
+    <div class="from-group">
+      <strong>Level:</strong>
+      <select ng-model="master.level" ng-options="level for level in levels">
+      </select>
+    </div>
     <div class="form-group"><strong>Private:</strong><input type="checkbox" ng-model="master.private"></div>
     <div class="form-group" ui-tree="treeOptions">
       <strong>Days: <a href ng-click="addDay()" ng-model="ex">Add Day</a></strong>

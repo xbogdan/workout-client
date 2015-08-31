@@ -19,6 +19,7 @@ angular.module('workoutClientApp')
     $scope.destroyDay = destroyDay;
     $scope.destroyExercise = destroyExercise;
     $scope.destroySet = destroySet;
+    $scope.levels = ['beginner', 'intermmediate', 'advanced'];
 
     init();
 
@@ -35,6 +36,7 @@ angular.module('workoutClientApp')
         $scope.showEditButton = false;
         $scope.program = {};
         $scope.program.private = false;
+        $scope.program.level = $scope.levels[0];
         $scope.master = $scope.program;
         addDay();
       }
