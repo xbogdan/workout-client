@@ -12,7 +12,7 @@ angular.module('workoutClientApp')
     var service = {};
     service.Login = function(email, password, callback) {
       $http
-        .post('http://localhost:3000/api/v1/signin', { email: email, password: password })
+        .post($rootScope.apiEndpoint+'/api/v1/signin', { email: email, password: password })
         .success(function(data, status) {
           callback(data, status);
         })
@@ -38,7 +38,7 @@ angular.module('workoutClientApp')
     };
     service.Logout = function(callback) {
       $http
-        .delete('http://localhost:3000/api/v1/signout')
+        .delete($rootScope.apiEndpoint+'/api/v1/signout')
         .success(function(response) {
           callback(response);
         })

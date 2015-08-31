@@ -56,6 +56,7 @@ angular
       });
   }])
   .run(['$rootScope', '$cookies', '$http', '$location', function ($rootScope, $cookies, $http, $location) {
+    $rootScope.apiEndpoint = 'http://192.168.0.10:3000';
     // keep user logged in after page refresh
     var globals = $cookies.get('globals') || null;
     if (globals) {

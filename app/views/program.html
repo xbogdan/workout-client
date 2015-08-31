@@ -24,44 +24,84 @@
 <div ng-show='editing'>
   <datalist id="json-datalist"></datalist>
   <form novalidate ng-submit="submit()">
-    <h1><input type="text" placeholder="Name" ng-model="master.name" value="{{ master.name }}"> <input type="submit"></h1>
-    <div class="form-group"><strong>Goal:</strong><input type="text" ng-model="master.goal" value="{{ master.goal }}"></div>
-    <div class="from-group">
-      <strong>Level:</strong>
-      <select ng-model="master.level" ng-options="level for level in levels">
-      </select>
+
+    <div class="col-xs-12 col-md-4 col-md-offset-1">
+      <div class="form-group">
+        <label for="program-name">Name</label>
+        <input type="text" placeholder="Name" ng-model="master.name" class="form-control" id="program-name">
+      </div>
+      <div class="form-group">
+        <label for="goal-select">Goal</label>
+        <select ng-model="master.goal" id="goal-select" class="select-primary">
+          <option value="mass-gain">Mass gain</option>
+          <option value="fat-loss">Fat loss</option>
+          <option value="strength">Strength</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="level-select">Level</label>
+        <select ng-model="master.level" id="level-select" class="select-primary">
+          <option value="beginner">Beginner</option>
+          <option value="intermmediate">Intermmediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="private-switch">Private</label>
+        <div class="bootstrap-switch-square">
+          <input type="checkbox" id="private-switch" data-on-text="<span class='fui-check'></span>" data-off-text="<span class='fui-cross'></span>" ng-model="master.private">
+        </div>
+      </div>
+      <br>
+      <button type="submit" class="btn btn-embossed btn-primary btn-hg btn-block">Save</button>
+      <br>
+      <br>
     </div>
-    <div class="form-group"><strong>Private:</strong><input type="checkbox" ng-model="master.private"></div>
-    <div class="form-group" ui-tree="treeOptions">
-      <strong>Days: <a href ng-click="addDay()" ng-model="ex">Add Day</a></strong>
-      <!-- Days -->
-      <ul ng-model="master.program_days_attributes" class="edit-list" ui-tree-nodes="" data-type="day">
-        <li ng-repeat="day in master.program_days_attributes" data-id="{{ day.id }}" ui-tree-node data-type="day" ng-init="dayIndex = $index">
-          <a href ng-click="toggleDay = !toggleDay" ng-model="day" class="expand-btn"><i ng-hide="toggleDay" class="glyphicon glyphicon-chevron-down"></i><i ng-show="toggleDay" class="glyphicon glyphicon-chevron-right"></i></a>
-          <input type="text" name="program_days_attributes[][name]" ng-model="day.name" value="{{ day.name }}">
-          <a href ng-click="addExercise(dayIndex)" ng-model="ex" class="add-btn"><i class="glyphicon glyphicon-plus"></i></a>
-          <a href ng-click="destroyDay(dayIndex)" ng-model="day" class="remove-btn"><i class="glyphicon glyphicon-remove-sign"></i></a>
-          <span ui-tree-handle class="ui-tree-handle"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
-          <!-- Exercises -->
-          <ul ng-hide="toggleDay" ng-model="day.program_day_exercises_attributes" ui-tree-nodes="" data-type="exercise">
-            <li ng-repeat="ex in day.program_day_exercises_attributes" ui-tree-node data-type="exercise" ng-init="exIndex = $index">
-              <a href ng-click="toggleExercise = !toggleExercise" ng-model="ex" class="expand-btn"><i ng-hide="toggleExercise" class="glyphicon glyphicon-chevron-down"></i><i ng-show="toggleExercise" class="glyphicon glyphicon-chevron-right"></i></a>
-              <input type="text" list="json-datalist" ng-change="exerciseOnChange(this)" autocomplete="off" name="program_days_attributes[][program_day_exercises_attributes][][name]" ng-model="ex.name" value="{{ ex.name }}" class="exercise-field">
-              <a href ng-click="addSet(dayIndex, exIndex)" ng-model="ex" class="add-btn"><i class="glyphicon glyphicon-plus"></i></a>
-              <a href ng-click="destroyExercise(dayIndex, exIndex)" ng-model="ex" class="remove-btn"><i class="glyphicon glyphicon-remove-sign"></i></a>
+
+    <div class="col-md-offset-1 col-xs-12 col-md-5">
+      <div class="form-group form-inline" ui-tree="treeOptions">
+        <!-- Days -->
+        <ul ng-model="master.program_days_attributes" class="edit-list" ui-tree-nodes="" data-type="day">
+          <li ng-repeat="day in master.program_days_attributes" on-finish-render="renderSelect2()" data-id="{{ day.id }}" ui-tree-node data-type="day" ng-init="dayIndex = $index">
+            <div class="li-header">
+              <a href ng-click="toggleDay = !toggleDay" ng-model="day" class="expand-btn"><i ng-hide="toggleDay" class="glyphicon glyphicon-chevron-down"></i><i ng-show="toggleDay" class="glyphicon glyphicon-chevron-right"></i></a>
+              <input type="text" name="program_days_attributes[][name]" ng-model="day.name" class="input-sm day-field">
+              <!-- <a href ng-click="addExercise(dayIndex)" ng-model="ex" class="add-btn"><i class="glyphicon glyphicon-plus"></i></a> -->
+              <a href ng-click="destroyDay(dayIndex)" ng-model="day" class="remove-btn"><i class="glyphicon glyphicon-remove"></i></a>
               <span ui-tree-handle class="ui-tree-handle"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
-              <!-- Sets -->
-              <ul ng-hide="toggleExercise" ng-model="ex.program_day_exercise_sets_attributes" ui-tree-nodes="" data-type="set">
-                <li ng-repeat="(i, set) in ex.program_day_exercise_sets_attributes" ui-tree-node data-type="set">
-                  Set {{ i+1 }}: <input type="number" name="program_days_attributes[][program_day_exercises_attributes][][program_day_exercise_sets_attributes][][reps]" ng-model="set.reps" value="{{ set.reps }}"> reps
-                  <a href ng-click="destroySet(dayIndex, exIndex, i)" ng-model="set" class="remove-btn"><i class="glyphicon glyphicon-remove-sign"></i></a>
+            </div>
+            <!-- Exercises -->
+            <ul ng-hide="toggleDay" ng-model="day.program_day_exercises_attributes" ui-tree-nodes="" data-type="exercise" class="day-list" on-render>
+              <li ng-repeat="ex in day.program_day_exercises_attributes" ui-tree-node data-type="exercise" ng-init="exIndex = $index">
+                <div class="li-header">
+                  <a href ng-click="toggleExercise = !toggleExercise" ng-model="ex" class="expand-btn"><i ng-show="toggleExercise" class="glyphicon glyphicon-chevron-down"></i><i ng-hide="toggleExercise" class="glyphicon glyphicon-chevron-right"></i></a>
+                  <select name="program_days_attributes[][program_day_exercises_attributes][][name]" class="exercise-select select-primary" ng-model="ex" ng-options="exercise.name for exercise in exercises track by exercise.id">
+                    <option value="">Select exercise</option>
+                  </select>
+                  <!-- <input type="text" list="json-datalist" ng-change="exerciseOnChange(this)" autocomplete="off" name="program_days_attributes[][program_day_exercises_attributes][][name]" ng-model="ex.name" class="exercise-field input-sm"> -->
+                  <!-- <a href ng-click="addSet(dayIndex, exIndex)" ng-model="ex" class="add-btn"><i class="glyphicon glyphicon-plus"></i></a> -->
+                  <a href ng-click="destroyExercise(dayIndex, exIndex)" ng-model="ex" class="remove-btn"><i class="glyphicon glyphicon-remove"></i></a>
                   <span ui-tree-handle class="ui-tree-handle"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
+                </div>
+                <!-- Sets -->
+                <ul ng-hide="!toggleExercise" ng-model="ex.program_day_exercise_sets_attributes" ui-tree-nodes="" data-type="set" class="rep-list">
+                  <li ng-repeat="(i, set) in ex.program_day_exercise_sets_attributes" ui-tree-node data-type="set">
+                    <div class="li-header li-header-reps">
+                      <label>Set {{ i+1 }}:</label>
+                      <input type="number" name="program_days_attributes[][program_day_exercises_attributes][][program_day_exercise_sets_attributes][][reps]" ng-model="set.reps" class="rep-field input-sm"> <small>reps</small>
+                      <a href ng-click="destroySet(dayIndex, exIndex, i)" ng-model="set" class="remove-btn"><i class="glyphicon glyphicon-remove"></i></a>
+                      <span ui-tree-handle class="ui-tree-handle"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
+                    </div>
+                  </li>
+                  <li><a href ng-click="addSet(dayIndex, exIndex)" ng-model="ex" class="add-btn"><i class="glyphicon glyphicon-plus"></i>Add set</a></li>
+                </ul>
+              </li>
+              <li><a href ng-click="addExercise(dayIndex)" ng-model="ex" class="add-btn"><i class="glyphicon glyphicon-plus"></i> Add exercise</a></li>
+            </ul>
+          </li>
+        </ul>
+        <a href ng-click="addDay()" ng-model="ex" class="add-day-btn"><i class="glyphicon glyphicon-plus"></i> Add day</a>
+      </div>
     </div>
   </form>
 </div>

@@ -8,7 +8,7 @@
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('ProgramCtrl', ['$scope', '$routeParams', '$location', 'ProgramsService', function ($scope, $routeParams, $location, ProgramsService) {
+  .controller('ProgramCtrl', ['$scope', '$routeParams', '$location', 'ProgramsService', '$rootScope', function ($scope, $routeParams, $location, ProgramsService, $rootScope) {
 
     $scope.toggleEdit = toggleEdit;
     $scope.submit = submit;
@@ -20,6 +20,19 @@ angular.module('workoutClientApp')
     $scope.destroyExercise = destroyExercise;
     $scope.destroySet = destroySet;
     $scope.levels = ['beginner', 'intermmediate', 'advanced'];
+    $("#private-switch").bootstrapSwitch();
+    $("#level-select").select2();
+    $("#goal-select").select2();
+
+    $scope.renderSelect2 = function() {
+      $(".exercise-select").select2({
+        dropdownCssClass : 'show-select-search'
+      });
+    }
+
+    $scope.$watch('master', function() {
+      console.log('cool');
+    });
 
     init();
 
@@ -36,7 +49,8 @@ angular.module('workoutClientApp')
         $scope.showEditButton = false;
         $scope.program = {};
         $scope.program.private = false;
-        $scope.program.level = $scope.levels[0];
+        $scope.program.level = 'beginner';
+        $scope.program.goal = 'fat-loss';
         $scope.master = $scope.program;
         addDay();
       }
@@ -57,20 +71,25 @@ angular.module('workoutClientApp')
       };
     };
 
+    // TODO edit
     function initExercises() {
       ProgramsService.Exercises('', function(data, status) {
         var exercises_found = [];
+        var exercises_found_name = [];
         for (var i = 0; i < data.exercises.length; i++) {
           var ex = data.exercises[i];
           var option = document.createElement('option');
           option.value = ex.name;
           option.dataset.id = ex.id;
           exercises_found.push(option);
+          exercises_found_name.push(ex);
         };
         $scope.exercisesList.html(exercises_found);
+        $scope.exercises = exercises_found_name;
       });
     };
 
+    // TODO remove
     function exerciseOnChange(model) {
       var exercise = $scope.exercisesList.find('option[value="'+model.$modelValue.name+'"]');
       if (exercise.length) {
@@ -85,6 +104,7 @@ angular.module('workoutClientApp')
       $scope.masterCopy = angular.copy($scope.master);
       if (!updated) {
         $scope.master = angular.copy($scope.masterCopy);
+
       }
     };
 
@@ -117,6 +137,10 @@ angular.module('workoutClientApp')
       addSet(dayIndex, exIndex);
 
       $scope.master = $scope.program;
+      setTimeout(function() {
+        $('select.exercise-select:not(.select2-offscreen)').select2();
+      }, 1);
+
     };
 
     function addSet(dayIndex, exIndex) {

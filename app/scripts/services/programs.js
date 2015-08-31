@@ -23,7 +23,7 @@ angular.module('workoutClientApp')
     function Programs(callback) {
       $http({
         method: 'GET',
-        url: 'http://localhost:3000/api/v1/programs'
+        url: $rootScope.apiEndpoint+'/api/v1/programs'
       })
       .success(function(data, status) {
         callback(data, status);
@@ -36,7 +36,7 @@ angular.module('workoutClientApp')
     function Program(id, callback) {
       $http({
         method: 'GET',
-        url: 'http://localhost:3000/api/v1/program?id='+id
+        url: $rootScope.apiEndpoint+'/api/v1/program?id='+id
       })
       .success(function(data, status) {
         callback(data, status);
@@ -49,7 +49,7 @@ angular.module('workoutClientApp')
     function createProgram(program, callback) {
       $http({
         method: 'POST',
-        url: 'http://localhost:3000/api/v1/createProgram',
+        url: $rootScope.apiEndpoint+'/api/v1/createProgram',
         data: {
           program: program
         }
@@ -65,7 +65,7 @@ angular.module('workoutClientApp')
     function editProgram(program, callback) {
       $http({
         method: 'PUT',
-        url: 'http://localhost:3000/api/v1/updateProgram',
+        url: $rootScope.apiEndpoint+'/api/v1/updateProgram',
         data: {
           program: program
         }
@@ -81,7 +81,7 @@ angular.module('workoutClientApp')
     function deleteProgram(program_id, callback) {
       $http({
         method: 'DELETE',
-        url: 'http://localhost:3000/api/v1/deleteProgram',
+        url: $rootScope.apiEndpoint+'/api/v1/deleteProgram',
         data: {
           id: program_id
         }
@@ -97,7 +97,7 @@ angular.module('workoutClientApp')
     function Exercises(filter, callback) {
       $http({
         method: 'GET',
-        url: 'http://localhost:3000/api/v1/exercises?filter='+filter
+        url: $rootScope.apiEndpoint+'/api/v1/exercises?filter='+filter
       })
       .success(function(data, status) {
         callback(data);
