@@ -34,23 +34,23 @@
       <ul ng-model="master.program_days_attributes" class="edit-list" ui-tree-nodes="" data-type="day">
         <li ng-repeat="day in master.program_days_attributes" data-id="{{ day.id }}" ui-tree-node data-type="day" ng-init="dayIndex = $index">
           <a href ng-click="toggleDay = !toggleDay" ng-model="day" class="expand-btn"><i ng-hide="toggleDay" class="glyphicon glyphicon-chevron-down"></i><i ng-show="toggleDay" class="glyphicon glyphicon-chevron-right"></i></a>
-          <input type="text" name="program_days_attributes[][name]" ng-model="day.name" value="{{ day.name }}"> --
+          <input type="text" name="program_days_attributes[][name]" ng-model="day.name" value="{{ day.name }}">
           <a href ng-click="addExercise(dayIndex)" ng-model="ex" class="add-btn"><i class="glyphicon glyphicon-plus"></i></a>
-          <a href ng-click="toggleDestroyElement(day, $event)" ng-model="day" class="remove-btn"><i class="glyphicon glyphicon-remove-sign"></i></a>
+          <a href ng-click="destroyDay(dayIndex)" ng-model="day" class="remove-btn"><i class="glyphicon glyphicon-remove-sign"></i></a>
           <span ui-tree-handle class="ui-tree-handle"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
           <!-- Exercises -->
           <ul ng-hide="toggleDay" ng-model="day.program_day_exercises_attributes" ui-tree-nodes="" data-type="exercise">
             <li ng-repeat="ex in day.program_day_exercises_attributes" ui-tree-node data-type="exercise" ng-init="exIndex = $index">
               <a href ng-click="toggleExercise = !toggleExercise" ng-model="ex" class="expand-btn"><i ng-hide="toggleExercise" class="glyphicon glyphicon-chevron-down"></i><i ng-show="toggleExercise" class="glyphicon glyphicon-chevron-right"></i></a>
-              <input type="text" list="json-datalist" ng-change="exerciseOnChange(this)" autocomplete="off" name="program_days_attributes[][program_day_exercises_attributes][][name]" ng-model="ex.name" value="{{ ex.name }}" class="exercise-field"> --
+              <input type="text" list="json-datalist" ng-change="exerciseOnChange(this)" autocomplete="off" name="program_days_attributes[][program_day_exercises_attributes][][name]" ng-model="ex.name" value="{{ ex.name }}" class="exercise-field">
               <a href ng-click="addSet(dayIndex, exIndex)" ng-model="ex" class="add-btn"><i class="glyphicon glyphicon-plus"></i></a>
-              <a href ng-click="toggleDestroyElement(ex, $event)" ng-model="ex" class="remove-btn"><i class="glyphicon glyphicon-remove-sign"></i></a>
+              <a href ng-click="destroyExercise(dayIndex, exIndex)" ng-model="ex" class="remove-btn"><i class="glyphicon glyphicon-remove-sign"></i></a>
               <span ui-tree-handle class="ui-tree-handle"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
               <!-- Sets -->
               <ul ng-hide="toggleExercise" ng-model="ex.program_day_exercise_sets_attributes" ui-tree-nodes="" data-type="set">
                 <li ng-repeat="(i, set) in ex.program_day_exercise_sets_attributes" ui-tree-node data-type="set">
-                  Set {{ i+1 }}: <input type="number" name="program_days_attributes[][program_day_exercises_attributes][][program_day_exercise_sets_attributes][][reps]" ng-model="set.reps" value="{{ set.reps }}"> reps --
-                  <a href ng-click="toggleDestroyElement(set, $event)" ng-model="set" class="remove-btn"><i class="glyphicon glyphicon-remove-sign"></i></a>
+                  Set {{ i+1 }}: <input type="number" name="program_days_attributes[][program_day_exercises_attributes][][program_day_exercise_sets_attributes][][reps]" ng-model="set.reps" value="{{ set.reps }}"> reps
+                  <a href ng-click="destroySet(dayIndex, exIndex, i)" ng-model="set" class="remove-btn"><i class="glyphicon glyphicon-remove-sign"></i></a>
                   <span ui-tree-handle class="ui-tree-handle"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
                 </li>
               </ul>

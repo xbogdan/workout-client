@@ -12,11 +12,13 @@ angular.module('workoutClientApp')
 
     $scope.toggleEdit = toggleEdit;
     $scope.submit = submit;
-    $scope.toggleDestroyElement = toggleDestroyElement;
     $scope.addExercise = addExercise;
     $scope.addSet = addSet;
     $scope.addDay = addDay;
     $scope.exerciseOnChange = exerciseOnChange;
+    $scope.destroyDay = destroyDay;
+    $scope.destroyExercise = destroyExercise;
+    $scope.destroySet = destroySet;
 
     init();
 
@@ -72,23 +74,6 @@ angular.module('workoutClientApp')
       if (exercise.length) {
         var exercise_id = exercise.attr('data-id');
         model.$modelValue.exercise_id = exercise_id;
-      }
-    };
-
-    function toggleScope(scope) {
-      
-    };
-
-    function toggleDestroyElement(element, event) {
-      console.log(element);
-      if (typeof element._destroy === 'undefined' || element._destroy === false) {
-        $(event.target).html('cancel').closest('li').addClass('destroy');
-        element._destroy = true;
-        $(event.target).parents('li').children('ul').hide();
-      } else if (element._destroy === true) {
-        $(event.target).html('remove').closest('li').removeClass('destroy');
-        element._destroy = false;
-        $(event.target).parents('li').children('ul').show();
       }
     };
 
@@ -154,4 +139,20 @@ angular.module('workoutClientApp')
 
       $scope.master = $scope.program;
     };
+
+    function destroyDay(dayIndex) {
+      $scope.program.program_days_attributes.splice(dayIndex, 1);
+      $scope.master = $scope.program;
+    };
+
+    function destroyExercise(dayIndex, exIndex) {
+      $scope.program.program_days_attributes[dayIndex].program_day_exercises_attributes.splice(exIndex, 1);
+      $scope.master = $scope.program;
+    };
+
+    function destroySet(dayIndex, exIndex, setIndex) {
+      $scope.program.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.splice(setIndex, 1);
+      $scope.master = $scope.program;
+    };
+
   }]);
