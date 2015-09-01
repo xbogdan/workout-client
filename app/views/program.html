@@ -1,26 +1,29 @@
 <button ng-click='toggleEdit(false)' ng-show='showEditButton'>Edit</button>
-<div ng-hide='editing'>
-  <h1>{{ program.name }}</h1>
-  <p><strong>Goal:</strong> {{ program.goal }}</p>
-  <p><strong>Level:</strong> {{ program.level }}</p>
-  <p><strong>Private:</strong> {{ program.private ? 'Yes' : 'No' }}</p>
-  <p><strong>Days:</strong></p>
-  <ul>
-    <li ng-repeat="day in program.program_days_attributes">
-      <strong>{{ day.name }}</strong>
-      <ul>
-        <li ng-repeat="ex in day.program_day_exercises_attributes">
-          {{ ex.name }}
-          <ul>
-            <li ng-repeat="(i, set) in ex.program_day_exercise_sets_attributes">
-              Set {{ i+1 }}: {{ set.reps }} reps<br>
-            </li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
+<div ng-hide='editing' class="row">
+  <div class="col-xs-12 col-md-4 program-tree">
+    <h3>{{ program.name }}</h3>
+    <p><strong>Goal:</strong> {{ program.goal }}</p>
+    <p><strong>Level:</strong> {{ program.level }}</p>
+    <p><strong>Private:</strong> {{ program.private ? 'Yes' : 'No' }}</p>
+    <p><strong>Days:</strong></p>
+    <ul class="day-list">
+      <li ng-repeat="day in program.program_days_attributes" class="day-item">
+        <a class="expand-btn">{{ day.name }} <div class="arrow"></div></a>
+        <ul class="exercise-list">
+          <li ng-repeat="ex in day.program_day_exercises_attributes" class="exercise-item">
+            <a class="expand-btn">{{ ex.name }} <div class="arrow"></div></a>
+            <ul class="set-list">
+              <li ng-repeat="(i, set) in ex.program_day_exercise_sets_attributes" class="set-item">
+                <a class="expand-btn">Set {{ i+1 }}: {{ set.reps }} reps</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
 </div>
+
 <div ng-show='editing'>
   <datalist id="json-datalist"></datalist>
   <form novalidate ng-submit="submit()">
@@ -71,7 +74,7 @@
               <span ui-tree-handle class="ui-tree-handle"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
             </div>
             <!-- Exercises -->
-            <ul ng-hide="toggleDay" ng-model="day.program_day_exercises_attributes" ui-tree-nodes="" data-type="exercise" class="day-list" on-render>
+            <ul ng-hide="toggleDay" ng-model="day.program_day_exercises_attributes" ui-tree-nodes="" data-type="exercise" class="day-list">
               <li ng-repeat="ex in day.program_day_exercises_attributes" ui-tree-node data-type="exercise" ng-init="exIndex = $index">
                 <div class="li-header">
                   <a href ng-click="toggleExercise = !toggleExercise" ng-model="ex" class="expand-btn"><i ng-show="toggleExercise" class="glyphicon glyphicon-chevron-down"></i><i ng-hide="toggleExercise" class="glyphicon glyphicon-chevron-right"></i></a>

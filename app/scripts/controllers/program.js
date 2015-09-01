@@ -30,10 +30,6 @@ angular.module('workoutClientApp')
       });
     }
 
-    $scope.$watch('master', function() {
-      console.log('cool');
-    });
-
     init();
 
     function init() {
