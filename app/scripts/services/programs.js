@@ -31,7 +31,7 @@ angular.module('workoutClientApp')
       .error(function(err, status) {
          callback(err, status);
       });
-    };
+    }
 
     function Program(id, callback) {
       $http({
@@ -44,7 +44,7 @@ angular.module('workoutClientApp')
       .error(function(err, status) {
          callback(err, status);
       });
-    };
+    }
 
     function createProgram(program, callback) {
       $http({
@@ -60,7 +60,7 @@ angular.module('workoutClientApp')
       .error(function(err, status) {
          callback(err, status);
       });
-    };
+    }
 
     function editProgram(program, callback) {
       $http({
@@ -76,7 +76,7 @@ angular.module('workoutClientApp')
       .error(function(err, status) {
          callback(err, status);
       });
-    };
+    }
 
     function deleteProgram(program_id, callback) {
       $http({
@@ -92,7 +92,7 @@ angular.module('workoutClientApp')
       .error(function(err, status) {
          callback(err, status);
       });
-    };
+    }
 
     function Exercises(filter, callback) {
       $http({
@@ -105,5 +105,5 @@ angular.module('workoutClientApp')
       .error(function(err, status) {
          callback(err);
       });
-    };
+    }
 }]);

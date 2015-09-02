@@ -1,4 +1,4 @@
-<button ng-click='toggleEdit(false)' ng-show='showEditButton'>Edit</button>
+<button ng-click='toggleEdit(false); editing = !editing' ng-show='showEditButton'>Edit</button>
 <div ng-hide='editing' class="row">
   <div class="col-xs-12 col-md-4 program-tree">
     <h3>{{ program.name }}</h3>
@@ -8,8 +8,8 @@
     <p><strong>Days:</strong></p>
     <ul class="day-list">
       <li ng-repeat="day in program.program_days_attributes" class="day-item">
-        <a class="expand-btn">{{ day.name }} <div class="glyphicon glyphicon-pencil edit-btn"></div>  <div class="arrow"></div></a>
-        <div class="edit-box"><input type="text" ng-model="day.name" value="{{ day.name }}"> <div ng-click="updateProgram()" class="glyphicon glyphicon-check edit-btn"></div></div>
+        <a class="expand-btn" ng-hide="editField">{{ day.name }} <div class="glyphicon glyphicon-pencil edit-btn" ng-click="editField = !editField"></div>  <div class="arrow"></div></a>
+        <div class="edit-box" ng-show="editField"><input type="text" ng-model="day.name" value="{{ day.name }}"> <div ng-click="updateProgram(); editField = !editField" class="glyphicon glyphicon-check edit-btn"></div></div>
         <ul class="exercise-list">
           <li ng-repeat="ex in day.program_day_exercises_attributes" class="exercise-item">
             <a class="expand-btn">{{ ex.name }} <div class="arrow"></div></a>

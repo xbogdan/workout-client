@@ -22,20 +22,4 @@ $(document).ready(function() {
       $this.parent().addClass('exercise-expanded');
     }
   });
-
-  $('body').on('click', '.edit-btn', function(event) {
-    event.stopPropagation();
-    $(this).parents('.day-item').toggleClass('editing');
-  });
-
-
 });
-
-
-// var search = new searchOverlay(
-//   [
-//     { id: '1', text: 'Skullcrusher'},
-//     { id: '4', text: 'Curls'},
-//     { id: '5', text: 'Squads'}
-//   ]
-// );

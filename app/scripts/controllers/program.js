@@ -83,7 +83,6 @@ angular.module('workoutClientApp')
     }
 
     function toggleEdit(updated) {
-      $scope.editing = !$scope.editing;
       $scope.master = $scope.program;
       $scope.masterCopy = angular.copy($scope.master);
       if (!updated) {

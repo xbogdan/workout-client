@@ -227,19 +227,10 @@ ul.programs-list li a:hover {
 
 .edit-box {
   position: relative;
-  display: none;
 }
 
 .edit-box .edit-btn {
   right: 15px;
-}
-
-.day-item.editing > .edit-box {
-  display: block;
-}
-
-.day-item.editing > .expand-btn {
-  display: none;
 }
 
 .edit-btn {

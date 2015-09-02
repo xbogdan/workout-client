@@ -14,7 +14,7 @@ angular.module('workoutClientApp')
     // Redirect to / if user is signed in
     if ($rootScope.globals.currentUser) {
       $location.path('/');
-    };
+    }
 
     // Action for the login form
     $scope.login = function() {
@@ -27,8 +27,7 @@ angular.module('workoutClientApp')
             token: data.auth_token
           });
           $location.path('/');
-        } else 
-        if (status == 401) {
+        } else if (status == 401) {
           alert('Login Failed');
         } else {
           alert('Error. Please try again later.');
