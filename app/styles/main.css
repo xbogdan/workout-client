@@ -2,6 +2,10 @@ body {
   padding: 0;
 }
 
+.authentication-container h3 {
+  text-align: center;
+}
+
 /* Flat UI navbar rewrites */
 .navbar {
   border-radius: 0;
@@ -221,6 +225,47 @@ ul.programs-list li a:hover {
   transition: none;
 }
 
+.edit-box {
+  position: relative;
+  display: none;
+}
+
+.edit-box .edit-btn {
+  right: 15px;
+}
+
+.day-item.editing > .edit-box {
+  display: block;
+}
+
+.day-item.editing > .expand-btn {
+  display: none;
+}
+
+.edit-btn {
+  cursor: pointer;
+  position: absolute;
+  font-size: 14px;
+  right: 40px;
+  color: #34495E;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.edit-box input {
+  display: block;
+  width: 100%;
+  border: 0;
+  margin: 0 auto;
+  outline: none;
+  border: 1px solid #2C3E50;
+  font-size: 16px;
+  line-height: 25px;
+  font-weight: 100;
+  background-color: #ECF0F1;
+  padding: 10px;
+}
+
 .expand-btn:hover {
   color: #34495e;
 }
@@ -292,4 +337,95 @@ ul.programs-list li a:hover {
 .program-tree .day-expanded > ul > li > .expand-btn {
   background-color: #1ABC9C;
   color: #fff;
+}
+
+
+
+/* Search overlay */
+#search-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 99999;
+  background-color: rgba(0,0,0,0.95);
+}
+
+#search-input-box {
+  position: relative;
+}
+
+#search-input-box a {
+  position: absolute;
+  right: 20px;
+  margin-top: 1px;
+  color: #BDC3C7;
+  z-index: 11;
+  font-size: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#search-input {
+  border: 0;
+  /*border-bottom: 2px dotted #34495E;*/
+  box-shadow: 0px 0px 6px rgba(0,0,0,0.6);
+  position: relative;
+  z-index: 10;
+  font-weight: 100;
+  color: #34495E;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  outline: none;
+}
+
+#search-overlay-cancel {
+  background-color: #C0392B;
+  color: #fff;
+}
+
+#search-overlay-accept,
+#search-overlay-cancel {
+  width: 50%;
+}
+
+#search-overlay-btns {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+#search-overlay-btns button {
+  border-radius: 0;
+}
+
+#search-results {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  z-index: 9;
+  top: 50px;
+  bottom: 100px;
+  width: 100%;
+  margin-bottom: 0px;
+  overflow-y: scroll;
+}
+
+#search-results li {
+  padding: 10px;
+  background-color: #fff;
+  color: #2C3E50;
+  font-weight: 100;
+  border-bottom: 1px solid #ECF0F1;
+}
+
+#search-results li:hover {
+  background-color: #ECF0F1;
+}
+
+.noscroll {
+  overflow: hidden;
 }

@@ -15,10 +15,10 @@ angular.module('workoutClientApp')
     $scope.addExercise = addExercise;
     $scope.addSet = addSet;
     $scope.addDay = addDay;
-    $scope.exerciseOnChange = exerciseOnChange;
     $scope.destroyDay = destroyDay;
     $scope.destroyExercise = destroyExercise;
     $scope.destroySet = destroySet;
+    $scope.updateProgram = updateProgram;
     $scope.levels = ['beginner', 'intermmediate', 'advanced'];
     $("#private-switch").bootstrapSwitch();
     $("#level-select").select2();
@@ -28,7 +28,7 @@ angular.module('workoutClientApp')
       $(".exercise-select").select2({
         dropdownCssClass : 'show-select-search'
       });
-    }
+    };
 
     init();
 
@@ -58,41 +58,29 @@ angular.module('workoutClientApp')
           return (sourceType == destType);
         },
         dropped: function(e) {
-          e.source.nodeScope.$modelValue.ord = e.dest.index
+          e.source.nodeScope.$modelValue.ord = e.dest.index;
           var nodes = e.dest.nodesScope.childNodes();
           for (var i = 0; i < nodes.length; i++) {
             nodes[i].$modelValue.ord = i;
           }
         }
       };
-    };
+    }
 
     // TODO edit
     function initExercises() {
       ProgramsService.Exercises('', function(data, status) {
         var exercises_found = [];
-        var exercises_found_name = [];
+        var searchOptions = [];
         for (var i = 0; i < data.exercises.length; i++) {
           var ex = data.exercises[i];
-          var option = document.createElement('option');
-          option.value = ex.name;
-          option.dataset.id = ex.id;
-          exercises_found.push(option);
-          exercises_found_name.push(ex);
-        };
-        $scope.exercisesList.html(exercises_found);
-        $scope.exercises = exercises_found_name;
+          exercises_found.push(ex);
+          searchOptions.push({id: ex.id, text: ex.name});
+        }
+        $scope.exercises = exercises_found;
+        window.search = new searchOverlay(searchOptions);
       });
-    };
-
-    // TODO remove
-    function exerciseOnChange(model) {
-      var exercise = $scope.exercisesList.find('option[value="'+model.$modelValue.name+'"]');
-      if (exercise.length) {
-        var exercise_id = exercise.attr('data-id');
-        model.$modelValue.exercise_id = exercise_id;
-      }
-    };
+    }
 
     function toggleEdit(updated) {
       $scope.editing = !$scope.editing;
@@ -102,7 +90,7 @@ angular.module('workoutClientApp')
         $scope.master = angular.copy($scope.masterCopy);
 
       }
-    };
+    }
 
     function submit() {
       if ($routeParams.id) {
@@ -122,7 +110,17 @@ angular.module('workoutClientApp')
           }
         });
       }
-    };
+    }
+
+    function updateProgram() {
+      if ($routeParams.id) {
+        ProgramsService.editProgram($scope.program, function(data, status) {
+          if (status != 200) {
+            alert('Error updating program. Response received with status: ' + status);
+          }
+        });
+      }
+    }
 
     function addExercise(dayIndex) {
       if (typeof $scope.program.program_days_attributes[dayIndex].program_day_exercises_attributes === 'undefined') {
@@ -137,7 +135,7 @@ angular.module('workoutClientApp')
         $('select.exercise-select:not(.select2-offscreen)').select2();
       }, 1);
 
-    };
+    }
 
     function addSet(dayIndex, exIndex) {
       if (typeof $scope.program.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes === 'undefined') {
@@ -146,7 +144,7 @@ angular.module('workoutClientApp')
       $scope.program.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.push({});
 
       $scope.master = $scope.program;
-    };
+    }
 
     function addDay() {
       if (typeof $scope.program.program_days_attributes === 'undefined') {
@@ -160,21 +158,21 @@ angular.module('workoutClientApp')
       addExercise(dayIndex);
 
       $scope.master = $scope.program;
-    };
+    }
 
     function destroyDay(dayIndex) {
       $scope.program.program_days_attributes.splice(dayIndex, 1);
       $scope.master = $scope.program;
-    };
+    }
 
     function destroyExercise(dayIndex, exIndex) {
       $scope.program.program_days_attributes[dayIndex].program_day_exercises_attributes.splice(exIndex, 1);
       $scope.master = $scope.program;
-    };
+    }
 
     function destroySet(dayIndex, exIndex, setIndex) {
       $scope.program.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.splice(setIndex, 1);
       $scope.master = $scope.program;
-    };
+    }
 
   }]);

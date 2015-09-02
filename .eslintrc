@@ -1,0 +1,11 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "jquery": true
+  },
+  "rules": {
+    "semi": 2,
+    "no-extra-semi": 2
+  }
+}

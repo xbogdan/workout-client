@@ -8,7 +8,8 @@
     <p><strong>Days:</strong></p>
     <ul class="day-list">
       <li ng-repeat="day in program.program_days_attributes" class="day-item">
-        <a class="expand-btn">{{ day.name }} <div class="arrow"></div></a>
+        <a class="expand-btn">{{ day.name }} <div class="glyphicon glyphicon-pencil edit-btn"></div>  <div class="arrow"></div></a>
+        <div class="edit-box"><input type="text" ng-model="day.name" value="{{ day.name }}"> <div ng-click="updateProgram()" class="glyphicon glyphicon-check edit-btn"></div></div>
         <ul class="exercise-list">
           <li ng-repeat="ex in day.program_day_exercises_attributes" class="exercise-item">
             <a class="expand-btn">{{ ex.name }} <div class="arrow"></div></a>
@@ -25,7 +26,6 @@
 </div>
 
 <div ng-show='editing'>
-  <datalist id="json-datalist"></datalist>
   <form novalidate ng-submit="submit()">
 
     <div class="col-xs-12 col-md-4 col-md-offset-1">
@@ -81,7 +81,6 @@
                   <select name="program_days_attributes[][program_day_exercises_attributes][][name]" class="exercise-select select-primary" ng-model="ex" ng-options="exercise.name for exercise in exercises track by exercise.id">
                     <option value="">Select exercise</option>
                   </select>
-                  <!-- <input type="text" list="json-datalist" ng-change="exerciseOnChange(this)" autocomplete="off" name="program_days_attributes[][program_day_exercises_attributes][][name]" ng-model="ex.name" class="exercise-field input-sm"> -->
                   <!-- <a href ng-click="addSet(dayIndex, exIndex)" ng-model="ex" class="add-btn"><i class="glyphicon glyphicon-plus"></i></a> -->
                   <a href ng-click="destroyExercise(dayIndex, exIndex)" ng-model="ex" class="remove-btn"><i class="glyphicon glyphicon-remove"></i></a>
                   <span ui-tree-handle class="ui-tree-handle"><i class="glyphicon glyphicon-menu-hamburger"></i></span>
@@ -108,3 +107,18 @@
     </div>
   </form>
 </div>
+
+
+<!-- <div id="search-overlay">
+  <div id="search-input-box">
+    <input type="text" id="search-input" placeholder="Type here to search">
+    <a href="" class="glyphicon glyphicon-remove"></a>
+  </div>
+  <ul id="search-results">
+
+  </ul>
+  <div id="search-overlay-btns">
+    <button class="btn btn-lg btn-primary btn-block" id="search-overlay-accept">Select</button>
+    <button class="btn btn-lg btn-block" id="search-overlay-cancel">Cancel</button>
+  </div>
+</div> -->
