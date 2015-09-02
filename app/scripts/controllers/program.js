@@ -19,6 +19,7 @@ angular.module('workoutClientApp')
     $scope.destroyExercise = destroyExercise;
     $scope.destroySet = destroySet;
     $scope.updateProgram = updateProgram;
+    $scope.editExercise = editExercise;
     $scope.levels = ['beginner', 'intermmediate', 'advanced'];
     $("#private-switch").bootstrapSwitch();
     $("#level-select").select2();
@@ -67,7 +68,6 @@ angular.module('workoutClientApp')
       };
     }
 
-    // TODO edit
     function initExercises() {
       ProgramsService.Exercises('', function(data, status) {
         var exercises_found = [];
@@ -78,7 +78,14 @@ angular.module('workoutClientApp')
           searchOptions.push({id: ex.id, text: ex.name});
         }
         $scope.exercises = exercises_found;
-        window.search = new searchOverlay(searchOptions);
+        window.search = new searchOverlay(searchOptions, function() {
+          var value = window.search.getValue();
+          if (value != null) {
+            ex.exercise_id = value.id;
+            ex.name = value.text;
+            updateProgram();
+          }
+        });
       });
     }
 
@@ -116,9 +123,15 @@ angular.module('workoutClientApp')
         ProgramsService.editProgram($scope.program, function(data, status) {
           if (status != 200) {
             alert('Error updating program. Response received with status: ' + status);
+          } else {
+            $scope.master = $scope.program;
           }
         });
       }
+    }
+
+    function editExercise(ex) {
+      window.search.show();
     }
 
     function addExercise(dayIndex) {

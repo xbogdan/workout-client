@@ -6,9 +6,14 @@
     var defaults = {};
     this.values = [];
     this.selectedValue = null;
+    this.finishCallback = null;
 
     if (arguments[0] && typeof arguments[0] === 'object' ) {
       this.values = arguments[0];
+    }
+
+    if (arguments[1] && typeof arguments[1] === 'function' ) {
+      this.finishCallback = arguments[1];
     }
 
     this.build();
@@ -132,6 +137,9 @@
 
   searchOverlay.prototype.finish = function() {
     this.hide();
+    if (typeof this.finishCallback === 'function') {
+      this.finishCallback();
+    }
   };
 
   searchOverlay.prototype.hideSearchResults = function() {

@@ -97,18 +97,6 @@ ul.programs-list li a:hover {
   border: 1px solid #bdc3c7;
 }
 
-/*.day-field {
-  background-color: lightblue;
-}
-
-.exercise-field {
-  background-color: pink;
-}
-
-.rep-field {
-  background-color: #2ECC71;
-}*/
-
 .destroy  {
   opacity: 0.5;
 }
@@ -230,14 +218,15 @@ ul.programs-list li a:hover {
 }
 
 .edit-box .edit-btn {
-  right: 15px;
+  right: 5px;
 }
 
 .edit-btn {
   cursor: pointer;
   position: absolute;
   font-size: 14px;
-  right: 40px;
+  right: 30px;
+  padding: 10px;
   color: #34495E;
   top: 50%;
   transform: translateY(-50%);
@@ -250,6 +239,7 @@ ul.programs-list li a:hover {
   margin: 0 auto;
   outline: none;
   border: 1px solid #2C3E50;
+  border-left-width: 3px;
   font-size: 16px;
   line-height: 25px;
   font-weight: 100;
@@ -297,7 +287,7 @@ ul.programs-list li a:hover {
 }
 .program-tree .day-expanded > ul {
   display: block;
-  margin: 0 10px;
+  margin-left: 10px;
 }
 .program-tree .day-expanded > ul > li {
   border-bottom: 1px solid #efefef;
@@ -306,7 +296,7 @@ ul.programs-list li a:hover {
   border-bottom: 0;
 }
 .program-tree .day-expanded .exercise-expanded > ul {
-  margin: 0 10px;
+  margin-left: 10px;
   display: block;
   background-color: #ECF0F1;
 }
@@ -334,7 +324,7 @@ ul.programs-list li a:hover {
 
 /* Search overlay */
 #search-overlay {
-  position: absolute;
+  position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
@@ -419,4 +409,9 @@ ul.programs-list li a:hover {
 
 .noscroll {
   overflow: hidden;
+}
+
+.nogutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
 }

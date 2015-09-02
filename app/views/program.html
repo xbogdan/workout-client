@@ -1,27 +1,30 @@
 <button ng-click='toggleEdit(false); editing = !editing' ng-show='showEditButton'>Edit</button>
-<div ng-hide='editing' class="row">
+<div ng-hide='editing' class="row nogutter">
   <div class="col-xs-12 col-md-4 program-tree">
     <h3>{{ program.name }}</h3>
     <p><strong>Goal:</strong> {{ program.goal }}</p>
     <p><strong>Level:</strong> {{ program.level }}</p>
     <p><strong>Private:</strong> {{ program.private ? 'Yes' : 'No' }}</p>
     <p><strong>Days:</strong></p>
+    <!-- day list -->
     <ul class="day-list">
       <li ng-repeat="day in program.program_days_attributes" class="day-item">
-        <a class="expand-btn" ng-hide="editField">{{ day.name }} <div class="glyphicon glyphicon-pencil edit-btn" ng-click="editField = !editField"></div>  <div class="arrow"></div></a>
+        <a class="expand-btn" ng-hide="editField">{{ day.name }} <div class="glyphicon glyphicon-pencil edit-btn" ng-click="editField = !editField; $event.stopPropagation()"></div>  <div class="arrow"></div></a>
         <div class="edit-box" ng-show="editField"><input type="text" ng-model="day.name" value="{{ day.name }}"> <div ng-click="updateProgram(); editField = !editField" class="glyphicon glyphicon-check edit-btn"></div></div>
+        <!-- exercise list -->
         <ul class="exercise-list">
           <li ng-repeat="ex in day.program_day_exercises_attributes" class="exercise-item">
-            <a class="expand-btn">{{ ex.name }} <div class="arrow"></div></a>
+            <a class="expand-btn">{{ ex.name }} <div class="glyphicon glyphicon-pencil edit-btn" ng-click="editExercise(ex)"></div> <div class="arrow"></div></a>
+            <!-- set list -->
             <ul class="set-list">
               <li ng-repeat="(i, set) in ex.program_day_exercise_sets_attributes" class="set-item">
                 <a class="expand-btn">Set {{ i+1 }}: {{ set.reps }} reps</a>
               </li>
-            </ul>
+            </ul> <!-- end set list -->
           </li>
-        </ul>
+        </ul> <!-- end exercise list -->
       </li>
-    </ul>
+    </ul> <!-- end day list -->
   </div>
 </div>
 
