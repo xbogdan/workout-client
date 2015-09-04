@@ -39,11 +39,11 @@ angular.module('workoutClientApp')
     service.Logout = function(callback) {
       $http
         .delete($rootScope.apiEndpoint+'/api/v1/signout')
-        .success(function(response) {
-          callback(response);
+        .success(function(response, status) {
+          callback(response, status);
         })
-        .error(function(error) {
-          callback(response);
+        .error(function(error, status) {
+          callback(response, status);
         });
       this.ClearCredentials();
     };

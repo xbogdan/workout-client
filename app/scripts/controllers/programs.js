@@ -15,7 +15,7 @@ angular.module('workoutClientApp')
 
     function init() {
       getPrograms();
-    };
+    }
 
     function getPrograms() {
       ProgramsService.Programs(function(data) {
@@ -33,6 +33,5 @@ angular.module('workoutClientApp')
           alert('error');
         }
       });
-    };
-
+    }
   }]);

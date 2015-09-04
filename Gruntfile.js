@@ -26,6 +26,7 @@ module.exports = function (grunt) {
   };
 
   // Define the configuration for all the tasks
+  // grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.initConfig({
 
     // Project settings
@@ -48,6 +49,10 @@ module.exports = function (grunt) {
         files: ['test/spec/{,*/}*.js'],
         tasks: ['newer:jshint:test', 'karma']
       },
+      stylus: {
+        files: ['<%= yeoman.app %>/styles/{,*/}*.styl'],
+        tasks: ['stylus:compile']
+      },
       styles: {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['newer:copy:styles', 'autoprefixer']
@@ -65,6 +70,17 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
+    },
+
+    stylus: {
+      compile: {
+        options: {
+          paths: ['styles']
+        },
+        files: {
+          '.tmp/styles/main.css': '<%= yeoman.app %>/styles/main.styl',
+        },
+      },
     },
 
     // The actual grunt server settings
@@ -417,6 +433,7 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       'wiredep',
+      'stylus',
       'concurrent:server',
       'autoprefixer:server',
       'connect:livereload',
@@ -441,6 +458,7 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     'wiredep',
+    'stylus',
     'useminPrepare',
     'concurrent:dist',
     'autoprefixer',

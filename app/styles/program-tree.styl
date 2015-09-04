@@ -1,0 +1,189 @@
+.arrow
+  display inline-block
+  position relative
+  height 1px
+  width 12px
+  vertical-align middle
+
+.arrow:before,
+.arrow:after
+  content ''
+  display block
+  width 10px
+  background-color #2980B9
+  height 1px
+  position relative
+
+.arrow:before
+  transform rotate(45deg)
+  bottom 3px
+
+.arrow:after
+  transform rotate(-45deg)
+  top 3px
+
+.arrow.arrow-down
+  transform translateY(-50%) rotate(90deg) !important
+  margin-top 1px
+  right 15px
+
+.arrow.arrow-down:after,
+.arrow.arrow-down:before
+  background-color #fff
+
+
+
+
+/**
+ * Program tree
+ */
+.program-tree ul
+  list-style none
+  padding 0
+  margin 0
+
+.program-tree ul li
+  padding 0
+  display block
+
+.exercise-list,
+.set-list
+  display none
+
+.program-tree .day-list > li:not(.day-expanded)
+  background-color white
+  border-bottom 1px solid #efefef
+
+.program-item .program-item-text
+  position relative
+  display block
+  margin 0
+  font-weight 100
+  font-size 15px
+  transition none
+
+.program-item.day-item > .program-item-text,
+.program-item.exercise-item > .program-item-text
+  padding 10px
+
+.day-expanded.program-item.day-item > .program-item-text,
+.exercise-expanded.program-item.exercise-item > .program-item-text
+  position relative
+  z-index 10
+  color #fff
+  box-shadow 0 1px 1px rgba(0, 0, 0, 0.4)
+
+.program-item.exercise-item > .program-item-text
+  background-color $turquoise
+  color #fff
+
+.day-expanded.program-item.day-item > .program-item-text
+  background-color $green-sea
+
+.expand-btn:hover
+  color $wet-asphalt
+
+.program-tree .day-item:not(.day-expanded) > .expand-btn:hover
+  background-color #efefef
+
+.program-tree ul li .expand-btn .arrow
+  position absolute
+  right 10px
+  top 50%
+  transform translateY(-50%) rotate(0)
+
+.program-tree .day-expanded .arrow:after,
+.program-tree .day-expanded .arrow:before,
+.program-tree .exercise-expanded .arrow:after,
+.program-tree .exercise-expanded .arrow:before
+  background-color #fff
+
+.program-tree .day-expanded > .expand-btn > .arrow,
+.program-tree .exercise-expanded > .expand-btn > .arrow
+  transform translateY(-50%) rotate(90deg)
+
+.program-tree ul li .expand-btn .arrow
+  right 14px
+
+.program-tree .day-expanded ul.exercise-list
+  display block
+  margin-left 10px
+
+.program-tree .day-expanded > ul.exercise-list > li
+  border-bottom 1px solid #efefef
+
+.program-tree .day-expanded > ul.exercise-list > li:last-child
+  border-bottom 0
+
+.program-tree .exercise-expanded > ul.set-list
+  margin-left 10px
+  display block
+  background-color #ECF0F1
+
+.program-tree .exercise-expanded > ul.set-list > li
+  border-bottom 1px solid #BDC3C7
+
+.program-tree .exercise-expanded > ul.set-list > li:last-child
+  border-bottom 0
+
+.program-tree .exercise-expanded > .expand-btn
+  position relative
+  z-index 8
+  box-shadow 0px 1px 1px rgba(0, 0, 0, 0.39)
+
+.edit-box
+  position relative
+  .edit-btn
+    right 5px
+  input
+    display block
+    width 100%
+    border 0
+    margin 0 auto
+    outline none
+    border-top 1px solid #2C3E50
+    border-bottom 1px solid #2C3E50
+    font-size 16px
+    line-height 25px
+    font-weight 100
+    background-color #ECF0F1
+    padding 9px
+
+.program-item-text .edit-btn
+  right: 30px;
+
+.edit-btn
+  cursor pointer
+  position absolute
+  font-size 14px
+  padding 10px
+  color #34495E
+  top 50%
+  transform translateY(-50%)
+
+
+.set-item
+  position relative
+
+  .set-nr
+    position absolute
+    left 0
+    padding 7px 8px
+    font-size 15px
+    color #fff
+    background-color $wet-asphalt
+
+  .set-text
+    margin-left 24px
+    padding 7px 10px
+    color $wet-asphalt
+
+  .edit-btn
+    right 5px
+
+  .edit-box
+    margin-left 24px
+
+  .edit-box input
+    padding 6px 10px
+    font-size 15px

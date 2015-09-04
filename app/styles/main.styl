@@ -1,0 +1,193 @@
+@import 'variables'
+@import 'program-tree'
+@import 'search-overlay'
+
+body {
+  padding: 0;
+}
+
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.authentication-container h3 {
+  text-align: center;
+}
+
+/* Flat UI navbar rewrites */
+.navbar {
+  border-radius: 0;
+}
+
+.navbar-brand {
+  font-size: 28px;
+  font-weight: 100;
+  padding: 11px 21px;
+}
+
+.navbar-nav > li > a {
+  font-size: 16px;
+  padding: 15px 21px;
+  line-height: 23px;
+  font-weight: 100;
+}
+
+
+ul.programs-list {
+  padding: 0;
+  list-style: none;
+}
+
+ul.programs-list li {
+  display: block;
+}
+
+ul.programs-list li a {
+  padding: 20px;
+  font-size: 20px;
+  display: inline-block;
+  background-color: #27ae60;
+  color: white;
+  border-bottom: 1px solid #ecf0f1;
+}
+
+ul.programs-list li a.program-btn {
+  width: 200px;
+}
+
+ul.programs-list li a.program-delete-btn {
+  background-color: red;
+}
+
+ul.programs-list li a:hover {
+  text-decoration: none;
+}
+
+.edit-list {
+  list-style: none;
+  padding: 0;
+}
+
+.edit-list ul li {
+  /*margin-bottom: 10px;*/
+}
+
+.edit-list .li-header {
+  margin-bottom: 5px;
+}
+
+.edit-list .li-header.li-header-reps {
+  margin-bottom: 0;
+  margin-left: 20px;
+}
+
+.edit-list .li-header.li-header-reps label {
+  margin-bottom: 0;
+  line-height: 1;
+  font-size: 13px;
+}
+
+.edit-list .rep-field {
+  padding: 0;
+  height: 25px;
+  line-height: 1;
+  width: 40px;
+  text-indent: 6px;
+  border-width: 1px;
+  border-radius: 3px;
+}
+
+
+.edit-list input {
+  border-width: 1px;
+  border-radius: 3px;
+  display: inline-block;
+  border: 1px solid #bdc3c7;
+}
+
+.destroy  {
+  opacity: 0.5;
+}
+
+.ui-tree-handle {
+  display: inline-block;
+  margin-left: 5px;
+  color: black;
+  font-size: 13px;
+}
+
+.expand-btn, .expand-btn:visited {
+  font-size: 13px;
+  margin-right: 5px;;
+  color: black;
+  cursor: pointer;
+}
+
+.remove-btn {
+  color: red;
+  font-size: 13px;
+}
+
+.add-btn {
+  color: #34495e;
+  font-size: 13px;
+  margin-left: 20px;
+}
+
+.add-btn i {
+  color: #27ae60;
+}
+
+.day-list, .rep-list {
+  margin-bottom: 20px;
+}
+
+.add-day-btn {
+  font-size: 15px;
+}
+
+.exercise-select {
+  display: inline-block;
+  width: 250px;
+}
+
+.nogutter > [class*='col-'] {
+  padding-right:0;
+  padding-left:0;
+}
+
+#program-name-box {
+  font-size: 40px;
+}
+#program-name-box h3 {
+  margin: 0;
+  padding: 11px 10px;
+  position: relative;
+  font-size: inherit;
+  font-weight: 100;
+}
+
+#program-name-box h3 .edit-btn {
+  font-size: 20px;
+  right: 5px;
+}
+
+#program-name-box .edit-box input {
+  font-size: inherit;
+}
+
+#program-name-box .edit-box .edit-btn {
+  font-size: 20px;
+}
+
+#program-routine h3 {
+  margin-top: 11px;
+  font-weight: 100;
+  padding-left: 10px;
+}
+
+
+
+
+/**/

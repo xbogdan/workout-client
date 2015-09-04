@@ -78,14 +78,7 @@ angular.module('workoutClientApp')
           searchOptions.push({id: ex.id, text: ex.name});
         }
         $scope.exercises = exercises_found;
-        window.search = new searchOverlay(searchOptions, function() {
-          var value = window.search.getValue();
-          if (value != null) {
-            ex.exercise_id = value.id;
-            ex.name = value.text;
-            updateProgram();
-          }
-        });
+        window.search = new searchOverlay(searchOptions);
       });
     }
 
@@ -132,6 +125,14 @@ angular.module('workoutClientApp')
 
     function editExercise(ex) {
       window.search.show();
+      window.search.finishCallback = function() {
+        var value = window.search.getValue();
+        if (value != null) {
+          ex.exercise_id = value.id;
+          ex.name = value.text;
+          updateProgram();
+        }
+      };
     }
 
     function addExercise(dayIndex) {
