@@ -23,14 +23,14 @@
     docFrag = document.createDocumentFragment();
 
     this.overlay = document.createElement('div');
-    this.overlay.id = 'search-overlay';
+    this.overlay.className = 'search-overlay';
     this.overlay.style.display = 'none';
 
     this.searchBox = document.createElement('div');
-    this.searchBox.id = 'search-input-box';
+    this.searchBox.className = 'search-input-box';
 
     this.searchInput = document.createElement('input');
-    this.searchInput.id = 'search-input';
+    this.searchInput.className = 'search-input';
     this.searchInput.placeholder = 'Type here to search';
     this.searchInput.addEventListener('keyup', this.search.bind(this));
 
@@ -42,7 +42,7 @@
     this.searchBox.appendChild(this.clearButton);
 
     this.searchResults = document.createElement('ul');
-    this.searchResults.id = 'search-results';
+    this.searchResults.className = 'search-results';
 
     for (key in this.values) {
       var li = document.createElement('li');
@@ -53,17 +53,17 @@
     }
 
     this.searchButtons = document.createElement('div');
-    this.searchButtons.id = 'search-overlay-btns';
+    this.searchButtons.className = 'search-overlay-btns';
 
     this.acceptButton = document.createElement('button');
-    this.acceptButton.id = 'search-overlay-accept';
-    this.acceptButton.className = 'btn btn-lg btn-primary';
+    this.acceptButton.className = 'search-overlay-accept btn btn-lg btn-primary';
+    // this.acceptButton.className = 'btn btn-lg btn-primary';
     this.acceptButton.innerHTML = 'Select';
     this.acceptButton.addEventListener('click', this.finish.bind(this));
 
     this.cancelButton = document.createElement('button');
-    this.cancelButton.id = 'search-overlay-cancel';
-    this.cancelButton.className = 'btn btn-lg';
+    this.cancelButton.className = 'search-overlay-cancel btn btn-lg';
+    // this.cancelButton.className = 'btn btn-lg';
     this.cancelButton.innerHTML = 'Cancel';
     this.cancelButton.addEventListener('click', this.hide.bind(this));
 

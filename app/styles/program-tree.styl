@@ -69,9 +69,14 @@
 .day-expanded.program-item.day-item > .program-item-text,
 .exercise-expanded.program-item.exercise-item > .program-item-text
   position relative
-  z-index 10
   color #fff
   box-shadow 0 1px 1px rgba(0, 0, 0, 0.4)
+
+.day-expanded.program-item.day-item > .program-item-text
+  z-index 10
+
+.exercise-expanded.program-item.exercise-item > .program-item-text
+  z-index 9
 
 .program-item.exercise-item > .program-item-text
   background-color $turquoise

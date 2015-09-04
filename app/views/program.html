@@ -8,9 +8,43 @@
       </h3>
       <div ng-show="editNameField" class="edit-box"><input type="text" id="program-name-input" ng-model="program.name"><div ng-click="updateProgram(); editNameField = !editNameField" class="glyphicon glyphicon-check edit-btn"></div></div>
     </div>
-    <p><strong>Goal:</strong> {{ program.goal }}</p>
-    <p><strong>Level:</strong> {{ program.level }}</p>
-    <p><strong>Private:</strong> {{ program.private ? 'Yes' : 'No' }}</p>
+    <div class="program-option">
+      <span>Goal:</span>
+      <div class="glyphicon glyphicon-pencil edit-btn" ng-hide="editGoalField" ng-click="editGoalField = !editGoalField"></div>
+      <span ng-hide="editGoalField">{{ program.goal }}</span>
+      <span class="edit-box" ng-show="editGoalField">
+        <select ng-model="program.goal">
+          <option value="mass-gain">Mass gain</option>
+          <option value="fat-loss">Fat loss</option>
+          <option value="strength">Strength</option>
+        </select>
+      </span>
+      <div ng-show="editGoalField" ng-click="updateProgram(); editGoalField = !editGoalField" class="glyphicon glyphicon-check edit-btn"></div>
+    </div>
+    <div class="program-option">
+      <span>Level:</span>
+      <div class="glyphicon glyphicon-pencil edit-btn" ng-hide="editLevelField" ng-click="editLevelField = !editLevelField"></div>
+      <span ng-hide="editLevelField">{{ program.level }}</span>
+      <span class="edit-box" ng-show="editLevelField">
+        <select ng-model="program.level">
+          <option value="beginner">Beginner</option>
+          <option value="intermmediate">Intermmediate</option>
+          <option value="advanced">Advanced</option>
+        </select>
+      </span>
+      <div ng-show="editLevelField" ng-click="updateProgram(); editLevelField = !editLevelField" class="glyphicon glyphicon-check edit-btn"></div>
+    </div>
+    <div class="program-option">
+      <span>Private:</span>
+      <div class="glyphicon glyphicon-pencil edit-btn" ng-hide="editPrivateField" ng-click="editPrivateField = !editPrivateField"></div>
+      <span ng-hide="editPrivateField">{{ program.private ? 'Yes' : 'No' }}</span>
+      <span class="edit-box" ng-show="editPrivateField">
+        <span class="bootstrap-switch-square">
+          <input type="checkbox" ng-model="program.private" id="private-switch" data-on-text="<span class='fui-check'></span>" data-off-text="<span class='fui-cross'></span>">
+        </span>
+      </span>
+      <div ng-show="editPrivateField" ng-click="updateProgram(); editPrivateField = !editPrivateField" class="glyphicon glyphicon-check edit-btn"></div>
+    </div>
   </div>
   <div class="col-xs-12 col-md-offset-2 col-md-4 program-tree" id="program-routine">
     <h3>Routine</h3>

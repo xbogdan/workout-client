@@ -21,8 +21,6 @@ angular.module('workoutClientApp')
     $scope.updateProgram = updateProgram;
     $scope.editExercise = editExercise;
     $scope.levels = ['beginner', 'intermmediate', 'advanced'];
-    $("#private-switch").bootstrapSwitch();
-    $("#level-select").select2();
     $("#goal-select").select2();
 
     $scope.renderSelect2 = function() {
@@ -34,12 +32,12 @@ angular.module('workoutClientApp')
     init();
 
     function init() {
-      $scope.exercisesList = $('#json-datalist');
       initExercises();
       if ($routeParams.id) {
         $scope.showEditButton = true;
         ProgramsService.Program($routeParams.id, function(data) {
           $scope.program = data.program;
+          setTimeout(function() {$("#private-switch").bootstrapSwitch();}, 1);
         });
       } else {
         $scope.editing = true;
