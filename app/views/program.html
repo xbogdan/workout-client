@@ -38,11 +38,12 @@
       <span>Private:</span>
       <div class="glyphicon glyphicon-pencil edit-btn" ng-hide="editPrivateField" ng-click="editPrivateField = !editPrivateField"></div>
       <span ng-hide="editPrivateField">{{ program.private ? 'Yes' : 'No' }}</span>
-      <span class="edit-box" ng-show="editPrivateField">
+      <input type="checkbox" ng-model="program.private" ng-show="editPrivateField">
+      <!-- <span class="edit-box" ng-show="editPrivateField">
         <span class="bootstrap-switch-square">
           <input type="checkbox" ng-model="program.private" id="private-switch" data-on-text="<span class='fui-check'></span>" data-off-text="<span class='fui-cross'></span>">
         </span>
-      </span>
+      </span> -->
       <div ng-show="editPrivateField" ng-click="updateProgram(); editPrivateField = !editPrivateField" class="glyphicon glyphicon-check edit-btn"></div>
     </div>
   </div>
