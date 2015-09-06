@@ -1,17 +1,20 @@
 <!-- <button ng-click='toggleEdit(false); editing = !editing' ng-show='showEditButton'>Edit</button> -->
-<div ng-hide='editing' class="row nogutter">
+<div class="row nogutter">
   <div class="col-xs-12 col-md-3">
-    <div id="program-name-box">
+    <div id="global-edit" class="clearfix" ng-click="changeGlobalEdit($event)">Edit</div>
+    <div id="program-name-box" style="clear:both">
       <h3 ng-hide="editNameField">
         {{ program.name }}
-        <div class="glyphicon glyphicon-pencil edit-btn" ng-click="editNameField = !editNameField; $event.stopPropagation()"></div>
+        <div class="glyphicon glyphicon-pencil edit-btn" ng-show="allowGlobalEdit" ng-click="editNameField = !editNameField; $event.stopPropagation()"></div>
       </h3>
       <div ng-show="editNameField" class="edit-box"><input type="text" id="program-name-input" ng-model="program.name"><div ng-click="updateProgram(); editNameField = !editNameField" class="glyphicon glyphicon-check edit-btn"></div></div>
     </div>
     <div class="program-option">
       <span>Goal:</span>
-      <div class="glyphicon glyphicon-pencil edit-btn" ng-hide="editGoalField" ng-click="editGoalField = !editGoalField"></div>
-      <span ng-hide="editGoalField">{{ program.goal }}</span>
+      <span ng-hide="editGoalField">
+        {{ program.goal }}
+        <div class="glyphicon glyphicon-pencil edit-btn" ng-show="allowGlobalEdit" ng-click="editGoalField = !editGoalField"></div>
+      </span>
       <span class="edit-box" ng-show="editGoalField">
         <select ng-model="program.goal">
           <option value="mass-gain">Mass gain</option>
@@ -23,8 +26,10 @@
     </div>
     <div class="program-option">
       <span>Level:</span>
-      <div class="glyphicon glyphicon-pencil edit-btn" ng-hide="editLevelField" ng-click="editLevelField = !editLevelField"></div>
-      <span ng-hide="editLevelField">{{ program.level }}</span>
+      <span ng-hide="editLevelField">
+        {{ program.level }}
+        <div class="glyphicon glyphicon-pencil edit-btn" ng-show="allowGlobalEdit" ng-click="editLevelField = !editLevelField"></div>
+      </span>
       <span class="edit-box" ng-show="editLevelField">
         <select ng-model="program.level">
           <option value="beginner">Beginner</option>
@@ -36,8 +41,10 @@
     </div>
     <div class="program-option">
       <span>Private:</span>
-      <div class="glyphicon glyphicon-pencil edit-btn" ng-hide="editPrivateField" ng-click="editPrivateField = !editPrivateField"></div>
-      <span ng-hide="editPrivateField">{{ program.private ? 'Yes' : 'No' }}</span>
+      <span ng-hide="editPrivateField">
+        {{ program.private ? 'Yes' : 'No' }}
+        <div class="glyphicon glyphicon-pencil edit-btn" ng-show="allowGlobalEdit" ng-click="editPrivateField = !editPrivateField"></div>
+      </span>
       <input type="checkbox" ng-model="program.private" ng-show="editPrivateField">
       <!-- <span class="edit-box" ng-show="editPrivateField">
         <span class="bootstrap-switch-square">
@@ -47,13 +54,18 @@
       <div ng-show="editPrivateField" ng-click="updateProgram(); editPrivateField = !editPrivateField" class="glyphicon glyphicon-check edit-btn"></div>
     </div>
   </div>
-  <div class="col-xs-12 col-md-offset-2 col-md-4 program-tree" id="program-routine">
-    <h3>Routine</h3>
+  <div class="col-xs-12 col-md-offset-2 col-md-4 program-tree" id="program-routine" ui-tree="treeOptions" data-drag-enabled="treeEnabled">
+    <h3>Routine <span id="reorder-btn" ng-click="toggleTree($event)">Reorder</span></h3>
     <!-- day list -->
-    <ul class="day-list">
-      <li ng-repeat="day in program.program_days_attributes" class="program-item day-item">
-        <a class="program-item-text expand-btn" ng-hide="editField">{{ day.name }} <div class="glyphicon glyphicon-pencil edit-btn" ng-click="editField = !editField; $event.stopPropagation()"></div>  <div class="arrow"></div></a>
-        <div class="edit-box" ng-show="editField"><input type="text" ng-model="day.name" value="{{ day.name }}"> <div ng-click="updateProgram(); editField = !editField" class="glyphicon glyphicon-check edit-btn"></div></div>
+    <ul class="day-list" ng-model="program.program_days_attributes" ui-tree-nodes>
+      <li ng-repeat="day in program.program_days_attributes" class="program-item day-item" ui-tree-node>
+        <span ui-tree-handle ng-show="treeEnabled" class="ui-tree-handle glyphicon glyphicon-menu-hamburger"></span>
+        <a class="program-item-text expand-btn" ng-hide="allowEditField">
+          <span>{{ day.name }}</span>
+          <div class="glyphicon glyphicon-pencil edit-btn" ng-show="allowGlobalEdit" ng-click="allowEditField = !allowEditField; $event.stopPropagation()"></div>
+          <div class="arrow"></div>
+        </a>
+        <div class="edit-box" ng-show="allowEditField"><input type="text" ng-model="day.name" value="{{ day.name }}"> <div ng-click="updateProgram(); allowEditField = !allowEditField" class="glyphicon glyphicon-check edit-btn"></div></div>
         <!-- exercise list -->
         <ul class="exercise-list">
           <li ng-repeat="ex in day.program_day_exercises_attributes" class="program-item exercise-item">
@@ -73,7 +85,11 @@
   </div>
 </div>
 
-<div ng-show='editing'>
+
+
+
+
+<div ng-show='editing' style="display: none">
   <form novalidate ng-submit="submit()">
 
     <div class="col-xs-12 col-md-4 col-md-offset-1">
@@ -155,18 +171,3 @@
     </div>
   </form>
 </div>
-
-
-<!-- <div id="search-overlay">
-  <div id="search-input-box">
-    <input type="text" id="search-input" placeholder="Type here to search">
-    <a href="" class="glyphicon glyphicon-remove"></a>
-  </div>
-  <ul id="search-results">
-
-  </ul>
-  <div id="search-overlay-btns">
-    <button class="btn btn-lg btn-primary btn-block" id="search-overlay-accept">Select</button>
-    <button class="btn btn-lg btn-block" id="search-overlay-cancel">Cancel</button>
-  </div>
-</div> -->

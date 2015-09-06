@@ -42,25 +42,38 @@
   padding 0
   margin 0
 
-.program-tree ul li
-  padding 0
-  display block
-
 .exercise-list,
 .set-list
   display none
 
-.program-tree .day-list > li:not(.day-expanded)
+.day-item:not(.day-expanded)
   background-color white
   border-bottom 1px solid #efefef
 
+.program-item
+  display flex
+  flex-wrap wrap
+  padding 0
+  align-items center
+
+.program-item > ul
+  flex 1 100%
+
 .program-item .program-item-text
+  flex 1
   position relative
   display block
   margin 0
   font-weight 100
-  font-size 15px
+  font-size 16px
   transition none
+
+.program-item .ui-tree-handle
+  top 0
+  padding 10px
+  // margin-right 10px
+  color black
+  font-size 20px
 
 .program-item.day-item > .program-item-text,
 .program-item.exercise-item > .program-item-text
@@ -88,12 +101,12 @@
 .expand-btn:hover
   color $wet-asphalt
 
-.program-tree .day-item:not(.day-expanded) > .expand-btn:hover
+.day-item:not(.day-expanded) > .expand-btn:hover
   background-color #efefef
 
-.program-tree ul li .expand-btn .arrow
+.expand-btn .arrow
   position absolute
-  right 10px
+  right 14px
   top 50%
   transform translateY(-50%) rotate(0)
 
@@ -103,12 +116,9 @@
 .program-tree .exercise-expanded .arrow:before
   background-color #fff
 
-.program-tree .day-expanded > .expand-btn > .arrow,
-.program-tree .exercise-expanded > .expand-btn > .arrow
+.day-expanded > .expand-btn > .arrow,
+.exercise-expanded > .expand-btn > .arrow
   transform translateY(-50%) rotate(90deg)
-
-.program-tree ul li .expand-btn .arrow
-  right 14px
 
 .program-tree .day-expanded ul.exercise-list
   display block
@@ -136,8 +146,17 @@
   z-index 8
   box-shadow 0px 1px 1px rgba(0, 0, 0, 0.39)
 
+.program-option
+  font-weight 100
+  position relative
+  margin 10px 0 10px 10px
+
+  .edit-btn
+    right 5px
+
 .edit-box
   position relative
+  flex 1
   .edit-btn
     right 5px
   input
@@ -149,7 +168,6 @@
     border-top 1px solid #2C3E50
     border-bottom 1px solid #2C3E50
     font-size 16px
-    line-height 25px
     font-weight 100
     background-color #ECF0F1
     padding 9px
@@ -182,6 +200,8 @@
     margin-left 24px
     padding 7px 10px
     color $wet-asphalt
+    small
+      line-height 1
 
   .edit-btn
     right 5px
@@ -192,3 +212,52 @@
   .edit-box input
     padding 6px 10px
     font-size 15px
+
+#global-edit
+  text-align left
+  font-size 16px
+  font-weight 100
+  padding 5px 0 5px 10px
+  width 70px
+  background-color $green-sea
+  color #fff
+  float right
+  cursor pointer
+
+#program-name-box
+  font-size 40px
+
+#program-name-box h3
+  margin 0
+  padding 10px
+  position relative
+  font-size inherit
+  font-weight 100
+
+#program-name-box h3 .edit-btn
+  font-size 20px
+  right 5px
+
+#program-name-box .edit-box input
+  font-size inherit
+  padding 9px 10px
+  line-height 1
+
+#program-name-box .edit-box .edit-btn
+  font-size 20px
+
+#program-routine h3
+  margin-top 11px
+  font-weight 100
+  padding-left 10px
+  position relative
+
+#reorder-btn
+  display inline-block
+  font-size 16px
+  position absolute
+  right 15px
+  bottom 0
+  cursor: pointer
+  &:hover
+    color $green-sea

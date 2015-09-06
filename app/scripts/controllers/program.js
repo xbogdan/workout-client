@@ -21,6 +21,11 @@ angular.module('workoutClientApp')
     $scope.updateProgram = updateProgram;
     $scope.editExercise = editExercise;
     $scope.levels = ['beginner', 'intermmediate', 'advanced'];
+    $scope.treeEnabled = false;
+    $scope.toggleTree = toggleTree;
+    $scope.allowEditField = false;
+    $scope.allowGlobalEdit = false;
+    $scope.changeGlobalEdit = changeGlobalEdit;
     $("#goal-select").select2();
 
     $scope.renderSelect2 = function() {
@@ -86,6 +91,24 @@ angular.module('workoutClientApp')
       if (!updated) {
         $scope.master = angular.copy($scope.masterCopy);
 
+      }
+    }
+
+    function toggleTree(event) {
+      $scope.treeEnabled = !$scope.treeEnabled;
+      if ($scope.treeEnabled) {
+        event.target.innerHTML = 'Finish';
+      } else {
+        event.target.innerHTML = 'Reorder';
+      }
+    }
+
+    function changeGlobalEdit(event) {
+      $scope.allowGlobalEdit = !$scope.allowGlobalEdit;
+      if ($scope.allowGlobalEdit) {
+        event.target.innerHTML = 'Finish';
+      } else {
+        event.target.innerHTML = 'Edit';
       }
     }
 
