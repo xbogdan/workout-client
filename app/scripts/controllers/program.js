@@ -15,6 +15,8 @@ angular.module('workoutClientApp')
     $scope.addExercise = addExercise;
     $scope.addSet = addSet;
     $scope.addDay = addDay;
+    $scope.editDay = editDay;
+    $scope.editSet = editSet;
     $scope.destroyDay = destroyDay;
     $scope.destroyExercise = destroyExercise;
     $scope.destroySet = destroySet;
@@ -26,6 +28,8 @@ angular.module('workoutClientApp')
     $scope.allowEditField = false;
     $scope.allowGlobalEdit = false;
     $scope.changeGlobalEdit = changeGlobalEdit;
+    $scope.editSetField = [];
+    $scope.editDayField = [];
     $("#goal-select").select2();
 
     $scope.renderSelect2 = function() {
@@ -85,30 +89,33 @@ angular.module('workoutClientApp')
       });
     }
 
+    // TODO remove
     function toggleEdit(updated) {
       $scope.master = $scope.program;
       $scope.masterCopy = angular.copy($scope.master);
       if (!updated) {
         $scope.master = angular.copy($scope.masterCopy);
-
       }
     }
 
-    function toggleTree(event) {
+    function toggleTree() {
       $scope.treeEnabled = !$scope.treeEnabled;
-      if ($scope.treeEnabled) {
-        event.target.innerHTML = 'Finish';
-      } else {
-        event.target.innerHTML = 'Reorder';
-      }
     }
 
-    function changeGlobalEdit(event) {
+    function changeGlobalEdit() {
       $scope.allowGlobalEdit = !$scope.allowGlobalEdit;
-      if ($scope.allowGlobalEdit) {
-        event.target.innerHTML = 'Finish';
-      } else {
-        event.target.innerHTML = 'Edit';
+      if ($scope.treeEnabled) {
+        toggleTree();
+      }
+      if (!$scope.allowGlobalEdit) {
+        updateProgram();
+      }
+      for (var i = 0; i < $scope.editDayField.length; i++) {
+        $scope.editDayField[i] = false;
+      }
+
+      for (var i = 0; i < $scope.editSetField.length; i++) {
+        $scope.editSetField[i] = false;
       }
     }
 
@@ -151,9 +158,16 @@ angular.module('workoutClientApp')
         if (value != null) {
           ex.exercise_id = value.id;
           ex.name = value.text;
-          updateProgram();
         }
       };
+    }
+
+    function editSet(set, index) {
+      $scope.editSetField[index] = !$scope.editSetField[index];
+    }
+
+    function editDay(day, index) {
+      $scope.editDayField[index] = !$scope.editDayField[index];
     }
 
     function addExercise(dayIndex) {
