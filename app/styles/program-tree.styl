@@ -31,7 +31,8 @@
 .arrow.arrow-down:before
   background-color #fff
 
-
+.angular-ui-tree-nodes .angular-ui-tree-nodes
+  padding 0
 
 
 /**
@@ -133,7 +134,6 @@
 .program-tree .exercise-expanded > ul.set-list
   margin-left 10px
   display block
-  background-color #ECF0F1
 
 .program-tree .exercise-expanded > ul.set-list > li
   border-bottom 1px solid #BDC3C7
@@ -188,17 +188,18 @@
 .set-item
   position relative
 
+  .ui-tree-handle
+    padding 7px 10px
+
   .set-nr
-    position absolute
-    left 0
     padding 7px 8px
     font-size 15px
     color #fff
     background-color $wet-asphalt
 
   .set-text
-    margin-left 24px
     padding 7px 10px
+    background-color #ECF0F1
     color $wet-asphalt
     small
       line-height 1

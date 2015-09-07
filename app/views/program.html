@@ -57,7 +57,7 @@
   <div class="col-xs-12 col-md-offset-2 col-md-4 program-tree" id="program-routine" ui-tree="treeOptions" data-drag-enabled="treeEnabled">
     <h3>Routine <span id="reorder-btn" ng-show="allowGlobalEdit" ng-click="toggleTree($event)">{{ treeEnabled ? 'Finish' : 'Reorder' }}</span></h3>
     <!-- day list -->
-    <ul class="day-list" ng-model="program.program_days_attributes" ui-tree-nodes>
+    <ul class="day-list" ng-model="program.program_days_attributes" ui-tree-nodes="">
       <li ng-repeat="day in program.program_days_attributes" class="program-item day-item" ui-tree-node>
         <span ui-tree-handle ng-show="treeEnabled" class="ui-tree-handle glyphicon glyphicon-menu-hamburger"></span>
         <a class="program-item-text expand-btn" ng-hide="editDayField[$index]">
@@ -71,8 +71,9 @@
         </div>
 
         <!-- exercise list -->
-        <ul class="exercise-list">
-          <li ng-repeat="ex in day.program_day_exercises_attributes" class="program-item exercise-item">
+        <ul class="exercise-list" ng-model="day.program_day_exercises_attributes" ui-tree-nodes="">
+          <li ng-repeat="ex in day.program_day_exercises_attributes" class="program-item exercise-item" ui-tree-node>
+            <span ui-tree-handle ng-show="treeEnabled" class="ui-tree-handle glyphicon glyphicon-menu-hamburger"></span>
             <a class="program-item-text expand-btn">
               <span ng-bind="ex.name"></span>
               <div class="glyphicon glyphicon-pencil edit-btn" ng-show="allowGlobalEdit" ng-click="editExercise(ex)"></div>
@@ -80,11 +81,12 @@
             </a>
 
             <!-- set list -->
-            <ul class="set-list">
-              <li ng-repeat="set in ex.program_day_exercise_sets_attributes" class="program-item set-item">
+            <ul class="set-list" ng-model="ex.program_day_exercise_sets_attributes" ui-tree-nodes="">
+              <li ng-repeat="set in ex.program_day_exercise_sets_attributes" class="program-item set-item" ui-tree-node>
+                <span ui-tree-handle ng-show="treeEnabled" class="ui-tree-handle glyphicon glyphicon-menu-hamburger"></span>
                 <span class="set-nr" ng-bind="$index+1"></span>
                 <a class="program-item-text set-text" ng-hide="editSetField[$index]">
-                  <span ng-bind="set.reps"></span> <small>reps</small>
+                  <span class=""><span ng-bind="set.reps"></span> <small>reps</small></span>
                   <div class="glyphicon glyphicon-pencil edit-btn" ng-show="allowGlobalEdit" ng-click="editSet(set, $index)"></div>
                 </a>
                 <div class="edit-box" ng-show="editSetField[$index]">
@@ -107,7 +109,7 @@
 <div ng-show='editing' style="display: none">
   <form novalidate ng-submit="submit()">
 
-    <div class="col-xs-12 col-md-4 col-md-offset-1">
+    <!-- <div class="col-xs-12 col-md-4 col-md-offset-1">
       <div class="form-group">
         <label for="program-name">Name</label>
         <input type="text" placeholder="Name" ng-model="master.name" class="form-control" id="program-name">
@@ -138,7 +140,7 @@
       <button type="submit" class="btn btn-embossed btn-primary btn-hg btn-block">Save</button>
       <br>
       <br>
-    </div>
+    </div> -->
 
     <div class="col-md-offset-1 col-xs-12 col-md-5">
       <div class="form-group form-inline" ui-tree="treeOptions">
