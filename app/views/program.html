@@ -1,6 +1,7 @@
 <div class="row nogutter">
   <div class="col-xs-12">
     <div id="global-edit" class="clearfix" ng-click="changeGlobalEdit()">{{ allowGlobalEdit ? 'Finish' : 'Edit' }}</div>
+    <div id="global-cancel" class="clearfix" ng-click="changeGlobalEdit(true)" ng-show="allowGlobalEdit">Cancel</div>
   </div>
   <div class="col-xs-12 col-md-4 col-md-offset-1">
     <div id="program-name-box" style="clear:both">
@@ -66,7 +67,7 @@
           <span class="program-item-value" ng-bind="day.name"></span>
           <div class="program-item-actions">
             <div class="program-item-action edit-btn" ng-click="editDay(day, $index); $event.stopPropagation()" ng-show="allowGlobalEdit"><i class="glyphicon glyphicon-pencil"></i></div>
-            <div class="program-item-action remove-btn" ng-click="destroyDay(dayIndex); $event.stopPropagation()" ng-show="allowGlobalEdit" ng-model="day"><i class="glyphicon glyphicon-remove"></i></div>
+            <div class="program-item-action remove-btn" ng-click="destroyDay(dayIndex, $event); $event.stopPropagation()" ng-show="allowGlobalEdit" ng-model="day"><i class="glyphicon glyphicon-remove"></i></div>
             <div class="program-item-action arrow"></div>
           </div>
         </a>
@@ -83,7 +84,7 @@
               <span class="program-item-value" ng-bind="ex.name"></span>
               <div class="program-item-actions">
                 <div class="program-item-action edit-btn" ng-show="allowGlobalEdit" ng-click="editExercise(ex); $event.stopPropagation();"><i class="glyphicon glyphicon-pencil"></i></div>
-                <div class="program-item-action remove-btn" ng-show="allowGlobalEdit" ng-click="destroyExercise(dayIndex, exIndex); $event.stopPropagation()" ng-model="ex"><i class="glyphicon glyphicon-remove"></i></div>
+                <div class="program-item-action remove-btn" ng-show="allowGlobalEdit" ng-click="destroyExercise(dayIndex, exIndex, $event); $event.stopPropagation()" ng-model="ex"><i class="glyphicon glyphicon-remove"></i></div>
                 <div class="program-item-action arrow"></div>
               </div>
             </a>
@@ -97,7 +98,7 @@
                   <span class="program-item-value"><span ng-bind="set.reps"></span> <small>reps</small></span>
                   <div class="program-item-actions">
                     <div class="program-item-action edit-btn" ng-show="allowGlobalEdit" ng-click="editSet(set, $index)"><i class="glyphicon glyphicon-pencil"></i></div>
-                    <div class="program-item-action remove-btn" ng-show="allowGlobalEdit" ng-click="destroySet(dayIndex, exIndex, $index); $event.stopPropagation()" ng-model="set"><i class="glyphicon glyphicon-remove"></i></div>
+                    <div class="program-item-action remove-btn" ng-show="allowGlobalEdit" ng-click="destroySet(dayIndex, exIndex, $index, $event); $event.stopPropagation()" ng-model="set"><i class="glyphicon glyphicon-remove"></i></div>
                   </div>
                 </a>
                 <div class="edit-box" ng-show="editSetField[$index]">
@@ -105,13 +106,13 @@
                   <div class="glyphicon glyphicon-check edit-btn" ng-click="editSet(set, $index)"></div>
                 </div>
               </li>
-              <li><a href ng-click="addSet(dayIndex, exIndex)" ng-show="allowGlobalEdit" ng-model="ex" class="add-set-btn"><i class="glyphicon glyphicon-plus"></i>Add set</a></li>
+              <li ng-show="allowGlobalEdit"><a href ng-click="addSet(dayIndex, exIndex)" ng-model="ex" class="add-set-btn"><i class="glyphicon glyphicon-plus"></i>Add set</a></li>
             </ul> <!-- end set list -->
           </li>
-          <li><a href ng-click="addExercise(dayIndex)" ng-show="allowGlobalEdit" ng-model="ex" class="add-exercise-btn"><i class="glyphicon glyphicon-plus"></i> Add exercise</a></li>
+          <li ng-show="allowGlobalEdit"><a href ng-click="addExercise(dayIndex)" ng-model="ex" class="add-exercise-btn"><i class="glyphicon glyphicon-plus"></i> Add exercise</a></li>
         </ul> <!-- end exercise list -->
       </li>
-      <li><a href ng-click="addDay()" ng-show="allowGlobalEdit" ng-model="ex" class="add-day-btn"><i class="glyphicon glyphicon-plus"></i> Add day</a></li>
+      <li ng-show="allowGlobalEdit"><a href ng-click="addDay()" ng-model="ex" class="add-day-btn"><i class="glyphicon glyphicon-plus"></i> Add day</a></li>
     </ul> <!-- end day list -->
   </div>
 </div>
