@@ -1,8 +1,8 @@
 .arrow
   display inline-block
   position relative
-  height 1px
-  width 12px
+  width 10px
+  height 14px
   vertical-align middle
 
 .arrow:before,
@@ -12,15 +12,15 @@
   width 10px
   background-color #2980B9
   height 1px
-  position relative
+  position absolute
 
 .arrow:before
   transform rotate(45deg)
-  bottom 3px
+  top 3px
 
 .arrow:after
   transform rotate(-45deg)
-  top 3px
+  bottom 3px
 
 .arrow.arrow-down
   transform translateY(-50%) rotate(90deg) !important
@@ -47,7 +47,7 @@
 .set-list
   display none
 
-.day-item:not(.day-expanded)
+.day-item
   background-color white
   border-bottom 1px solid #efefef
 
@@ -57,17 +57,45 @@
   padding 0
   align-items center
 
+.program-item
+  .program-item-actions
+    display flex
+    align-items center
+    order 2
+    .program-item-action
+      display block
+      position static
+      font-size 16px
+      line-height 1
+      &.arrow
+        margin 10px 0 10px 5px
+      &:last-child
+        padding-right 0
+        margin-right 0
+    .edit-btn
+      transform none
+
+  .program-item-value
+    order 1
+    flex 1
+
 .program-item > ul
   flex 1 100%
 
 .program-item .program-item-text
   flex 1
   position relative
-  display block
+  display flex
   margin 0
   font-weight 100
   font-size 16px
   transition none
+
+.exercise-item > .program-item-text,
+.day-item > .program-item-text
+  height 40px
+.set-item .program-item-text
+  height 34px
 
 .program-item .ui-tree-handle
   top 0
@@ -106,10 +134,7 @@
   background-color #efefef
 
 .expand-btn .arrow
-  position absolute
-  right 14px
-  top 50%
-  transform translateY(-50%) rotate(0)
+  transform rotate(0)
 
 .program-tree .day-expanded .arrow:after,
 .program-tree .day-expanded .arrow:before,
@@ -117,9 +142,10 @@
 .program-tree .exercise-expanded .arrow:before
   background-color #fff
 
-.day-expanded > .expand-btn > .arrow,
-.exercise-expanded > .expand-btn > .arrow
-  transform translateY(-50%) rotate(90deg)
+.day-expanded > .expand-btn > .program-item-actions > .arrow,
+.exercise-expanded > .expand-btn > .program-item-actions > .arrow
+  padding: 0
+  transform rotate(90deg)
 
 .program-tree .day-expanded ul.exercise-list
   display block
@@ -172,18 +198,18 @@
     background-color #ECF0F1
     padding 9px
 
-.program-item-text .edit-btn
-  right: 30px;
-
 .edit-btn
   cursor pointer
   position absolute
   font-size 14px
-  padding 10px
+  padding 10px 5px
   color #34495E
   top 50%
   transform translateY(-50%)
 
+.remove-btn
+  padding 10px 5px
+  color $pomegranate
 
 .set-item
   position relative
@@ -206,9 +232,6 @@
 
   .edit-btn
     right 5px
-
-  .edit-box
-    margin-left 24px
 
   .edit-box input
     padding 6px 10px
