@@ -11,22 +11,18 @@ angular.module('workoutClientApp')
   .controller('ProgramCtrl', ['$scope', '$routeParams', '$location', 'ProgramsService', '$rootScope', function ($scope, $routeParams, $location, ProgramsService, $rootScope) {
 
     $scope.submit = submit;
+    $scope.editField = editField;
     $scope.addDay = addDay;
     $scope.addExercise = addExercise;
     $scope.addSet = addSet;
-    $scope.editDay = editDay;
     $scope.editExercise = editExercise;
-    $scope.editSet = editSet;
     $scope.destroyDay = destroyDay;
     $scope.destroyExercise = destroyExercise;
     $scope.destroySet = destroySet;
     $scope.updateProgram = updateProgram;
     $scope.toggleTree = toggleTree;
     $scope.treeEnabled = false;
-    $scope.allowGlobalEdit = false;
     $scope.changeGlobalEdit = changeGlobalEdit;
-    $scope.editSetField = [];
-    $scope.editDayField = [];
     $scope.newIndexes = {
       'program_days_attributes': [],
       'program_day_exercises_attributes': [],
@@ -43,13 +39,13 @@ angular.module('workoutClientApp')
     init();
 
     function init() {
-      initExercises();
       if ($routeParams.id) {
         $scope.showEditButton = true;
         ProgramsService.Program($routeParams.id, function(data) {
           $scope.master = data.program;
           $scope.program = angular.copy($scope.master);
           setTimeout(function() {$("#private-switch").bootstrapSwitch();}, 1);
+          initExercises();
         });
       } else {
         $scope.editing = true;
@@ -96,36 +92,29 @@ angular.module('workoutClientApp')
       $scope.treeEnabled = !$scope.treeEnabled;
     }
 
-    function changeGlobalEdit(cancel) {
-      $scope.allowGlobalEdit = !$scope.allowGlobalEdit;
+    function changeGlobalEdit(event, cancel) {
+      var showGlobal = document.getElementsByClassName('show-global');
+      var show = false;
+      for (var i = 0; i < showGlobal.length; i++) {
+        if (showGlobal[i].className.indexOf('hidden') > -1) {
+          show = true;
+          showGlobal[i].className = showGlobal[i].className.replace(/\hidden\b/,'');
+        } else {
+          showGlobal[i].className += ' hidden';
+        }
+      }
       toggleTree();
       if (typeof cancel === 'undefined' || cancel === false) {
-        if (!$scope.allowGlobalEdit) {
-          updateProgram();
-        }
-        for (var i = 0; i < $scope.editDayField.length; i++) {
-          $scope.editDayField[i] = false;
-        }
-
-        for (var i = 0; i < $scope.editSetField.length; i++) {
-          $scope.editSetField[i] = false;
-        }
+        updateProgram();
+        event.target.innerHTML = show ? 'Finish' : 'Edit';
       } else {
         $scope.master = angular.copy($scope.program);
+        $('#global-edit').html('Edit');
       }
     }
 
-    // TODO remove
     function submit() {
-      if ($routeParams.id) {
-        ProgramsService.editProgram($scope.master, function(data) {
-          $scope.toggleEdit(true);
-          ProgramsService.Program($routeParams.id, function(data) {
-            $scope.program = data.program;
-          });
-          $scope.program = angular.copy($scope.master);
-        });
-      } else {
+      if (!$routeParams.id) {
         ProgramsService.createProgram($scope.master, function(data, status) {
           if (status === 201) {
             $location.path('/');
@@ -148,6 +137,12 @@ angular.module('workoutClientApp')
       }
     }
 
+    function editField(event) {
+      var $parent = $(event.target).parents('.program-field-box');
+      $parent.find('.program-field-value').toggleClass('hidden');
+      $parent.find('.edit-box').toggleClass('hidden');
+    }
+
     function editExercise(ex) {
       window.search.show();
       window.search.finishCallback = function() {
@@ -159,14 +154,6 @@ angular.module('workoutClientApp')
           }
         });
       };
-    }
-
-    function editSet(set, index) {
-      $scope.editSetField[index] = !$scope.editSetField[index];
-    }
-
-    function editDay(day, index) {
-      $scope.editDayField[index] = !$scope.editDayField[index];
     }
 
     function addExercise(dayIndex) {
