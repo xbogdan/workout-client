@@ -37,7 +37,7 @@ angular
         controllerAs: 'program'
       })
       .when('/new', {
-        templateUrl: 'views/program.html',
+        templateUrl: 'views/new-program.html',
         controller: 'ProgramCtrl',
         controllerAs: 'newProgram'
       })

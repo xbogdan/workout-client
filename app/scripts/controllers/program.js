@@ -48,6 +48,7 @@ angular.module('workoutClientApp')
           initExercises();
         });
       } else {
+        initExercises();
         $scope.editing = true;
         $scope.showEditButton = false;
         $scope.program = {};
