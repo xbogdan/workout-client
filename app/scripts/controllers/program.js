@@ -49,14 +49,29 @@ angular.module('workoutClientApp')
         });
       } else {
         initExercises();
+        $scope.list = [
+          {
+            'title':'ceva',
+            'items': [
+              {'title': 'subitem1'},
+              {'title': 'subitem2'}
+            ]
+          },
+          {
+            'title':'ceva2',
+            'items': [
+              {'title': 'subitem22'},
+              {'title': 'subitem33'}
+            ]
+          }
+        ];
         $scope.editing = true;
         $scope.showEditButton = false;
-        $scope.program = {};
-        $scope.program.private = false;
-        $scope.program.level = 'beginner';
-        $scope.program.goal = 'fat-loss';
-        $scope.master = angular.copy($scope.program);
-        addDay();
+        $scope.master = {};
+        $scope.master.private = false;
+        $scope.master.level = 'beginner';
+        $scope.master.goal = 'fat-loss';
+        $scope.program = angular.copy($scope.master);
       }
 
       $scope.treeOptions = {
@@ -157,11 +172,24 @@ angular.module('workoutClientApp')
       };
     }
 
+    function addDay() {
+      if (typeof $scope.master.program_days_attributes === 'undefined') {
+        $scope.master.program_days_attributes = [];
+      }
+      var dayIndex = $scope.master.program_days_attributes.length;
+      $scope.master.program_days_attributes.push({ name: 'Day ' + dayIndex});
+      if (dayIndex > 0) {
+        $scope.master.program_days_attributes[dayIndex].ord = $scope.master.program_days_attributes[dayIndex-1].ord + 1;
+      }
+      $scope.newIndexes.program_days_attributes.push(dayIndex);
+      addExercise(dayIndex);
+    }
+
     function addExercise(dayIndex) {
       if (typeof $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes === 'undefined') {
         $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes = [];
       }
-      $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes.push({});
+      $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes.push({ name: 'Pick an exercise.' });
       var exIndex = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes.length - 1;
       $scope.newIndexes.program_day_exercises_attributes.push(exIndex);
 
@@ -175,19 +203,6 @@ angular.module('workoutClientApp')
       $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.push({});
       var setIndex = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.length - 1;
       $scope.newIndexes.program_day_exercise_sets_attributes.push(setIndex);
-    }
-
-    function addDay() {
-      if (typeof $scope.master.program_days_attributes === 'undefined') {
-        $scope.master.program_days_attributes = [];
-      }
-      $scope.master.program_days_attributes.push({});
-      var dayIndex = $scope.master.program_days_attributes.length - 1;
-      if (dayIndex > 0) {
-        $scope.master.program_days_attributes[dayIndex].ord = $scope.master.program_days_attributes[dayIndex-1].ord + 1;
-      }
-      $scope.newIndexes.program_days_attributes.push(dayIndex);
-      addExercise(dayIndex);
     }
 
     function destroyDay(dayIndex, event) {

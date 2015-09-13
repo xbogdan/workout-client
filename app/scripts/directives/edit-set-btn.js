@@ -3,7 +3,7 @@ angular.module('workoutClientApp')
     return {
       restrict: 'E',
       replace: true,
-      template: '<div class="program-item-action edit-btn show-global hidden" ng-click="edit(); $event.stopPropagation()"><i class="glyphicon glyphicon-pencil"></i></div>',
+      template: '<div class="program-item-action edit-btn show-global" ng-click="edit(); $event.stopPropagation()"><i class="glyphicon glyphicon-pencil"></i></div>',
       controller: function($scope, $element) {
         $scope.edit = function() {
           var $li = $element.closest('.program-item');

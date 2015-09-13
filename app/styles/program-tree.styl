@@ -51,6 +51,9 @@
   background-color white
   border-bottom 1px solid #efefef
 
+.day-item.day-expanded
+  border-bottom 0
+
 .program-item
   flexbox()
   flex-wrap wrap
@@ -67,6 +70,7 @@
       position static
       font-size 16px
       line-height 1
+      cursor pointer
       &.arrow
         margin 10px 0 10px 5px
       &:last-child
@@ -163,9 +167,9 @@
   display block
 
 .program-tree .exercise-expanded > ul.set-list > li
-  border-bottom 1px solid #BDC3C7
+  border-bottom 1px solid #fff
 
-.program-tree .exercise-expanded > ul.set-list > li:last-child
+.program-tree .exercise-expanded > ul.set-list > li:nth-last-child(2)
   border-bottom 0
 
 .program-tree .exercise-expanded > .expand-btn
@@ -177,6 +181,8 @@
   font-weight 100
   position relative
   margin 10px 0 10px 10px
+  .program-option-label
+    margin-right 10px
 
   .edit-btn
     right 5px
@@ -192,12 +198,17 @@
     border 0
     margin 0 auto
     outline none
-    border-top 1px solid #2C3E50
-    border-bottom 1px solid #2C3E50
+    line-height 20px
+    border 1px solid #2C3E50
     font-size 16px
     font-weight 100
     background-color #ECF0F1
     padding 9px
+
+  .remove-btn
+    position absolute
+    right 0
+    top 0
 
 .edit-btn
   cursor pointer
@@ -215,11 +226,17 @@
 .exercise-item.exercise-expanded > .program-item-text
   box-shadow: inherit 0 0px 2px rgba(0,0,0,0.4);
 
+.program-tree .day-expanded > ul.exercise-list > li.exercise-item.exercise-expanded
+  border-bottom: 0
+
 .set-item
   position relative
-  border-bottom: 1px solid #fff !important;
   &:last-child
     border-bottom 0
+
+  .program-item-action
+    padding-top 0
+    padding-bottom 0
 
   .ui-tree-handle
     padding 7px 10px
@@ -227,6 +244,7 @@
   .set-nr
     padding 7px 8px
     font-size 15px
+    line-height 20px
     color #fff
     background-color $wet-asphalt
 
@@ -242,6 +260,7 @@
 
   .edit-box input
     padding 6px 10px
+    line-height 20px
     font-size 15px
 
 #global-edit,
@@ -278,6 +297,7 @@
   font-size inherit
   padding 9px 10px
   line-height 1
+  border 1px solid $wet-asphalt
 
 #program-name-box .edit-box .edit-btn
   font-size 20px

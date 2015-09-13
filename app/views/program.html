@@ -74,7 +74,7 @@
         <a class="program-item-text expand-btn">
           <span class="program-item-value" ng-bind="day.name"></span>
           <div class="program-item-actions">
-            <edit-day-btn></edit-day-btn>
+            <edit-day-btn class="hidden"></edit-day-btn>
             <div class="program-item-action remove-btn show-global hidden" ng-click="destroyDay(dayIndex, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
             <div class="program-item-action arrow"></div>
           </div>
@@ -101,7 +101,7 @@
                 <a class="program-item-text set-text">
                   <span class="program-item-value"><span ng-bind="set.reps"></span> <small>reps</small></span>
                   <div class="program-item-actions">
-                    <edit-set-btn></edit-set-btn>
+                    <edit-set-btn class="hidden"></edit-set-btn>
                     <div class="program-item-action remove-btn show-global hidden" ng-click="destroySet(dayIndex, exIndex, $index, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
                   </div>
                 </a>
