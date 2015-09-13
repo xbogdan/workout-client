@@ -108,25 +108,29 @@ angular.module('workoutClientApp')
       $scope.treeEnabled = !$scope.treeEnabled;
     }
 
-    function changeGlobalEdit(event, cancel) {
+    function toggleFields(value) {
       var showGlobal = document.getElementsByClassName('show-global');
-      var show = false;
       for (var i = 0; i < showGlobal.length; i++) {
-        if (showGlobal[i].className.indexOf('hidden') > -1) {
-          show = true;
+        if (value) {
           showGlobal[i].className = showGlobal[i].className.replace(/\hidden\b/,'');
         } else {
           showGlobal[i].className += ' hidden';
         }
       }
+    }
+
+    function changeGlobalEdit(show, cancel) {
+      toggleFields(show);
       toggleTree();
-      if (typeof cancel === 'undefined' || cancel === false) {
+      if (!show && !cancel) {
         updateProgram();
-        event.target.innerHTML = show ? 'Finish' : 'Edit';
-      } else {
-        $scope.master = angular.copy($scope.program);
-        $('#global-edit').html('Edit');
       }
+      if (cancel) {
+        $scope.master = angular.copy($scope.program);
+      }
+      $('#global-edit').toggleClass('hidden');
+      $('#global-finish').toggleClass('hidden');
+
     }
 
     function submit() {
@@ -203,6 +207,7 @@ angular.module('workoutClientApp')
       $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.push({});
       var setIndex = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.length - 1;
       $scope.newIndexes.program_day_exercise_sets_attributes.push(setIndex);
+      setTimeout(function() {toggleFields(true);}, 0);
     }
 
     function destroyDay(dayIndex, event) {

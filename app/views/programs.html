@@ -1,10 +1,11 @@
-<div class="row">
-  <div class="col-sm-12 col-md-6">
+<div class="row" id="programs-box">
+  <div class="col-sm-12 col-md-4">
+    <h1>My programs</h1>
     <ul class="programs-list">
+      <li><a href="#/new" class="program-btn add-program-btn">New program</a></li>
       <li ng-repeat="p in programs" class="program">
-        <div>
-          <a ng-href="#/program/{{ p.id }}" class="program-btn">{{ p.name }}</a><a href ng-click="deleteProgram({{p.id}})" class="program-delete-btn">x</a>
-        </div>
+          <a ng-href="#/program/{{ p.id }}" class="program-btn">{{ p.name }}</a>
+          <a href ng-click="deleteProgram({{p.id}})" class="program-delete-btn"><i class="glyphicon glyphicon-remove"></i></a>
       </li>
     </ul>
   </div>

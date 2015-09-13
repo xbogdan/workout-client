@@ -1,7 +1,8 @@
 <div class="row nogutter">
   <div class="col-xs-12">
-    <div id="global-edit" class="clearfix" ng-click="changeGlobalEdit($event)">Edit</div>
-    <div id="global-cancel" class="clearfix show-global hidden" ng-click="changeGlobalEdit($event, true)">Cancel</div>
+    <div id="global-edit" class="clearfix" ng-click="changeGlobalEdit(true, false)">Edit</div>
+    <div id="global-finish" class="clearfix hidden" ng-click="changeGlobalEdit(false, false)">Finish</div>
+    <div id="global-cancel" class="clearfix show-global hidden" ng-click="changeGlobalEdit(false, true)">Cancel</div>
   </div>
 
   <div class="col-xs-12 col-md-4 col-md-offset-1">

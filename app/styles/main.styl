@@ -36,31 +36,44 @@ body {
 .show-global.hidden
   display none !important
 
+#programs-box h1
+  font-size 36px
+  text-align center
+  margin-bottom 40px
+  font-weight 100
+
 ul.programs-list {
   padding: 0;
   list-style: none;
 }
 
 ul.programs-list li {
-  display: block;
+  display: flex;
 }
 
-ul.programs-list li a {
-  padding: 20px;
-  font-size: 20px;
-  display: inline-block;
-  background-color: #27ae60;
-  color: white;
-  border-bottom: 1px solid #ecf0f1;
-}
+ul.programs-list li a
+  padding 10px 10px
+  font-size 18px
+  font-weight 100
+  display inline-block
+  background-color $green-sea
+  color white
+  border-bottom 1px solid #ecf0f1
+  &:hover
+    background-color $silver
 
-ul.programs-list li a.program-btn {
-  width: 200px;
-}
+ul.programs-list li a.program-btn
+  flex 1
 
-ul.programs-list li a.program-delete-btn {
-  background-color: red;
-}
+ul.programs-list li a.program-delete-btn
+  background-color $pomegranate
+  font-size 14px
+  i
+    line-height 30px
+
+ul.programs-list li a.add-program-btn
+  margin-bottom 10px
+  background-color $turquoise
 
 ul.programs-list li a:hover {
   text-decoration: none;
