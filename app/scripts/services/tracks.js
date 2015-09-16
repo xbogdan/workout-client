@@ -2,28 +2,26 @@
 
 /**
  * @ngdoc function
- * @name workoutClientApp.factory:ProgramsService
+ * @name workoutClientApp.factory:TracksService
  * @description
- * # ProgramsService
+ * # TracksService
  * Factory of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .factory('ProgramsService', ['$http', '$cookies', '$rootScope', function($http, $cookies, $rootScope) {
+  .factory('TracksService', ['$http', '$cookies', '$rootScope', function($http, $cookies, $rootScope) {
     var service = {};
-
-    service.Programs = Programs;
-    service.Program = Program;
-    service.editProgram = editProgram;
-    service.createProgram = createProgram;
-    service.deleteProgram = deleteProgram;
-    service.Exercises = Exercises;
+    service.Tracks = Tracks;
+    service.Track = Track;
+    service.editTrack = editTrack;
+    service.createTrack = createTrack;
+    service.deleteTrack = deleteTrack;
 
     return service;
 
-    function Programs(callback) {
+    function Tracks(callback) {
       $http({
         method: 'GET',
-        url: $rootScope.apiEndpoint+'/api/v1/programs'
+        url: $rootScope.apiEndpoint+'/api/v1/tracks'
       })
       .success(function(data, status) {
         callback(data, status);
@@ -33,10 +31,10 @@ angular.module('workoutClientApp')
       });
     }
 
-    function Program(id, callback) {
+    function Track(id, callback) {
       $http({
         method: 'GET',
-        url: $rootScope.apiEndpoint+'/api/v1/program?id='+id
+        url: $rootScope.apiEndpoint+'/api/v1/track?id='+id
       })
       .success(function(data, status) {
         callback(data, status);
@@ -46,10 +44,10 @@ angular.module('workoutClientApp')
       });
     }
 
-    function createProgram(program, callback) {
+    function createTrack(program, callback) {
       $http({
         method: 'POST',
-        url: $rootScope.apiEndpoint+'/api/v1/createProgram',
+        url: $rootScope.apiEndpoint+'/api/v1/createTrack',
         data: {
           program: program
         }
@@ -62,10 +60,10 @@ angular.module('workoutClientApp')
       });
     }
 
-    function editProgram(program, callback) {
+    function editTrack(program, callback) {
       $http({
         method: 'PUT',
-        url: $rootScope.apiEndpoint+'/api/v1/updateProgram',
+        url: $rootScope.apiEndpoint+'/api/v1/updateTrack',
         data: {
           program: program
         }
@@ -78,10 +76,10 @@ angular.module('workoutClientApp')
       });
     }
 
-    function deleteProgram(program_id, callback) {
+    function deleteTrack(program_id, callback) {
       $http({
         method: 'DELETE',
-        url: $rootScope.apiEndpoint+'/api/v1/deleteProgram',
+        url: $rootScope.apiEndpoint+'/api/v1/deleteTrack',
         data: {
           id: program_id
         }
@@ -91,19 +89,6 @@ angular.module('workoutClientApp')
       })
       .error(function(err, status) {
          callback(err, status);
-      });
-    }
-
-    function Exercises(filter, callback) {
-      $http({
-        method: 'GET',
-        url: $rootScope.apiEndpoint+'/api/v1/exercises?filter='+filter
-      })
-      .success(function(data, status) {
-        callback(data);
-      })
-      .error(function(err, status) {
-         callback(err);
       });
     }
   }]);
