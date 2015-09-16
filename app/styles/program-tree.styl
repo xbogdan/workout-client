@@ -51,8 +51,24 @@
   background-color white
   border-bottom 1px solid #efefef
 
-.day-item.day-expanded
-  border-bottom 0
+.exercise-item > .program-item-text
+  background-color $turquoise;
+  color #FFF
+
+.day-item,
+.exercise-item
+  & > .program-item-text
+    height 40px
+    padding 10px
+
+.exercise-item,
+.set-item
+  border-bottom 1px solid #FFF
+  &:nth-last-child(2)
+    border-bottom 0
+
+.set-item > .program-item-text
+  height 34px
 
 .program-item
   flexbox()
@@ -60,19 +76,30 @@
   padding 0
   align-items center
 
-.program-item
+  .program-item-text
+    flex(1)
+    position relative
+    flexbox()
+    align-items center
+    margin 0
+    font-weight 100
+    font-size 16px
+    transition none
+
   .program-item-actions
     flexbox()
     align-items center
     order(2)
+
     .program-item-action
       display block
       position static
       font-size 16px
       line-height 1
       cursor pointer
-      &.arrow
-        margin 10px 0 10px 5px
+      &.program-item-arrow
+        padding-left 5px
+        width 17px
       &:last-child
         padding-right 0
         margin-right 0
@@ -83,99 +110,45 @@
     order(1)
     flex(1)
 
-.program-item > ul
-  flex(1 100%)
+  .ui-tree-handle
+    top 0
+    padding 10px
+    color black
+    font-size 20px
 
-.program-item .program-item-text
-  flex(1)
-  position relative
-  flexbox()
-  align-items center
-  margin 0
-  font-weight 100
-  font-size 16px
-  transition none
+  &:not(.program-item-expanded):not(.exercise-item):not(.set-item) > .program-item-text:hover
+    background-color #efefef
+    color $wet-asphalt
 
-.exercise-item > .program-item-text,
-.day-item > .program-item-text
-  height 40px
-.set-item .program-item-text
-  height 34px
+  &.program-item-expanded
+    & > .program-item-text
+      position relative
+      color #fff
+      box-shadow 0 1px 1px rgba(0, 0, 0, 0.4)
 
-.program-item .ui-tree-handle
-  top 0
-  padding 10px
-  // margin-right 10px
-  color black
-  font-size 20px
+      & > .program-item-actions
+        .arrow
+          transform rotate(90deg)
+          &:after, &:before
+            background-color #FFF
 
-.program-item.day-item > .program-item-text,
-.program-item.exercise-item > .program-item-text
-  padding 10px
+    &.day-item > .program-item-text
+      z-index 10
+      background-color $green-sea
 
-.day-expanded.program-item.day-item > .program-item-text,
-.exercise-expanded.program-item.exercise-item > .program-item-text
-  position relative
-  color #fff
-  box-shadow 0 1px 1px rgba(0, 0, 0, 0.4)
+    &.exercise-item > .program-item-text
+      z-index 9
+      background-color $turquoise
 
-.day-expanded.program-item.day-item > .program-item-text
-  z-index 10
+    & > ul
+      flex(1 100%)
+      display block
+      margin-left 10px
 
-.exercise-expanded.program-item.exercise-item > .program-item-text
-  z-index 9
-
-.program-item.exercise-item > .program-item-text
-  background-color $turquoise
-  color #fff
-
-.day-expanded.program-item.day-item > .program-item-text
-  background-color $green-sea
-
-.expand-btn:hover
-  color $wet-asphalt
-
-.day-item:not(.day-expanded) > .expand-btn:hover
-  background-color #efefef
-
-.expand-btn .arrow
-  transform rotate(0)
-
-.program-tree .day-expanded .arrow:after,
-.program-tree .day-expanded .arrow:before,
-.program-tree .exercise-expanded .arrow:after,
-.program-tree .exercise-expanded .arrow:before
-  background-color #fff
-
-.day-expanded > .expand-btn > .program-item-actions > .arrow,
-.exercise-expanded > .expand-btn > .program-item-actions > .arrow
-  margin-right 2px
-  transform rotate(90deg)
-
-.program-tree .day-expanded ul.exercise-list
-  display block
-  margin-left 10px
-
-.program-tree .day-expanded > ul.exercise-list > li
-  border-bottom 1px solid #efefef
-
-.program-tree .day-expanded > ul.exercise-list > li:last-child
-  border-bottom 0
-
-.program-tree .exercise-expanded > ul.set-list
-  margin-left 10px
-  display block
-
-.program-tree .exercise-expanded > ul.set-list > li
-  border-bottom 1px solid #fff
-
-.program-tree .exercise-expanded > ul.set-list > li:nth-last-child(2)
-  border-bottom 0
-
-.program-tree .exercise-expanded > .expand-btn
-  position relative
-  z-index 8
-  box-shadow 0px 1px 1px rgba(0, 0, 0, 0.39)
+  &.exercise-item > .program-item-text > .program-item-actions
+    .arrow:after,
+    .arrow:before
+      background-color #FFF
 
 .program-option
   font-weight 100
@@ -214,29 +187,35 @@
   cursor pointer
   position absolute
   font-size 14px
-  padding 10px 5px
+  padding 0 5px
   color #34495E
   top 50%
   transform translateY(-50%)
 
 .remove-btn
-  padding 10px 5px
+  padding 0 5px
   color $pomegranate
 
-.exercise-item.exercise-expanded > .program-item-text
-  box-shadow: inherit 0 0px 2px rgba(0,0,0,0.4);
+.program-item.program-item-expanded+.rest-day
+  border-top 1px solid #FFF
 
-.program-tree .day-expanded > ul.exercise-list > li.exercise-item.exercise-expanded
-  border-bottom: 0
+.day-item.rest-day
+  .program-item-text
+    background-color #EFEFEF
+  .expand-btn
+    cursor default
+  .edit-btn, .program-item-arrow
+    display none
+  .remove-btn
+    padding-right 0
+  .rest-day-btn
+    color $green-sea
+
+.rest-day-btn
+  padding 0 5px
 
 .set-item
   position relative
-  &:last-child
-    border-bottom 0
-
-  .program-item-action
-    padding-top 0
-    padding-bottom 0
 
   .ui-tree-handle
     padding 7px 10px
@@ -251,6 +230,7 @@
   .set-text
     padding 7px 10px
     background-color #ECF0F1
+    font-size 14px
     color $wet-asphalt
     small
       line-height 1
@@ -261,7 +241,7 @@
   .edit-box input
     padding 6px 10px
     line-height 20px
-    font-size 15px
+    font-size 14px
 
 #global-edit,
 #global-cancel,

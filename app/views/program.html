@@ -7,26 +7,30 @@
 
   <div class="col-xs-12 col-md-4 col-md-offset-1">
 
+    <!-- Name -->
     <div class="program-field-box" id="program-name-box">
       <h3 class="program-field-value">
         <span ng-bind="master.name"></span>
         <div class="glyphicon glyphicon-pencil edit-btn show-global hidden" ng-click="editField($event); $event.stopPropagation()"></div>
       </h3>
-      <div class="edit-box hidden"><input type="text" id="program-name-input" ng-model="master.name"><div ng-click="editField($event)" class="glyphicon glyphicon-check edit-btn"></div></div>
+      <div class="edit-box hidden">
+        <input type="text" id="program-name-input" ng-model="master.name">
+        <div ng-click="editField($event)" class="glyphicon glyphicon-check edit-btn"></div>
+      </div>
     </div>
 
     <!-- Goal -->
     <div class="program-option program-field-box" id="program-goal-box">
-      <span>Goal:</span>
+      <span>Goal: </span>
       <span class="program-field-value">
         <span ng-bind="master.goal"></span>
         <div class="glyphicon glyphicon-pencil edit-btn show-global hidden" ng-click="editField($event)"></div>
       </span>
       <span class="edit-box hidden">
         <select ng-model="master.goal">
-          <option value="mass-gain">Mass gain</option>
-          <option value="fat-loss">Fat loss</option>
-          <option value="strength">Strength</option>
+          <option value="Mass gain">Mass gain</option>
+          <option value="Fat loss">Fat loss</option>
+          <option value="Strength">Strength</option>
         </select>
         <div class="glyphicon glyphicon-check edit-btn" ng-click="editField($event)"></div>
       </span>
@@ -34,50 +38,51 @@
 
     <!-- Level -->
     <div class="program-option program-field-box" id="program-level-box">
-      <span>Level:</span>
+      <span>Level: </span>
       <span class="program-field-value">
         <span ng-bind="master.level"></span>
         <div class="glyphicon glyphicon-pencil edit-btn show-global hidden" ng-click="editField($event)"></div>
       </span>
       <span class="edit-box hidden">
         <select ng-model="master.level">
-          <option value="beginner">Beginner</option>
-          <option value="intermmediate">Intermmediate</option>
-          <option value="advanced">Advanced</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermmediate">Intermmediate</option>
+          <option value="Advanced">Advanced</option>
         </select>
         <div class="glyphicon glyphicon-check edit-btn" ng-click="editField($event)"></div>
       </span>
     </div>
 
     <!-- Private -->
-    <div class="program-option">
-      <span>Private:</span>
-      <span ng-hide="editPrivateField">
+    <!-- <div class="program-option">
+      <span>Private: </span>
+      <span>
         {{ master.private ? 'Yes' : 'No' }}
-        <div class="glyphicon glyphicon-pencil edit-btn show-global hidden" ng-click="editPrivateField = !editPrivateField"></div>
+        <div class="glyphicon glyphicon-pencil edit-btn show-global hidden"></div>
       </span>
-      <input type="checkbox" ng-model="master.private" ng-show="editPrivateField">
-      <!-- <span class="edit-box" ng-show="editPrivateField">
+      <input type="checkbox" ng-model="master.private" class="hidden">
+      <span class="edit-box" ng-show="editPrivateField">
         <span class="bootstrap-switch-square">
           <input type="checkbox" ng-model="master.private" id="private-switch" data-on-text="<span class='fui-check'></span>" data-off-text="<span class='fui-cross'></span>">
         </span>
-      </span> -->
-      <div class="glyphicon glyphicon-check edit-btn" ng-show="editPrivateField" ng-click="editPrivateField = !editPrivateField"></div>
-    </div>
+      </span>
+      <div class="glyphicon glyphicon-check edit-btn"></div>
+    </div> -->
   </div>
 
   <div class="col-xs-12 col-md-offset-2 col-md-4 program-tree" id="program-routine" ui-tree="treeOptions" data-drag-enabled="treeEnabled">
     <h3>Routine <!--<span id="reorder-btn" ng-click="toggleTree($event)">{{ treeEnabled ? 'Finish' : 'Reorder' }}</span>--></h3>
     <!-- day list -->
     <ul class="day-list" ng-model="master.program_days_attributes" ui-tree-nodes="">
-      <li ng-repeat="day in master.program_days_attributes" class="program-item day-item" ng-init="dayIndex = $index" ui-tree-node>
+      <li ng-repeat="day in master.program_days_attributes" class="program-item day-item" ng-class="{ 'rest-day': day.rest_day}" ng-init="dayIndex = $index" ui-tree-node>
         <span ui-tree-handle ng-show="treeEnabled" class="ui-tree-handle glyphicon glyphicon-menu-hamburger"></span>
-        <a class="program-item-text expand-btn">
+        <a class="program-item-text expand-btn" ng-click="expandItem($event)">
           <span class="program-item-value" ng-bind="day.name"></span>
           <div class="program-item-actions">
+            <div class="program-item-action rest-day-btn show-global hidden" ng-click="toggleRestDay($event, dayIndex)"><i class="glyphicon glyphicon-off"></i></div>
             <edit-day-btn class="hidden"></edit-day-btn>
             <div class="program-item-action remove-btn show-global hidden" ng-click="destroyDay(dayIndex, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
-            <div class="program-item-action arrow"></div>
+            <div class="program-item-action program-item-arrow"><div class="arrow"></div></div>
           </div>
         </a>
 
@@ -85,12 +90,12 @@
         <ul class="exercise-list" ng-model="day.program_day_exercises_attributes" ui-tree-nodes="">
           <li ng-repeat="ex in day.program_day_exercises_attributes" class="program-item exercise-item" ng-init="exIndex = $index" ui-tree-node>
             <span ui-tree-handle ng-show="treeEnabled" class="ui-tree-handle glyphicon glyphicon-menu-hamburger"></span>
-            <a class="program-item-text expand-btn">
+            <a class="program-item-text expand-btn" ng-click="expandItem($event)">
               <span class="program-item-value" ng-bind="ex.name"></span>
               <div class="program-item-actions">
                 <div class="program-item-action edit-btn show-global hidden" ng-click="editExercise(ex); $event.stopPropagation();"><i class="glyphicon glyphicon-pencil"></i></div>
                 <div class="program-item-action remove-btn show-global hidden" ng-click="destroyExercise(dayIndex, exIndex, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
-                <div class="program-item-action arrow"></div>
+                <div class="program-item-action program-item-arrow"><div class="arrow"></div></div>
               </div>
             </a>
 

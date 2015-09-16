@@ -11,6 +11,8 @@ angular.module('workoutClientApp')
   .controller('ProgramCtrl', ['$scope', '$routeParams', '$location', 'ProgramsService', '$rootScope', function ($scope, $routeParams, $location, ProgramsService, $rootScope) {
 
     $scope.submit = submit;
+    $scope.toggleRestDay = toggleRestDay;
+    $scope.expandItem = expandItem;
     $scope.editField = editField;
     $scope.addDay = addDay;
     $scope.addExercise = addExercise;
@@ -49,22 +51,6 @@ angular.module('workoutClientApp')
         });
       } else {
         initExercises();
-        $scope.list = [
-          {
-            'title':'ceva',
-            'items': [
-              {'title': 'subitem1'},
-              {'title': 'subitem2'}
-            ]
-          },
-          {
-            'title':'ceva2',
-            'items': [
-              {'title': 'subitem22'},
-              {'title': 'subitem33'}
-            ]
-          }
-        ];
         $scope.editing = true;
         $scope.showEditButton = false;
         $scope.master = {};
@@ -104,6 +90,15 @@ angular.module('workoutClientApp')
       });
     }
 
+    function expandItem(event) {
+      event.preventDefault();
+      event.stopPropagation();
+      var $this = $(event.currentTarget);
+      var $parent = $this.closest('.program-item');
+      if ($parent.hasClass('rest-day')) return;
+      $parent.toggleClass('program-item-expanded');
+    }
+
     function toggleTree() {
       $scope.treeEnabled = !$scope.treeEnabled;
     }
@@ -135,6 +130,7 @@ angular.module('workoutClientApp')
 
     function submit() {
       if (!$routeParams.id) {
+        fixRestDays();
         ProgramsService.createProgram($scope.master, function(data, status) {
           if (status === 201) {
             $location.path('/');
@@ -145,8 +141,33 @@ angular.module('workoutClientApp')
       }
     }
 
+    function fixRestDays(update) {
+      if (typeof update === 'undefined') update = false;
+      for (var i = 0; i < $scope.master.program_days_attributes.length; i++) {
+        var day = $scope.master.program_days_attributes[i];
+        if (day.rest_day) {
+          if (update === false) {
+            day.program_day_exercises_attributes = null;
+          } else {
+            for (var j = 0; j < day.program_day_exercises_attributes.length; j++) {
+              var exercise = day.program_day_exercises_attributes[j];
+              exercise._destroy = true;
+              for (var k = 0; k < exercise.program_day_exercise_sets_attributes.length; k++) {
+                var set = exercise.program_day_exercise_sets_attributes[k];
+                set._destroy = true;
+              }
+            }
+          }
+        }
+      }
+    }
+
     function updateProgram() {
       if ($routeParams.id) {
+        fixRestDays(true);
+        $('.edit-box:not(.hidden)').addClass('hidden');
+        $('.program-item-text.hidden').removeClass('hidden');
+        $('.program-field-value.hidden').removeClass('hidden');
         ProgramsService.editProgram($scope.master, function(data, status) {
           if (status != 200) {
             alert('Error updating program. Response received with status: ' + status);
@@ -174,6 +195,19 @@ angular.module('workoutClientApp')
           }
         });
       };
+    }
+
+    function toggleRestDay(event, dayIndex) {
+      event.preventDefault();
+      event.stopPropagation();
+      var day = $scope.master.program_days_attributes[dayIndex];
+      day.rest_day = !day.rest_day;
+      if (day.rest_day) {
+        day.name = 'Rest day';
+      } else {
+        day.name = 'Day '+dayIndex;
+      }
+      $(event.currentTarget).closest('.program-item').removeClass('program-item-expanded').toggleClass('rest-day');
     }
 
     function addDay() {
