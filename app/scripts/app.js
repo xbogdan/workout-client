@@ -55,22 +55,22 @@ angular
         controller: 'TracksController',
         controllerAs: 'tracks'
       })
-      .when('/track/:id', {
-        templateUrl: 'views/track.html',
-        controller: 'TrackController',
-        controllerAs: 'track'
-      })
       .when('/track/new', {
         templateUrl: 'views/new-track.html',
         controller: 'TrackController',
         controllerAs: 'newTrack'
+      })
+      .when('/track/:id', {
+        templateUrl: 'views/track.html',
+        controller: 'TrackController',
+        controllerAs: 'track'
       })
       .otherwise({
         redirectTo: '/'
       });
   }])
   .run(['$rootScope', '$cookies', '$http', '$location', function ($rootScope, $cookies, $http, $location) {
-    $rootScope.apiEndpoint = 'http://192.168.0.13:3000';
+    $rootScope.apiEndpoint = 'http://192.168.0.10:3000';
     // keep user logged in after page refresh
     var globals = $cookies.get('globals') || null;
     if (globals) {

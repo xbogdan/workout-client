@@ -14,8 +14,12 @@ angular.module('workoutClientApp')
             toggle();
           } else {
             $scope.programItem.toggleClass('hidden');
-            var editBox = $compile('<div class="edit-box"><input type="text" ng-model="set.reps" ng-model-options="{debounce: { \'default\': 500 }}">' +
-                                   '<div ng-click="close()" class="glyphicon glyphicon-check edit-btn"></div></div>')($scope);
+            var editBox = $compile(
+              '<div class="edit-box">' +
+                '<input type="text" ng-model="set.reps" ng-model-options="{debounce: { \'default\': 500 }}">' +
+                '<div ng-click="close()" class="glyphicon glyphicon-check edit-btn"></div>' +
+              '</div>'
+            )($scope);
             $scope.programItem.after(editBox);
             $scope.editBox = editBox;
             focusInput();
@@ -34,8 +38,8 @@ angular.module('workoutClientApp')
           $scope.programItem.toggleClass('hidden');
         }
         function closeActive() {
-          $('.edit-box:not(.hidden)').addClass('hidden');
-          $('.program-item-text.hidden').removeClass('hidden');
+          $('.program-tree .edit-box:not(.hidden)').addClass('hidden');
+          $('.program-tree .program-item-text.hidden').removeClass('hidden');
         }
         function focusInput() {
           setTimeout(function() {

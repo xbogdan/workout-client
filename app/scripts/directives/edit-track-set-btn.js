@@ -1,5 +1,5 @@
 angular.module('workoutClientApp')
-  .directive('editDayBtn', function($compile) {
+  .directive('editTrackSetBtn', function($compile) {
     return {
       restrict: 'E',
       replace: true,
@@ -16,7 +16,8 @@ angular.module('workoutClientApp')
             $scope.programItem.toggleClass('hidden');
             var editBox = $compile(
               '<div class="edit-box">' +
-                '<input type="text" ng-model="day.name" ng-model-options="{debounce: { \'default\': 500 }}">' +
+                '<input type="text" ng-model="set.reps" ng-model-options="{debounce: { \'default\': 500 }}">' +
+                '<input type="text" ng-model="set.weight" ng-model-options="{debounce: { \'default\': 500 }}">' +
                 '<div ng-click="close()" class="glyphicon glyphicon-check edit-btn"></div>' +
               '</div>'
             )($scope);
@@ -31,15 +32,15 @@ angular.module('workoutClientApp')
         function toggle() {
           if ($scope.editBox.hasClass('hidden')) {
             $scope.editBox.removeClass('hidden');
-            focusInput();
+            // focusInput();
           } else {
             $scope.editBox.addClass('hidden');
           }
           $scope.programItem.toggleClass('hidden');
         }
         function closeActive() {
-          $('.program-tree .edit-box:not(.hidden)').addClass('hidden');
-          $('.program-tree .program-item-text.hidden').removeClass('hidden');
+          $('.edit-box:not(.hidden)').addClass('hidden');
+          $('.program-item-text.hidden').removeClass('hidden');
         }
         function focusInput() {
           setTimeout(function() {

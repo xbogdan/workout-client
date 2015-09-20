@@ -125,7 +125,6 @@ angular.module('workoutClientApp')
       }
       $('#global-edit').toggleClass('hidden');
       $('#global-finish').toggleClass('hidden');
-
     }
 
     function submit() {
@@ -215,7 +214,7 @@ angular.module('workoutClientApp')
         $scope.master.program_days_attributes = [];
       }
       var dayIndex = $scope.master.program_days_attributes.length;
-      $scope.master.program_days_attributes.push({ name: 'Day ' + dayIndex});
+      $scope.master.program_days_attributes.push({ name: 'Day ' + dayIndex, ord: dayIndex});
       if (dayIndex > 0) {
         $scope.master.program_days_attributes[dayIndex].ord = $scope.master.program_days_attributes[dayIndex-1].ord + 1;
       }
@@ -227,10 +226,12 @@ angular.module('workoutClientApp')
       if (typeof $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes === 'undefined') {
         $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes = [];
       }
-      $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes.push({ name: 'Pick an exercise.' });
-      var exIndex = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes.length - 1;
+      var exIndex = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes.length;
+      $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes.push({ name: 'Pick an exercise.', ord: exIndex });
+      if (exIndex > 0) {
+        $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].ord = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex-1].ord + 1;
+      }
       $scope.newIndexes.program_day_exercises_attributes.push(exIndex);
-
       addSet(dayIndex, exIndex);
     }
 
@@ -238,10 +239,14 @@ angular.module('workoutClientApp')
       if (typeof $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes === 'undefined') {
         $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes = [];
       }
-      $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.push({});
-      var setIndex = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.length - 1;
+      var setIndex = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.length;
+      $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes.push({ ord: setIndex });
+      if (setIndex > 0) {
+        $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes[setIndex].ord = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes[setIndex-1].ord + 1;
+      }
       $scope.newIndexes.program_day_exercise_sets_attributes.push(setIndex);
       setTimeout(function() {toggleFields(true);}, 0);
+      console.log($scope.master);
     }
 
     function destroyDay(dayIndex, event) {

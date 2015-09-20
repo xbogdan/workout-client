@@ -44,12 +44,12 @@ angular.module('workoutClientApp')
       });
     }
 
-    function createTrack(program, callback) {
+    function createTrack(track, callback) {
       $http({
         method: 'POST',
         url: $rootScope.apiEndpoint+'/api/v1/createTrack',
         data: {
-          program: program
+          track: track
         }
       })
       .success(function(data, status) {
@@ -60,12 +60,12 @@ angular.module('workoutClientApp')
       });
     }
 
-    function editTrack(program, callback) {
+    function editTrack(track, callback) {
       $http({
         method: 'PUT',
         url: $rootScope.apiEndpoint+'/api/v1/updateTrack',
         data: {
-          program: program
+          track: track
         }
       })
       .success(function(data, status) {
@@ -76,12 +76,12 @@ angular.module('workoutClientApp')
       });
     }
 
-    function deleteTrack(program_id, callback) {
+    function deleteTrack(track_id, callback) {
       $http({
         method: 'DELETE',
         url: $rootScope.apiEndpoint+'/api/v1/deleteTrack',
         data: {
-          id: program_id
+          id: track_id
         }
       })
       .success(function(data, status) {

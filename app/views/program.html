@@ -105,7 +105,7 @@
                 <span ui-tree-handle ng-show="treeEnabled" class="ui-tree-handle glyphicon glyphicon-menu-hamburger"></span>
                 <span class="set-nr" ng-bind="$index+1"></span>
                 <a class="program-item-text set-text">
-                  <span class="program-item-value"><span ng-bind="set.reps"></span> <small>reps</small></span>
+                  <span class="program-item-value"><span><span ng-bind="set.reps"></span> <small>reps</small></span></span>
                   <div class="program-item-actions">
                     <edit-set-btn class="hidden"></edit-set-btn>
                     <div class="program-item-action remove-btn show-global hidden" ng-click="destroySet(dayIndex, exIndex, $index, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
