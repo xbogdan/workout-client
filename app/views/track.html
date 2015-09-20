@@ -28,7 +28,7 @@
         <a class="program-item-text expand-btn" ng-click="expandItem($event)">
           <span class="program-item-value">{{ day.date | date }}</span>
           <div class="program-item-actions">
-            <edit-day-btn class="hidden"></edit-day-btn>
+            <edit-track-day-btn class="hidden"></edit-track-day-btn>
             <div class="program-item-action remove-btn show-global hidden" ng-click="destroyDay(dayIndex, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
             <div class="program-item-action program-item-arrow"><div class="arrow"></div></div>
           </div>
@@ -40,7 +40,7 @@
             <a class="program-item-text expand-btn" ng-click="expandItem($event)">
               <span class="program-item-value" ng-bind="ex.name"></span>
               <div class="program-item-actions">
-                <div class="program-item-action edit-btn show-global hidden" ng-click="editExercise(ex); $event.stopPropagation();"><i class="glyphicon glyphicon-pencil"></i></div>
+                <div class="program-item-action edit-btn show-global hidden" ng-click="editExercise(ex); $event.stopPropagation();"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABYElEQVQ4T8WTMVLCYBCF3wsWWgknEE9giAcQC2egs7UA4gnUEwgnkBuYYGNJZ8bGXMAQPAFHwEpnMHnOjwbDaIDOv9x/95vd93aJFc9ptLsAOySqAIaJeBUH3iRfwqJ6U0zyOv8vYZK+sxaH3jSLFwIOmx2ZpOSDNcwwsXbSIcEjKT2PgjtvI4CAafTgV0xy1pGkXhQMumsBTrM9IbgnwSMUiuwTKM8Snr08evdrAXbDrZegIYjdhQ6SD6CcwOrHgReaeKEG5tNuuFULqUugKigkWAfZScTjjQB5B5xGyyWtWxPL67Cygwww74QaGQ3mMcl/DgbuYgT7xLVLWxoZn4G0Z2wyMWOf8dxpti4J6yYDmrwo8Pd/AEYw6unPpRJCUWOCF/n/5I0VA5+PMFe8CFCwqpmQ/whYGuFbxFWXuXxUGkfBwP61SHbdLVvbyalZGAE2yYMv2/AqKs5tpJcd1CdTaLMR1gU+bAAAAABJRU5ErkJggg=="/></div>
                 <div class="program-item-action remove-btn show-global hidden" ng-click="destroyExercise(dayIndex, exIndex, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
                 <div class="program-item-action program-item-arrow"><div class="arrow"></div></div>
               </div>

@@ -1,9 +1,9 @@
 angular.module('workoutClientApp')
-  .directive('editSetBtn', function($compile) {
+  .directive('editTrackDayBtn', function($compile) {
     return {
       restrict: 'E',
       replace: true,
-      template: '<div class="program-item-action edit-btn show-global" ng-click="edit(); $event.stopPropagation()"><i class="glyphicon glyphicon-pencil"></i></div>',
+      template: '<div class="program-item-action edit-btn show-global" ng-click="edit(); $event.stopPropagation()"><i class="glyphicon glyphicon-calendar"></i></div>',
       controller: function($scope, $element) {
         $scope.edit = function() {
           closeActive();
@@ -16,8 +16,7 @@ angular.module('workoutClientApp')
             $scope.programItem.toggleClass('hidden');
             var editBox = $compile(
               '<div class="edit-box">' +
-                '<input type="text" ng-model="set.reps" ng-model-options="{debounce: { \'default\': 500 }}">' +
-                '<small>reps</small>' +
+                '<input type="text" ng-model="day.name" ng-model-options="{debounce: { \'default\': 500 }}">' +
                 '<div ng-click="close()" class="glyphicon glyphicon-check edit-btn"></div>' +
               '</div>'
             )($scope);
@@ -32,7 +31,7 @@ angular.module('workoutClientApp')
         function toggle() {
           if ($scope.editBox.hasClass('hidden')) {
             $scope.editBox.removeClass('hidden');
-            // focusInput();
+            focusInput();
           } else {
             $scope.editBox.addClass('hidden');
           }

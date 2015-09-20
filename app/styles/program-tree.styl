@@ -51,15 +51,19 @@
   background-color white
   border-bottom 1px solid #efefef
 
-.exercise-item > .program-item-text
-  background-color $turquoise;
-  color #FFF
+.exercise-item
+  & > .program-item-text
+    background-color $turquoise;
+    color #FFF
+
+  .remove-btn i
+    top 2px
 
 .day-item,
 .exercise-item
   & > .program-item-text
     height 40px
-    padding 10px
+    padding 0 10px
 
 .exercise-item,
 .set-item
@@ -167,34 +171,43 @@
   flexbox()
   position relative
   flex(1)
+  align-items center
   .edit-btn
     right 5px
   input
-    display block
+    flex 1
     width 100%
-    border 0
-    margin 0 auto
     outline none
     line-height 20px
-    border 1px solid #2C3E50
+    border 1px solid $wet-asphalt
     font-size 16px
     font-weight 100
-    background-color #ECF0F1
+    background-color $clouds
     padding 9px
+
+  small
+    font-size 12px
+    font-weight 100
+    margin 0 20px 0 5px
 
   .remove-btn
     position absolute
     right 0
     top 0
 
-.edit-btn
-  cursor pointer
+.day-item > .edit-box .edit-btn
   position absolute
-  font-size 14px
-  padding 0 5px
-  color #34495E
   top 50%
   transform translateY(-50%)
+
+.edit-btn
+  cursor pointer
+  font-size 14px
+  padding 0 5px
+  color $wet-asphalt
+  img
+    vertical-align top
+
 
 .remove-btn
   padding 0 5px
@@ -233,14 +246,11 @@
 
   .set-text
     padding 7px 10px
-    background-color #ECF0F1
+    background-color $clouds
     font-size 14px
     color $wet-asphalt
     small
       line-height 1
-
-  .edit-btn
-    right 5px
 
   .edit-box input
     padding 6px 10px

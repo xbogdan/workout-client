@@ -17,7 +17,9 @@ angular.module('workoutClientApp')
             var editBox = $compile(
               '<div class="edit-box">' +
                 '<input type="text" ng-model="set.reps" ng-model-options="{debounce: { \'default\': 500 }}">' +
+                '<small>reps</small>' +
                 '<input type="text" ng-model="set.weight" ng-model-options="{debounce: { \'default\': 500 }}">' +
+                '<small>kg</small>' +
                 '<div ng-click="close()" class="glyphicon glyphicon-check edit-btn"></div>' +
               '</div>'
             )($scope);

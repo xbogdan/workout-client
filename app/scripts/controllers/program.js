@@ -246,7 +246,6 @@ angular.module('workoutClientApp')
       }
       $scope.newIndexes.program_day_exercise_sets_attributes.push(setIndex);
       setTimeout(function() {toggleFields(true);}, 0);
-      console.log($scope.master);
     }
 
     function destroyDay(dayIndex, event) {
