@@ -16,7 +16,9 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ui.tree'
+    'ui.tree',
+    'ui.bootstrap',
+    'pickadate'
   ])
   .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
     $httpProvider.defaults.useXDomain = true;

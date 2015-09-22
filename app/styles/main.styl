@@ -187,3 +187,35 @@ ul.programs-list li a:hover {
   padding-right:0;
   padding-left:0;
 }
+
+.datepicker
+  table
+    outline none !important
+    border 0 !important
+    .h6
+      font-size 13px
+    .btn.active
+      background-color $green-sea
+      color white
+      border-radius 3px
+      .text-info
+        color white
+    .btn
+      border-radius 0
+    .btn-default
+      background-color #FCFCFC
+      color black
+    td:focus, td:active, button:focus, button:active
+      outline none !important
+      border 0 !important
+
+  ul
+    left 50% !important
+    transform translateX(-50%)
+    padding 10px
+    &:focus, &:active, li:active, li:focus, li>div:active, li>div:focus
+      outline none !important
+      border 0 !important
+    li:last-child
+      overflow auto
+      padding 10px 0 0 0 !important

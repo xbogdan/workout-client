@@ -25,6 +25,7 @@ module.exports = function(config) {
       'bower_components/jquery/dist/jquery.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-animate/angular-animate.js',
+      'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
       'bower_components/angular-cookies/angular-cookies.js',
       'bower_components/angular-resource/angular-resource.js',
       'bower_components/angular-route/angular-route.js',
@@ -34,6 +35,9 @@ module.exports = function(config) {
       'bower_components/bootstrap/dist/js/bootstrap.js',
       'bower_components/videojs/dist/video-js/video.js',
       'bower_components/flat-ui/dist/js/flat-ui.js',
+      'bower_components/pickadate/lib/picker.js',
+      'bower_components/pickadate/lib/picker.date.js',
+      'bower_components/pickadate/lib/picker.time.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       "app/scripts/**/*.js",

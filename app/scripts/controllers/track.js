@@ -7,6 +7,7 @@
  * # TrackController
  * Controller of the workoutClientApp
  */
+// angular.module('workoutClientApp', ['ui.bootstrap']);
 angular.module('workoutClientApp')
   .controller('TrackController', ['$scope', '$routeParams', '$location', 'TracksService', 'ProgramsService', '$rootScope', function ($scope, $routeParams, $location, TracksService, ProgramsService, $rootScope) {
 
@@ -27,8 +28,14 @@ angular.module('workoutClientApp')
       'track_day_exercise_sets_attributes': []
     };
 
-    init();
+    $scope.openDatePicker = function(day) {
+      day.opened = true;
+    };
 
+    $scope.format = 'dd-MMMM-yyyy';
+
+    init();
+    $scope.openedDay = null;
     function init() {
       if ($routeParams.id) {
         TracksService.Track($routeParams.id, function(data) {
@@ -38,9 +45,25 @@ angular.module('workoutClientApp')
           }
           $scope.track = angular.copy($scope.master);
           initExercises();
+          setTimeout(function() {
+            var $input = $('#pick-a-date').pickadate();
+            $scope.picker = $input.pickadate('picker');
+            $scope.picker.on({
+              close: function() {
+                $scope.master.track_days_attributes[$scope.openedDayIndex].date = $scope.picker.get();
+                $scope.$apply();
+              }
+            });
+          }, 0);
         });
       } else {
       }
+    }
+
+    $scope.openPicker = openPicker;
+    function openPicker(index) {
+      $scope.openedDayIndex = index;
+      $scope.picker.open();
     }
 
     function initExercises() {
@@ -156,7 +179,7 @@ angular.module('workoutClientApp')
       var exIndex = $scope.master.track_days_attributes[dayIndex].track_day_exercises_attributes.length;
       $scope.master.track_days_attributes[dayIndex].track_day_exercises_attributes.push({ name: 'Pick an exercise.', ord: exIndex });
       if (exIndex > 0) {
-        $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].ord = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex-1].ord + 1;
+        $scope.master.track_days_attributes[dayIndex].track_day_exercises_attributes[exIndex].ord = $scope.master.track_days_attributes[dayIndex].track_day_exercises_attributes[exIndex-1].ord + 1;
       }
       $scope.newIndexes.track_day_exercises_attributes.push(exIndex);
 
@@ -170,7 +193,7 @@ angular.module('workoutClientApp')
       var setIndex = $scope.master.track_days_attributes[dayIndex].track_day_exercises_attributes[exIndex].track_day_exercise_sets_attributes.length;
       $scope.master.track_days_attributes[dayIndex].track_day_exercises_attributes[exIndex].track_day_exercise_sets_attributes.push({ ord: setIndex });
       if (setIndex > 0) {
-        $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes[setIndex].ord = $scope.master.program_days_attributes[dayIndex].program_day_exercises_attributes[exIndex].program_day_exercise_sets_attributes[setIndex-1].ord + 1;
+        $scope.master.track_days_attributes[dayIndex].track_day_exercises_attributes[exIndex].track_day_exercise_sets_attributes[setIndex].ord = $scope.master.track_days_attributes[dayIndex].track_day_exercises_attributes[exIndex].track_day_exercise_sets_attributes[setIndex-1].ord + 1;
       }
       $scope.newIndexes.track_day_exercise_sets_attributes.push(setIndex);
       setTimeout(function() {toggleFields(true);}, 0);
