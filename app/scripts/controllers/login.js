@@ -9,7 +9,6 @@
  */
 angular.module('workoutClientApp')
   .controller('LoginCtrl', ['$scope', '$cookies', 'AuthenticationService', '$location', '$rootScope', function ($scope, $cookies, AuthenticationService, $location, $rootScope) {
-    var self = this;
 
     // Redirect to / if user is signed in
     if ($rootScope.globals.currentUser) {

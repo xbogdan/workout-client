@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('workoutClientApp')
   .directive('onFinishRender', function ($timeout) {
     return {
@@ -9,17 +11,5 @@ angular.module('workoutClientApp')
           });
         }
       }
-    }
+    };
 });
-
-// angular.module('workoutClientApp')
-//   .directive('onRender', function ($timeout) {
-//     return {
-//       restrict: 'A',
-//       link: function (scope, element, attr) {
-//         $timeout(function () {
-//           scope.$eval(attr.onFinishRender);
-//         });
-//       }
-//     }
-// });

@@ -76,10 +76,6 @@
        ga('send', 'pageview');
     </script> -->
 
-    <!-- stand alone plugins -->
-    <script src="scripts/plugins/search-overlay.js"></script>
-    <!-- end stand alone plugins -->
-
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -102,6 +98,7 @@
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/plugins/search-overlay.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/controllers/programs.js"></script>
     <script src="scripts/controllers/program.js"></script>
@@ -113,14 +110,10 @@
     <script src="scripts/services/tracks.js"></script>
     <script src="scripts/services/authentication.js"></script>
     <script src="scripts/services/authInterceptor.js"></script>
+    <script src="scripts/services/routine-tree.js"></script>
     <script src="scripts/directives/finish-render.js"></script>
-    <script src="scripts/directives/edit-day-btn.js"></script>
-    <script src="scripts/directives/edit-set-btn.js"></script>
-    <script src="scripts/directives/edit-track-set-btn.js"></script>
+    <script src="scripts/directives/routine-tree.js"></script>
     <!-- endbuild -->
 
-    <!-- jquery based scripts -->
-    <script src="scripts/main.js"></script>
-    <!-- end jquery based scripts -->
 </body>
 </html>

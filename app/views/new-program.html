@@ -36,58 +36,7 @@
 
     </div>
 
-    <div class="col-xs-12 col-md-4 col-md-offset-2 program-tree" id="program-routine" ui-tree="treeOptions">
-      <h3>Routine</h3>
-
-      <ul class="day-list" ng-model="master.program_days_attributes" data-type="day" ui-tree-nodes="">
-        <li ng-repeat="day in master.program_days_attributes" class="program-item day-item" data-type="day" ng-init="dayIndex = $index" ui-tree-node>
-          <span ui-tree-handle class="ui-tree-handle glyphicon glyphicon-menu-hamburger"></span>
-          <a class="program-item-text expand-btn" ng-click="expandItem($event)">
-            <span class="program-item-value" ng-bind="day.name"></span>
-            <div class="program-item-actions">
-              <div class="program-item-action rest-day-btn" ng-click="toggleRestDay($event, dayIndex)"><i class="glyphicon glyphicon-off"></i></div>
-              <edit-day-btn></edit-day-btn>
-              <div class="program-item-action remove-btn" ng-click="destroyDay(dayIndex, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
-              <div class="program-item-action program-item-arrow"><div class="arrow"></div></div>
-            </div>
-          </a>
-
-          <!-- exercise list -->
-          <ul class="exercise-list" ng-model="day.program_day_exercises_attributes" data-type="exercise" ui-tree-nodes="">
-            <li ng-repeat="ex in day.program_day_exercises_attributes" class="program-item exercise-item" data-type="exercise" ng-init="exIndex = $index" ui-tree-node data-type="exercise">
-              <span ui-tree-handle class="ui-tree-handle glyphicon glyphicon-menu-hamburger"></span>
-              <a class="program-item-text expand-btn" ng-click="expandItem($event)">
-                <span class="program-item-value" ng-bind="ex.name"></span>
-                <div class="program-item-actions">
-                  <div class="program-item-action edit-btn show-global" ng-click="editExercise(ex); $event.stopPropagation();"><i class="glyphicon glyphicon-pencil"></i></div>
-                  <div class="program-item-action remove-btn show-global" ng-click="destroyExercise(dayIndex, exIndex, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
-                  <div class="program-item-action program-item-arrow"><div class="arrow"></div></div>
-                </div>
-              </a>
-
-              <!-- set list -->
-              <ul class="set-list" ng-model="ex.program_day_exercise_sets_attributes" data-type="set" ui-tree-nodes="">
-                <li ng-repeat="set in ex.program_day_exercise_sets_attributes" class="program-item set-item" ui-tree-node data-type="set">
-                  <span ui-tree-handle class="ui-tree-handle glyphicon glyphicon-menu-hamburger"></span>
-                  <span class="set-nr" ng-bind="$index+1"></span>
-                  <a class="program-item-text set-text">
-                    <span class="program-item-value"><span><span ng-bind="set.reps"></span> <small>reps</small></span></span>
-                    <div class="program-item-actions">
-                      <edit-set-btn></edit-set-btn>
-                      <div class="program-item-action remove-btn show-global" ng-click="destroySet(dayIndex, exIndex, $index, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
-                    </div>
-                  </a>
-                </li>
-                <li class="show-global"><a href ng-click="addSet(dayIndex, exIndex)" class="add-set-btn" data-nodrag><i class="glyphicon glyphicon-plus"></i>Add set</a></li>
-              </ul> <!-- end set list -->
-            </li>
-            <li class="show-global"><a href ng-click="addExercise(dayIndex)" class="add-exercise-btn" data-nodrag><i class="glyphicon glyphicon-plus"></i> Add exercise</a></li>
-          </ul> <!-- end exercise list -->
-        </li>
-        <li class="show-global"><a href ng-click="addDay()" class="add-day-btn" data-nodrag><i class="glyphicon glyphicon-plus"></i> Add day</a></li>
-      </ul> <!-- end day list -->
-
-    </div>
+    <routine-tree></routine-tree>
 
   </form>
 

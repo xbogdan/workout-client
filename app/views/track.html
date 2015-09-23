@@ -10,7 +10,7 @@
     <div class="program-field-box" id="program-name-box">
       <h3 class="program-field-value">
         <span ng-bind="master.name"></span>
-        <div class="glyphicon glyphicon-pencil edit-btn show-global hidden" ng-click="editField($event); $event.stopPropagation()"></div>
+        <div class="glyphicon glyphicon-pencil edit-btn show-global hidden" ng-click="editField($event)"></div>
       </h3>
       <div class="edit-box hidden">
         <input type="text" id="program-name-input" ng-model="master.name">
@@ -21,30 +21,23 @@
   </div>
 
   <div class="col-xs-12 col-md-offset-2 col-md-4 program-tree" id="program-routine">
-    <h3>Routine <!--<span id="reorder-btn" ng-click="toggleTree($event)">{{ treeEnabled ? 'Finish' : 'Reorder' }}</span>--></h3>
+    <h3>Track</h3>
     <!-- day list -->
     <ul class="day-list" ng-model="master.track_days_attributes">
-      <li ng-repeat="day in master.track_days_attributes" class="program-item day-item" ng-init="dayIndex = $index">
+      <li ng-repeat="day in master.track_days_attributes" class="program-item day-item">
         <a class="program-item-text expand-btn" ng-click="expandItem($event)">
-          <span class="program-item-value">{{ day.date | date : 'd MMMM, yyyy' }}</span>
+          <span class="program-item-value"><span class="program-item-value-text">{{ day.date | date : 'd MMMM, yyyy' }}</span></span>
           <div class="program-item-actions datepicker">
-            <div class="program-item-action edit-btn show-global hidden" ng-click="openPicker(dayIndex); $event.stopPropagation()"><i class="glyphicon glyphicon-calendar"></i></div>
-            <div class="program-item-action remove-btn show-global hidden" ng-click="destroyDay(dayIndex, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
+            <div class="program-item-action edit-btn show-global hidden" ng-click="openPicker($index); $event.stopPropagation()"><i class="glyphicon glyphicon-calendar"></i></div>
+            <div class="program-item-action remove-btn show-global hidden" ng-click="destroyDay($index, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
             <div class="program-item-action program-item-arrow"><div class="arrow"></div></div>
           </div>
         </a>
 
         <!-- exercise list -->
         <ul class="exercise-list" ng-model="day.track_day_exercises_attributes">
-          <li ng-repeat="ex in day.track_day_exercises_attributes" class="program-item exercise-item" ng-init="exIndex = $index">
-            <a class="program-item-text expand-btn" ng-click="expandItem($event)">
-              <span class="program-item-value" ng-bind="ex.name"></span>
-              <div class="program-item-actions">
-                <div class="program-item-action edit-btn show-global hidden" ng-click="editExercise(ex); $event.stopPropagation();"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABYElEQVQ4T8WTMVLCYBCF3wsWWgknEE9giAcQC2egs7UA4gnUEwgnkBuYYGNJZ8bGXMAQPAFHwEpnMHnOjwbDaIDOv9x/95vd93aJFc9ptLsAOySqAIaJeBUH3iRfwqJ6U0zyOv8vYZK+sxaH3jSLFwIOmx2ZpOSDNcwwsXbSIcEjKT2PgjtvI4CAafTgV0xy1pGkXhQMumsBTrM9IbgnwSMUiuwTKM8Snr08evdrAXbDrZegIYjdhQ6SD6CcwOrHgReaeKEG5tNuuFULqUugKigkWAfZScTjjQB5B5xGyyWtWxPL67Cygwww74QaGQ3mMcl/DgbuYgT7xLVLWxoZn4G0Z2wyMWOf8dxpti4J6yYDmrwo8Pd/AEYw6unPpRJCUWOCF/n/5I0VA5+PMFe8CFCwqpmQ/whYGuFbxFWXuXxUGkfBwP61SHbdLVvbyalZGAE2yYMv2/AqKs5tpJcd1CdTaLMR1gU+bAAAAABJRU5ErkJggg=="/></div>
-                <div class="program-item-action remove-btn show-global hidden" ng-click="destroyExercise(dayIndex, exIndex, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
-                <div class="program-item-action program-item-arrow"><div class="arrow"></div></div>
-              </div>
-            </a>
+          <li ng-repeat="ex in day.track_day_exercises_attributes" class="program-item exercise-item">
+            <routine-exercise></routine-exercise>
 
             <!-- set list -->
             <ul class="set-list" ng-model="ex.track_day_exercise_sets_attributes">
@@ -52,37 +45,29 @@
                 <span class="set-nr" ng-bind="$index+1"></span>
                 <a class="program-item-text set-text">
                   <span class="program-item-value">
-                    <span><span ng-bind="set.reps"></span> <small>reps</small></span>
-                    <span><span ng-bind="set.weight"></span> <small>kg</small></span>
+                    <span><input class="program-item-value-input" type="text" size="2" ng-model="set.reps" disabled="disabled"> <small>reps</small></span>
+                    <span><input class="program-item-value-input" type="text" size="2" ng-model="set.weight" disabled="disabled"> <small>kg</small></span>
                   </span>
                   <div class="program-item-actions">
-                    <edit-track-set-btn class="hidden"></edit-track-set-btn>
-                    <div class="program-item-action remove-btn show-global hidden" ng-click="destroySet(dayIndex, exIndex, $index, $event); $event.stopPropagation()"><i class="glyphicon glyphicon-remove"></i></div>
+                    <div class="program-item-action program-item-action_noedit edit-btn show-global hidden" ng-click="toggleSetField($event)"><i class="glyphicon glyphicon-pencil"></i></div>
+                    <div class="program-item-action program-item-action_editing cancel-edit-btn" ng-click="toggleSetField($event)"><i class="glyphicon glyphicon-check"></i></div>
+                    <div class="program-item-action remove-btn show-global hidden" ng-click="destroySet(ex, $index, $event)"><i class="glyphicon glyphicon-remove"></i></div>
                   </div>
                 </a>
               </li>
-              <li class="show-global hidden"><a href ng-click="addSet(dayIndex, exIndex)" class="add-set-btn"><i class="glyphicon glyphicon-plus"></i>Add set</a></li>
+              <li class="show-global hidden"><a href ng-click="addSet(ex)" class="add-set-btn"><i class="glyphicon glyphicon-plus"></i>Add set</a></li>
             </ul> <!-- end set list -->
           </li>
-          <li class="show-global hidden"><a href ng-click="addExercise(dayIndex)" class="add-exercise-btn"><i class="glyphicon glyphicon-plus"></i> Add exercise</a></li>
+
+          <li class="show-global hidden"><a href ng-click="addExercise(day)" class="add-exercise-btn"><i class="glyphicon glyphicon-plus"></i> Add exercise</a></li>
         </ul> <!-- end exercise list -->
 
       </li>
       <li class="show-global hidden"><a href ng-click="addDay()" class="add-day-btn"><i class="glyphicon glyphicon-plus"></i> Add day</a></li>
-    </ul>
+    </ul> <!-- end day list -->
+
   </div>
 
-
-  <input type="hidden" class="hidden" id="pick-a-date">
-
-  <div class="col-md-4 datepicker">
-
-    <!-- <p class="input-group">
-      <input type="text" class="form-control" ng-model="dt" is-open="showDatePicker" datepicker-popup="{{format}}" datepicker-options="dateOptions" ng-required="true" close-text="Close" />
-      <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="openDatePicker($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-      </span>
-    </p> -->
-  </div>
+  <input type="text" class="hidden" id="pick-a-date">
 
 </div>
