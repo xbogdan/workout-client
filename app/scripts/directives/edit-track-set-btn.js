@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('workoutClientApp')
   .directive('editTrackSetBtn', function($compile) {
     return {

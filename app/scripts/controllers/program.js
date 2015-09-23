@@ -32,12 +32,6 @@ angular.module('workoutClientApp')
     };
     $("#goal-select").select2();
 
-    $scope.renderSelect2 = function() {
-      $(".exercise-select").select2({
-        dropdownCssClass : 'show-select-search'
-      });
-    };
-
     init();
 
     function init() {
@@ -64,7 +58,7 @@ angular.module('workoutClientApp')
         accept: function(sourceNode, destNodes, destIndex) {
           var sourceType = sourceNode.$element.attr('data-type');
           var destType = destNodes.$element.attr('data-type');
-          return (sourceType == destType);
+          return (sourceType === destType);
         },
         dropped: function(e) {
           e.source.nodeScope.$modelValue.ord = e.dest.index;
@@ -86,7 +80,7 @@ angular.module('workoutClientApp')
           searchOptions.push({id: ex.id, text: ex.name});
         }
         $scope.exercises = exercises_found;
-        window.search = new searchOverlay(searchOptions);
+        window.search = new SearchOverlay(searchOptions);
       });
     }
 
@@ -95,7 +89,7 @@ angular.module('workoutClientApp')
       event.stopPropagation();
       var $this = $(event.currentTarget);
       var $parent = $this.closest('.program-item');
-      if ($parent.hasClass('rest-day')) return;
+      if ($parent.hasClass('rest-day')) { return; }
       $parent.toggleClass('program-item-expanded');
     }
 
@@ -141,7 +135,7 @@ angular.module('workoutClientApp')
     }
 
     function fixRestDays(update) {
-      if (typeof update === 'undefined') update = false;
+      if (typeof update === 'undefined') { update = false; }
       for (var i = 0; i < $scope.master.program_days_attributes.length; i++) {
         var day = $scope.master.program_days_attributes[i];
         if (day.rest_day) {
@@ -168,7 +162,7 @@ angular.module('workoutClientApp')
         $('.program-item-text.hidden').removeClass('hidden');
         $('.program-field-value.hidden').removeClass('hidden');
         ProgramsService.editProgram($scope.master, function(data, status) {
-          if (status != 200) {
+          if (status !== 200) {
             alert('Error updating program. Response received with status: ' + status);
           } else {
             $scope.program = angular.copy($scope.master);
@@ -188,7 +182,7 @@ angular.module('workoutClientApp')
       window.search.finishCallback = function() {
         $scope.$apply(function() {
           var value = window.search.getValue();
-          if (value != null) {
+          if (value !== null) {
             ex.exercise_id = value.id;
             ex.name = value.text;
           }

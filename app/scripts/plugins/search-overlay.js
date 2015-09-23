@@ -1,9 +1,11 @@
+'use strict';
+
 /**
  * Search overlay
  */
 (function() {
-  this.searchOverlay = function() {
-    var defaults = {};
+  var searchOverlay = function() {
+
     this.values = [];
     this.selectedValue = null;
     this.finishCallback = null;
@@ -20,7 +22,7 @@
   };
 
   searchOverlay.prototype.build = function() {
-    docFrag = document.createDocumentFragment();
+    var docFrag = document.createDocumentFragment();
 
     this.overlay = document.createElement('div');
     this.overlay.className = 'search-overlay';
@@ -44,7 +46,7 @@
     this.searchResults = document.createElement('ul');
     this.searchResults.className = 'search-results';
 
-    for (key in this.values) {
+    for (var key in this.values) {
       var li = document.createElement('li');
       li.innerHTML = this.values[key].text;
       li.dataset.id = this.values[key].id;
@@ -81,9 +83,9 @@
   searchOverlay.prototype.search = function() {
     var searchText = this.searchInput.value.toLowerCase();
     var matched = false;
-    for (key in this.values) {
+    for (var key in this.values) {
       var value = this.values[key].text.toLowerCase();
-      if (value.indexOf(searchText) == -1) {
+      if (value.indexOf(searchText) === -1) {
         this.hideResult(key);
       } else {
         this.showResult(key);
@@ -113,8 +115,8 @@
     var searchResults = this.searchResults.children;
     this.searchInput.value = searchResults[index].innerHTML;
     this.setValue(index);
-    for (key in this.values) {
-      if (this.values[key].id != searchResults[index].dataset.id) {
+    for (var key in this.values) {
+      if (this.values[key].id !== searchResults[index].dataset.id) {
         this.hideResult(key);
       }
     }
@@ -169,4 +171,6 @@
   searchOverlay.prototype.getValue = function() {
     return this.selectedValue;
   };
+
+  window.SearchOverlay = searchOverlay;
 }());

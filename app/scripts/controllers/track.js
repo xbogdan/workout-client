@@ -40,13 +40,12 @@ angular.module('workoutClientApp')
       if ($routeParams.id) {
         TracksService.Track($routeParams.id, function(data) {
           $scope.master = data.track;
-          for (var i = 0; i < $scope.master.track_days_attributes.length; i++) {
-            var d = new Date($scope.master.track_days_attributes[i].date);
-          }
           $scope.track = angular.copy($scope.master);
           initExercises();
           setTimeout(function() {
-            var $input = $('#pick-a-date').pickadate();
+            var $input = $('#pick-a-date').pickadate({
+              clear: false
+            });
             $scope.picker = $input.pickadate('picker');
             $scope.picker.on({
               close: function() {
@@ -76,7 +75,7 @@ angular.module('workoutClientApp')
           searchOptions.push({id: ex.id, text: ex.name});
         }
         $scope.exercises = exercises_found;
-        window.search = new searchOverlay(searchOptions);
+        window.search = new SearchOverlay(searchOptions);
       });
     }
 
@@ -121,7 +120,7 @@ angular.module('workoutClientApp')
         $('.program-item-text.hidden').removeClass('hidden');
         $('.program-field-value.hidden').removeClass('hidden');
         TracksService.editTrack($scope.master, function(data, status) {
-          if (status != 200) {
+          if (status !== 200) {
             alert('Error updating program. Response received with status: ' + status);
           } else {
             $scope.track = angular.copy($scope.master);
@@ -135,7 +134,7 @@ angular.module('workoutClientApp')
       event.stopPropagation();
       var $this = $(event.currentTarget);
       var $parent = $this.closest('.program-item');
-      if ($parent.hasClass('rest-day')) return;
+      if ($parent.hasClass('rest-day'))  { return; }
       $parent.toggleClass('program-item-expanded');
     }
 
@@ -150,7 +149,7 @@ angular.module('workoutClientApp')
       window.search.finishCallback = function() {
         $scope.$apply(function() {
           var value = window.search.getValue();
-          if (value != null) {
+          if (value !== null) {
             ex.exercise_id = value.id;
             ex.name = value.text;
           }

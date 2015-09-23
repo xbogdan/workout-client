@@ -29,7 +29,7 @@ angular.module('workoutClientApp')
         }
       };
       $cookies.put('globals', JSON.stringify($rootScope.globals));
-      $http.defaults.headers.common['Authorization'] = user.token;
+      $http.defaults.headers.common.Authorization = user.token;
     };
     service.ClearCredentials = function() {
       $rootScope.globals = {};
@@ -42,7 +42,7 @@ angular.module('workoutClientApp')
         .success(function(response, status) {
           callback(response, status);
         })
-        .error(function(error, status) {
+        .error(function(response, status) {
           callback(response, status);
         });
       this.ClearCredentials();
