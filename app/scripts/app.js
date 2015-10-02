@@ -20,10 +20,7 @@ angular
     'ui.bootstrap'
   ])
   .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
-    $httpProvider.defaults.useXDomain = true;
     $httpProvider.defaults.withCredentials = true;
-    delete $httpProvider.defaults.headers.common["X-Requested-With"];
-    $httpProvider.defaults.headers.common.Accept = "application/json";
     $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
     $httpProvider.interceptors.push('authInterceptor');
     $routeProvider
@@ -71,7 +68,7 @@ angular
       });
   }])
   .run(['$rootScope', '$cookies', '$http', '$location', function ($rootScope, $cookies, $http, $location) {
-    $rootScope.apiEndpoint = 'http://192.168.1.218:3000';
+    $rootScope.apiEndpoint = 'http://localhost:3000';
     // keep user logged in after page refresh
     var globals = $cookies.get('globals') || null;
     if (globals) {

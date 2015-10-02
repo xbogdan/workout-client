@@ -1,0 +1,8 @@
+<a class="program-item-text set-text">
+  <span class="program-item-value"><span><input class="program-item-value-input" type="text" size="2" ng-model="set.reps" disabled="disabled"> <small>reps</small></span></span>
+  <div class="program-item-actions">
+    <div class="program-item-action program-item-action_noedit edit-btn show-global hidden" ng-click="toggleSetField($event)"><i class="glyphicon glyphicon-pencil"></i></div>
+    <div class="program-item-action program-item-action_editing cancel-edit-btn" ng-click="toggleSetField($event)"><i class="glyphicon glyphicon-check"></i></div>
+    <div class="program-item-action remove-btn show-global hidden" ng-click="destroySet(ex, $index, $event)"><i class="glyphicon glyphicon-remove"></i></div>
+  </div>
+</a>

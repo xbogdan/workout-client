@@ -34,6 +34,11 @@
 .angular-ui-tree-nodes .angular-ui-tree-nodes
   padding 0
 
+.angular-ui-tree .ui-tree-handle
+  display none
+.angular-ui-tree.angular-ui-tree-enabled .ui-tree-handle
+  display block
+
 
 /**
  * Program tree
@@ -63,7 +68,7 @@
 .exercise-item
   & > .program-item-text
     height 40px
-    padding 0 10px
+    padding 0 10px 0 0
 
 .exercise-item,
 .set-item
@@ -79,6 +84,43 @@
   flex-wrap wrap
   padding 0
   align-items center
+
+  &.program-item-expanded+.rest-day
+    border-top 1px solid #FFF
+
+  &.program-item-expanded > .program-item-text .program-item-value-input
+    color white
+
+  &.editing > .program-item-text .program-item-action_noedit
+    display none
+
+  & .program-item-text .program-item-action.program-item-action_editing
+    display none
+
+  &.editing > .program-item-text .program-item-action_editing
+    display block
+
+  &.set-item.editing .program-item-value-input
+    padding 0 5px
+    width 50px
+
+  &.set-item
+    .program-item-value-input
+      width auto
+      padding 0
+    .program-item-actions
+      .cancel-edit-btn
+        font-size 14px
+
+  &.day-item.rest-day
+    .program-item-text
+      background-color #EFEFEF
+    .expand-btn
+      cursor default
+    .edit-btn, .program-item-arrow
+      display none
+    .remove-btn
+      padding-right 0
 
   .program-item-text
     flex(1)
@@ -117,13 +159,39 @@
     & > span
       flex(1)
 
+  &.exercise-item > .program-item-text .program-item-value
+    padding 10px
+
+  &.day-item > .program-item-text .program-item-value-input:disabled
+    padding 10px
+
+  .program-item-value-input:disabled
+    border 0
+    outline none
+    background-color transparent
+
+  .program-item-value-input
+    flex 1
+    width 100%
+    outline none
+    line-height 20px
+    border 1px solid $wet-asphalt
+    font-size 16px
+    font-weight 100
+    background-color $clouds
+    color $wet-asphalt
+    padding 9px
+
+  .program-item-value-text
+    padding 10px
+
   .ui-tree-handle
     top 0
     padding 10px
     color black
     font-size 20px
 
-  &:not(.program-item-expanded):not(.exercise-item):not(.set-item) > .program-item-text:hover
+  &:not(.program-item-expanded):not(.exercise-item):not(.set-item):not(.editing) > .program-item-text:hover
     background-color #efefef
     color $wet-asphalt
 
@@ -195,10 +263,8 @@
     right 0
     top 0
 
-.day-item > .edit-box .edit-btn
-  margin-left 20px
-
-.edit-btn
+.edit-btn,
+.cancel-edit-btn
   cursor pointer
   font-size 14px
   padding 10px 5px
@@ -206,24 +272,12 @@
   img
     vertical-align top
 
+.cancel-edit-btn
+  margin-left 10px
+
 .remove-btn
   padding 10px 5px
   color $pomegranate
-
-.program-item.program-item-expanded+.rest-day
-  border-top 1px solid #FFF
-
-.day-item.rest-day
-  .program-item-text
-    background-color #EFEFEF
-  .expand-btn
-    cursor default
-  .edit-btn, .program-item-arrow
-    display none
-  .remove-btn
-    padding-right 0
-  .rest-day-btn
-    color $green-sea
 
 .rest-day-btn
   padding 0 5px
@@ -242,7 +296,7 @@
     background-color $wet-asphalt
 
   .set-text
-    padding 7px 10px
+    padding 0px 10px
     background-color $clouds
     font-size 14px
     color $wet-asphalt

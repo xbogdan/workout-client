@@ -1,0 +1,10 @@
+<a class="program-item-text expand-btn" ng-click="expandItem($event)">
+  <span class="program-item-value"><input class="program-item-value-input" ng-model="day.name" ng-model-options="{debounce: { 'default': 500 }}" disabled="disabled"></span>
+  <div class="program-item-actions">
+    <div class="program-item-action program-item-action_noedit rest-day-btn show-global hidden" ng-click="toggleRestDay($event, $index)"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABPElEQVQ4T5WTzVECQRCF35ulSo6bgYSwQgJ4sApOmgA4GYiRABGwYgDqSSwPYgDomoFksDc9yDxroKR2l90Cu2ou0/P65+setjr9e5DnqLDVD0+S5zip8jPq2AYAf7ZmuIoIM4R0s5hNbZXY37PojM5sZGp6ofSwT7wT4L/iXIBmp2dBMyzLHLVtGBy5SxFhtmIH87puwYtJM6nq2XMydHFG3CB4LGjMVtdeALoTkEIaZTNQSBdP03H2rtgmm93+iOBVGWlBSyfTTmbxp/eXMdqZQtXIqgAfFGDDQO8EQgjzvySCNhD3mZ+CqbtB8R1pklyAZrc3WG9gxgR3/fZ4m4ObA50j3LYh6ogCIhTkx7p036adzOO08i+UrXJQ00QS94krV9k7nJOlUaqv4OPgCsoYrMTTZBZvyRcr/gWlXKMWmOgH3QAAAABJRU5ErkJggg=="/></div>
+    <div class="program-item-action program-item-action_noedit edit-btn show-global hidden" ng-click="toggleDayField($event)"><i class="glyphicon glyphicon-pencil"></i></div>
+    <div class="program-item-action program-item-action_editing cancel-edit-btn" ng-click="toggleDayField($event)"><i class="glyphicon glyphicon-check"></i></div>
+    <div class="program-item-action program-item-action_noedit remove-btn show-global hidden" ng-click="destroyDay($index, $event)"><i class="glyphicon glyphicon-remove"></i></div>
+    <div class="program-item-action program-item-action_noedit program-item-arrow"><div class="arrow"></div></div>
+  </div>
+</a>
