@@ -29,7 +29,7 @@ angular.module('workoutClientApp')
         } else if (status === 401) {
           alert('Login Failed');
         } else {
-          alert('Error. Please try again later.');
+          alert(data + 'Error. Status: ' + status + 'received. Please try again later.');
         }
       });
     };
