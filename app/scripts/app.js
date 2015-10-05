@@ -41,12 +41,17 @@ angular
       })
       .when('/signin', {
         templateUrl: 'views/signin.html',
-        controller: 'LoginCtrl',
-        controllerAs: 'login'
+        controller: 'LoginController',
+        controllerAs: 'LoginController'
+      })
+      .when('/signup', {
+        templateUrl: 'views/signup.html',
+        controller: 'SignupController',
+        controllerAs: 'signup'
       })
       .when('/signout', {
         template: ' ',
-        controller: 'LogoutCtrl'
+        controller: 'LogoutController'
       })
       .when('/tracks', {
         templateUrl: 'views/tracks.html',
@@ -81,9 +86,11 @@ angular
     }
 
     $rootScope.$on('$locationChangeStart', function () {
-        // redirect to login page if not logged in
-        if ($location.path() !== '/signin' && !$rootScope.globals.currentUser) {
+      // redirect to login page if not logged in
+      if (!$rootScope.globals.currentUser) {
+        if ($location.path() !== '/signin' && $location.path() !== '/signup') {
           $location.path('/signin');
         }
+      }
     });
   }]);

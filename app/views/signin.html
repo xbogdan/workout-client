@@ -1,8 +1,8 @@
 <div class="row">
   <div ng-app="" class="authentication-container col-xs-12 col-md-5 col-centered">
-    <h3>Sign in</h3>
+    <h3>sign in</h3>
     <hr>
-    <form ng-submit="login()" ng-controller="LoginCtrl" role="form" id="auth-form">
+    <form ng-submit="login()" role="form" id="auth-form">
       <div class="form-group">
         <input type="text" name="email" ng-model="email" class="form-control" placeholder="Email">
       </div>
@@ -14,5 +14,10 @@
         <input type="submit" value="Sign in" class="btn btn-primary btn-block btn-lg">
       </div>
     </form>
+
+    <div id="auth-links">
+      <p>Click to <a href="/#/signup">Sign up</a></p>
+    </div>
   </div>
+
 </div>

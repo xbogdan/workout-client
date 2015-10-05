@@ -47,5 +47,15 @@ angular.module('workoutClientApp')
         });
       this.ClearCredentials();
     };
+    service.Signup = function(email, password, confirmPassword, callback) {
+      $http
+        .post($rootScope.apiEndpoint+'/api/v1/signup', { email: email, password: password, confirmation_password: confirmPassword })
+        .success(function(data, status) {
+          callback(data, status);
+        })
+        .error(function(data, status) {
+          callback(data, status);
+        });
+    };
     return service;
   }]);

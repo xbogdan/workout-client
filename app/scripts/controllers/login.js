@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name workoutClientApp.controller:LoginCtrl
+ * @name workoutClientApp.controller:LoginController
  * @description
- * # LoginCtrl
+ * # LoginController
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('LoginCtrl', ['$scope', '$cookies', 'AuthenticationService', '$location', '$rootScope', function ($scope, $cookies, AuthenticationService, $location, $rootScope) {
+  .controller('LoginController', ['$scope', '$cookies', 'AuthenticationService', '$location', '$rootScope', function ($scope, $cookies, AuthenticationService, $location, $rootScope) {
 
     // Redirect to / if user is signed in
     if ($rootScope.globals.currentUser) {

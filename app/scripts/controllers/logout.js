@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc function
- * @name workoutClientApp.controller:LogoutCtrl
+ * @name workoutClientApp.controller:LogoutController
  * @description
- * # LogoutCtrl
+ * # LogoutController
  * Controller of the workoutClientApp
  */
 angular.module('workoutClientApp')
-  .controller('LogoutCtrl', ['$scope', '$cookies', 'AuthenticationService', '$location', function ($scope, $cookies, AuthenticationService, $location) {
+  .controller('LogoutController', ['$scope', '$cookies', 'AuthenticationService', '$location', function ($scope, $cookies, AuthenticationService, $location) {
     AuthenticationService.Logout(function(data, status) {
       if (status !== 204) {
         alert('Failed to signout');

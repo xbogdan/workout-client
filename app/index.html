@@ -28,7 +28,7 @@
     <![endif]-->
 
     <!-- Add your site or application content here -->
-    <div class="header">
+    <div class="header" ng-controller="MenuController">
       <div class="navbar navbar-inverse" role="navigation">
         <div class="container">
           <div class="navbar-header">
@@ -48,7 +48,9 @@
             <ul class="nav navbar-nav">
               <li><a href="#/">My programs</a></li>
               <li><a href="#/tracks">My tracks</a></li>
-              <li><a href="#/signout">Sign out</a></li>
+              <li ng-show="loggedIn"><a href="#/signout">Sign out</a></li>
+              <li ng-show="!loggedIn"><a href="#/signin">Sign in</a></li>
+              <li ng-show="!loggedIn"><a href="#/signup">Sign up</a></li>
             </ul>
           </div>
         </div>
@@ -107,6 +109,8 @@
     <script src="scripts/controllers/logout.js"></script>
     <script src="scripts/controllers/tracks.js"></script>
     <script src="scripts/controllers/track.js"></script>
+    <script src="scripts/controllers/menu.js"></script>
+    <script src="scripts/controllers/signup.js"></script>
     <script src="scripts/services/programs.js"></script>
     <script src="scripts/services/tracks.js"></script>
     <script src="scripts/services/authentication.js"></script>
