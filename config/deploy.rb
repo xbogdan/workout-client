@@ -73,6 +73,7 @@ namespace :deploy do
     end
   end
 
+  after :deploy, :bower_and_npm_install
   after :bower_and_npm_install, :build
 
 end

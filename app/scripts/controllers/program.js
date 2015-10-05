@@ -149,9 +149,10 @@ angular.module('workoutClientApp')
       var day = $scope.master.program_days_attributes[dayIndex];
       day.rest_day = !day.rest_day;
       if (day.rest_day) {
+        day.oldName = day.name;
         day.name = 'Rest day';
       } else {
-        day.name = 'Day '+dayIndex;
+        day.name = day.oldName;
       }
       // $(event.currentTarget).closest('.program-item').removeClass('program-item-expanded').toggleClass('rest-day');
     }
