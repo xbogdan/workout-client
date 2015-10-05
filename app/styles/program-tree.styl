@@ -353,8 +353,13 @@
 
 .program-field-box
   flexbox()
+  position relative
   .program-field-value
     flex(1)
+  .edit-btn
+    top 50%
+    transform(translateY(-50%))
+    position absolute
 
 #program-routine h3
   margin-top 11px
