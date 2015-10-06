@@ -22,6 +22,7 @@ angular.module('workoutClientApp')
     $scope.destroyDay = destroyDay;
     $scope.destroyExercise = destroyExercise;
     $scope.destroySet = destroySet;
+    $scope.openPicker = openPicker;
     $scope.newIndexes = {
       'track_days_attributes': [],
       'track_day_exercises_attributes': [],
@@ -37,30 +38,33 @@ angular.module('workoutClientApp')
     init();
     $scope.openedDay = null;
     function init() {
+      RoutineService.initExercises();
+      RoutineService.init($scope);
+
+      setTimeout(function() {
+        var $input = $('#pick-a-date').pickadate({
+          clear: false
+        });
+        $scope.picker = $input.pickadate('picker');
+        $scope.picker.on({
+          close: function() {
+            $scope.master.track_days_attributes[$scope.openedDayIndex].date = $scope.picker.get();
+            $scope.$apply();
+          }
+        });
+      }, 0);
+
       if ($routeParams.id) {
         TracksService.Track($routeParams.id, function(data) {
           $scope.master = data.track;
           $scope.track = angular.copy($scope.master);
-          RoutineService.initExercises();
-          setTimeout(function() {
-            var $input = $('#pick-a-date').pickadate({
-              clear: false
-            });
-            $scope.picker = $input.pickadate('picker');
-            $scope.picker.on({
-              close: function() {
-                $scope.master.track_days_attributes[$scope.openedDayIndex].date = $scope.picker.get();
-                $scope.$apply();
-              }
-            });
-          }, 0);
-          RoutineService.init($scope);
         });
       } else {
+        $scope.master = {};
+        $scope.program = angular.copy($scope.master);
       }
     }
 
-    $scope.openPicker = openPicker;
     function openPicker(index) {
       $scope.openedDayIndex = index;
       $scope.picker.open();
@@ -68,6 +72,7 @@ angular.module('workoutClientApp')
 
     function submit() {
       if (!$routeParams.id) {
+        console.log($scope.master);
         TracksService.createTrack($scope.master, function(data, status) {
           if (status === 201) {
             $location.path('/tracks');
