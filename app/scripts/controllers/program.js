@@ -43,12 +43,8 @@ angular.module('workoutClientApp')
           $scope.master = data.program;
           $scope.program = angular.copy($scope.master);
           setTimeout(function() {$("#private-switch").bootstrapSwitch();}, 1);
-          RoutineService.initExercises();
-          RoutineService.init($scope);
         });
       } else {
-        RoutineService.initExercises();
-        RoutineService.init($scope);
         $scope.editing = true;
         $scope.showEditButton = false;
         $scope.master = {};
@@ -58,6 +54,9 @@ angular.module('workoutClientApp')
         $scope.program = angular.copy($scope.master);
         setTimeout(function() { toggleTree(); }, 0);
       }
+      
+      RoutineService.initExercises();
+      RoutineService.init($scope);
 
       $scope.treeOptions = {
         accept: function(sourceNode, destNodes, destIndex) {

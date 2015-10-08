@@ -4,19 +4,23 @@
  * Search overlay
  */
 (function() {
-  var searchOverlay = function() {
-
+  var searchOverlay = function(options) {
     this.values = [];
     this.selectedValue = null;
     this.finishCallback = null;
 
-    if (arguments[0] && typeof arguments[0] === 'object' ) {
-      this.values = arguments[0];
+    if (options.values && typeof options.values === 'object') {
+      this.values = options.values;
     }
 
-    if (arguments[1] && typeof arguments[1] === 'function' ) {
-      this.finishCallback = arguments[1];
+    if (options.finishCallback && typeof options.finishCallback === 'object') {
+      this.finishCallback = options.finishCallback;
     }
+
+    if (options.createNewFunction && typeof options.createNewFunction === 'object') {
+      this.createNewFunction = options.createNewFunction;
+    }
+
 
     this.build();
   };
@@ -43,6 +47,9 @@
     this.searchBox.appendChild(this.searchInput);
     this.searchBox.appendChild(this.clearButton);
 
+    this.searchResultsBox = document.createElement('div');
+    this.searchResultsBox.id = 'so-search-results-box';
+
     this.searchResults = document.createElement('ul');
     this.searchResults.className = 'search-results';
 
@@ -53,6 +60,21 @@
       li.addEventListener('click', this.select.bind(this, key));
       this.searchResults.appendChild(li);
     }
+
+    this.createNew = document.createElement('div');
+    this.createNew.id = 'so-create-new';
+
+    var text = document.createElement('span');
+    text.innerHTML = 'New exercise :';
+    text.className = 'so-create-new-text';
+
+    this.createNew.appendChild(text);
+
+    this.createNewExercise = document.createElement('span');
+    this.createNewExercise.id = 'so-create-new-exercise';
+
+    this.createNew.appendChild(this.createNewExercise);
+    this.createNew.addEventListener('click', this.createNewCallback.bind(this));
 
     this.searchButtons = document.createElement('div');
     this.searchButtons.className = 'search-overlay-btns';
@@ -73,7 +95,9 @@
     this.searchButtons.appendChild(this.cancelButton);
 
     this.overlay.appendChild(this.searchBox);
-    this.overlay.appendChild(this.searchResults);
+    this.searchResultsBox.appendChild(this.createNew);
+    this.searchResultsBox.appendChild(this.searchResults);
+    this.overlay.appendChild(this.searchResultsBox);
     this.overlay.appendChild(this.searchButtons);
 
     docFrag.appendChild(this.overlay);
@@ -81,15 +105,18 @@
   };
 
   searchOverlay.prototype.search = function() {
-    var searchText = this.searchInput.value.toLowerCase();
+    var searchText = this.searchInput.value.trim().toLowerCase();
+    this.createNewExercise.innerHTML = searchText;
     var matched = false;
+    var possibleMatch = false;
     for (var key in this.values) {
       var value = this.values[key].text.toLowerCase();
       if (value.indexOf(searchText) === -1) {
         this.hideResult(key);
       } else {
         this.showResult(key);
-        if (value === searchText) {
+        possibleMatch = true;
+        if (value.trim() === searchText) {
           matched = true;
           this.setValue(key);
         }
@@ -97,6 +124,13 @@
     }
     if (!matched) {
       this.unsetValue();
+    }
+
+    if (searchText.length >= 3 || !possibleMatch) {
+      this.showCreateNew();
+    }
+    if (matched || searchText.length < 3 && possibleMatch || searchText.length == 0) {
+      this.hideCreateNew();
     }
     this.showSearchResults();
   };
@@ -108,6 +142,7 @@
       this.showResult(i);
     }
     this.showSearchResults();
+    this.hideCreateNew();
     this.unsetValue();
   };
 
@@ -120,6 +155,7 @@
         this.hideResult(key);
       }
     }
+    this.hideCreateNew();
     this.hideSearchResults();
   };
 
@@ -134,6 +170,7 @@
   searchOverlay.prototype.show = function() {
     this.clear();
     this.overlay.style.display = 'block';
+    this.searchInput.focus();
     document.body.className = document.body.className + ' noscroll';
   };
 
@@ -141,6 +178,12 @@
     this.hide();
     if (typeof this.finishCallback === 'function') {
       this.finishCallback();
+    }
+  };
+
+  searchOverlay.prototype.createNewCallback = function() {
+    if (typeof this.createNewFunction) {
+      this.createNewFunction();
     }
   };
 
@@ -170,6 +213,14 @@
 
   searchOverlay.prototype.getValue = function() {
     return this.selectedValue;
+  };
+
+  searchOverlay.prototype.showCreateNew = function() {
+    this.createNew.style.display = 'block';
+  };
+
+  searchOverlay.prototype.hideCreateNew = function() {
+    this.createNew.style.display = 'none';
   };
 
   window.SearchOverlay = searchOverlay;

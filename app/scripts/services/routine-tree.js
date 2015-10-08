@@ -33,15 +33,20 @@ angular.module('workoutClientApp')
 
     service.initExercises = function() {
       ProgramsService.Exercises('', function(data, status) {
-        var exercises_found = [];
+        var exercisesFound = [];
         var searchOptions = [];
         for (var i = 0; i < data.exercises.length; i++) {
           var ex = data.exercises[i];
-          exercises_found.push(ex);
+          exercisesFound.push(ex);
           searchOptions.push({id: ex.id, text: ex.name});
         }
-        service.scope.exercises = exercises_found;
-        window.search = new SearchOverlay(searchOptions);
+        service.scope.exercises = exercisesFound;
+        window.search = new SearchOverlay({
+          values: searchOptions,
+          createNewFunction: function() {
+            
+          }
+        });
       });
     };
 
