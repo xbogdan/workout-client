@@ -21,7 +21,6 @@ angular.module('workoutClientApp')
         });
     };
     service.SetCredentials = function(user) {
-      console.log(user);
       $rootScope.globals = {
         currentUser: {
           email: user.email,

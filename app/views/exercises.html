@@ -2,19 +2,21 @@
   <div class="col-xs-12 col-md-4 col-md-offset-1">
     <div class="row">
     <form ng-submit="submit()" id="exercise-form">
-      <div class="form-group clearfix">
-        <div class="col-xs-12">
+      <div class="col-xs-12">
+        <div class="form-group clearfix">
           <input type="text" class="form-control input-lg" placeholder="Exercise name" ng-model="form.name">
         </div>
       </div>
-      <div class="form-group clearfix">
-        <div class="col-xs-12 col-md-6">
-          <select name="" id="" ng-model="form.muscle_group_id">
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group clearfix">
+          <select name="muscle-group-id" id="" ng-model="form.muscle_group_id">
             <option value="0">Select muscle group</option>
             <option value="{{ gr.id }}" ng-repeat="gr in muscleGroups">{{ gr.name }}</option>
           </select>
         </div>
-        <div class="col-xs-12 col-md-6">
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="form-group clearfix">
           <button class="btn btn-md btn-block btn-primary">Save</button>
         </div>
       </div>

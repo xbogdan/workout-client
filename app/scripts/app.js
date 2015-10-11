@@ -77,8 +77,8 @@ angular
         redirectTo: '/'
       });
   }])
-  .run(['$rootScope', '$cookies', '$http', '$location', function ($rootScope, $cookies, $http, $location) {
-    $rootScope.apiEndpoint = 'http://localhost:3000';
+  .run(['$rootScope', '$cookies', '$http', '$location', 'workoutClientAppConfig', function ($rootScope, $cookies, $http, $location, workoutClientAppConfig) {
+    $rootScope.apiEndpoint = workoutClientAppConfig.apiEndpoint;
     // keep user logged in after page refresh
     var globals = $cookies.get('globals') || null;
     if (globals) {

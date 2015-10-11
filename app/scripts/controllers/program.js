@@ -54,7 +54,7 @@ angular.module('workoutClientApp')
         $scope.program = angular.copy($scope.master);
         setTimeout(function() { toggleTree(); }, 0);
       }
-      
+
       RoutineService.initExercises();
       RoutineService.init($scope);
 
@@ -107,6 +107,7 @@ angular.module('workoutClientApp')
 
     function fixRestDays(update) {
       if (typeof update === 'undefined') { update = false; }
+      if (typeof $scope.master.program_days_attributes === 'undefined') return;
       for (var i = 0; i < $scope.master.program_days_attributes.length; i++) {
         var day = $scope.master.program_days_attributes[i];
         if (day.rest_day) {

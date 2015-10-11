@@ -68,6 +68,7 @@ namespace :deploy do
   task :build do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
+        execute :grunt, "ngconstant:prod"
         execute :grunt, "build"
       end
     end

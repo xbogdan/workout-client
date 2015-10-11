@@ -16,7 +16,8 @@ module.exports = function (grunt) {
   require('jit-grunt')(grunt, {
     useminPrepare: 'grunt-usemin',
     ngtemplates: 'grunt-angular-templates',
-    cdnify: 'grunt-google-cdn'
+    cdnify: 'grunt-google-cdn',
+    ngconstant: 'grunt-ng-constant'
   });
 
   // Configurable paths for the application
@@ -355,6 +356,30 @@ module.exports = function (grunt) {
           src: '*.js',
           dest: '.tmp/concat/scripts'
         }]
+      }
+    },
+
+    ngconstant: {
+      options: {
+        name: 'workoutClientApp',
+        dest: 'app/scripts/config.js',
+        deps: false
+      },
+      dev: {
+        constants: {
+          workoutClientAppConfig: {
+            apiEndpoint: 'http://localhost:3000'
+          }
+        }
+      },
+      prod: {
+        constants: {
+          workoutClientAppConfig: {
+            apiEndpoint: 'http://workout-api.boamfa.com'
+          }
+        }
+      },
+      build: {
       }
     },
 
