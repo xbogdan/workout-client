@@ -6,6 +6,7 @@
 (function() {
   var searchOverlay = function(options) {
     this.values = [];
+    this.secList = [];
     this.selectedValue = null;
     this.finishCallback = null;
 
@@ -13,13 +14,21 @@
       this.values = options.values;
     }
 
-    if (options.finishCallback && typeof options.finishCallback === 'object') {
+    // if (options.secList && typeof options.secList === 'object') {
+    //   this.secList = options.secList;
+    // }
+
+    if (options.finishCallback && typeof options.finishCallback === 'function') {
       this.finishCallback = options.finishCallback;
     }
 
-    if (options.createNewFunction && typeof options.createNewFunction === 'object') {
+    if (options.createNewFunction && typeof options.createNewFunction === 'function') {
       this.createNewFunction = options.createNewFunction;
     }
+
+    // this.createNewFunction = function() {
+    //   this.overlaySecondarySection.className += ' so-overlay-secondary-active';
+    // };
 
 
     this.build();
@@ -28,13 +37,42 @@
   searchOverlay.prototype.build = function() {
     var docFrag = document.createDocumentFragment();
 
+    /* Overlay box */
     this.overlay = document.createElement('div');
     this.overlay.className = 'search-overlay';
     this.overlay.style.display = 'none';
 
+
+    /* Primary and secondary sections */
+    // this.overlayPrimarySection = document.createElement('div');
+    // this.overlayPrimarySection.className = 'so-overlay-main';
+
+    // this.overlaySecondarySection = document.createElement('div');
+    // this.overlaySecondarySection.className = 'so-overlay-secondary';
+
+    // this.overlay.appendChild(this.overlayPrimarySection);
+    // this.overlay.appendChild(this.overlaySecondarySection);
+
+
+    /* Secondary section */
+    // var mg = document.createElement('ul');
+    // mg.className = 'search-results';
+    //
+    // for (var key in this.values) {
+    //   var li = document.createElement('li');
+    //   li.innerHTML = "Text " + key;
+    //   mg.appendChild(li);
+    // }
+    // this.overlaySecondarySection.appendChild(mg);
+
+    /* Search box */
     this.searchBox = document.createElement('div');
     this.searchBox.className = 'search-input-box';
 
+    this.overlay.appendChild(this.searchBox);
+
+
+    /* Search input */
     this.searchInput = document.createElement('input');
     this.searchInput.className = 'search-input';
     this.searchInput.placeholder = 'Type here to search';
@@ -47,9 +85,34 @@
     this.searchBox.appendChild(this.searchInput);
     this.searchBox.appendChild(this.clearButton);
 
-    this.searchResultsBox = document.createElement('div');
-    this.searchResultsBox.id = 'so-search-results-box';
 
+    /* Search results box */
+    this.searchResultsBox = document.createElement('div');
+    this.searchResultsBox.className = 'so-search-results-box';
+
+    this.overlay.appendChild(this.searchResultsBox);
+
+
+    /* Create new result */
+    this.createNew = document.createElement('div');
+    this.createNew.className = 'so-create-new';
+
+    var text = document.createElement('span');
+    text.innerHTML = 'New exercise :';
+    text.className = 'so-create-new-text';
+
+    this.createNew.appendChild(text);
+
+    this.createNewExercise = document.createElement('span');
+    this.createNewExercise.className = 'so-create-new-exercise';
+
+    this.createNew.appendChild(this.createNewExercise);
+    this.createNew.addEventListener('click', this.createNewCallback.bind(this));
+
+    this.searchResultsBox.appendChild(this.createNew);
+
+
+    /* Search results list */
     this.searchResults = document.createElement('ul');
     this.searchResults.className = 'search-results';
 
@@ -61,44 +124,27 @@
       this.searchResults.appendChild(li);
     }
 
-    this.createNew = document.createElement('div');
-    this.createNew.id = 'so-create-new';
+    this.searchResultsBox.appendChild(this.searchResults);
 
-    var text = document.createElement('span');
-    text.innerHTML = 'New exercise :';
-    text.className = 'so-create-new-text';
 
-    this.createNew.appendChild(text);
-
-    this.createNewExercise = document.createElement('span');
-    this.createNewExercise.id = 'so-create-new-exercise';
-
-    this.createNew.appendChild(this.createNewExercise);
-    this.createNew.addEventListener('click', this.createNewCallback.bind(this));
-
+    /* Buttons */
     this.searchButtons = document.createElement('div');
     this.searchButtons.className = 'search-overlay-btns';
 
+    this.overlay.appendChild(this.searchButtons);
+
     this.acceptButton = document.createElement('button');
     this.acceptButton.className = 'search-overlay-accept btn btn-lg btn-primary';
-    // this.acceptButton.className = 'btn btn-lg btn-primary';
     this.acceptButton.innerHTML = 'Select';
     this.acceptButton.addEventListener('click', this.finish.bind(this));
 
     this.cancelButton = document.createElement('button');
     this.cancelButton.className = 'search-overlay-cancel btn btn-lg';
-    // this.cancelButton.className = 'btn btn-lg';
     this.cancelButton.innerHTML = 'Cancel';
     this.cancelButton.addEventListener('click', this.hide.bind(this));
 
     this.searchButtons.appendChild(this.acceptButton);
     this.searchButtons.appendChild(this.cancelButton);
-
-    this.overlay.appendChild(this.searchBox);
-    this.searchResultsBox.appendChild(this.createNew);
-    this.searchResultsBox.appendChild(this.searchResults);
-    this.overlay.appendChild(this.searchResultsBox);
-    this.overlay.appendChild(this.searchButtons);
 
     docFrag.appendChild(this.overlay);
     document.body.appendChild(docFrag);
@@ -182,7 +228,7 @@
   };
 
   searchOverlay.prototype.createNewCallback = function() {
-    if (typeof this.createNewFunction) {
+    if (typeof this.createNewFunction === 'function') {
       this.createNewFunction();
     }
   };
@@ -213,6 +259,10 @@
 
   searchOverlay.prototype.getValue = function() {
     return this.selectedValue;
+  };
+
+  searchOverlay.prototype.getCurrentValue = function() {
+    return this.searchInput.value;
   };
 
   searchOverlay.prototype.showCreateNew = function() {

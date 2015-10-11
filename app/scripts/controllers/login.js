@@ -23,7 +23,8 @@ angular.module('workoutClientApp')
           AuthenticationService.SetCredentials({
             email: data.email,
             name: data.name,
-            token: data.auth_token
+            token: data.auth_token,
+            id: data.id
           });
           $location.path('/');
         } else if (status === 401) {

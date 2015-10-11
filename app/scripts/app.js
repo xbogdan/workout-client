@@ -68,12 +68,17 @@ angular
         controller: 'TrackController',
         controllerAs: 'track'
       })
+      .when('/exercises', {
+        templateUrl: 'views/exercises.html',
+        controller: 'ExercisesController',
+        controllerAs: 'exercises'
+      })
       .otherwise({
         redirectTo: '/'
       });
   }])
   .run(['$rootScope', '$cookies', '$http', '$location', function ($rootScope, $cookies, $http, $location) {
-    $rootScope.apiEndpoint = 'http://192.168.1.218:3000';
+    $rootScope.apiEndpoint = 'http://localhost:3000';
     // keep user logged in after page refresh
     var globals = $cookies.get('globals') || null;
     if (globals) {

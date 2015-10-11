@@ -16,7 +16,10 @@ angular.module('workoutClientApp')
     service.editProgram = editProgram;
     service.createProgram = createProgram;
     service.deleteProgram = deleteProgram;
+    service.MuscleGroups = MuscleGroups;
     service.Exercises = Exercises;
+    service.createExercise = createExercise;
+    service.deleteExercise = deleteExercise;
 
     return service;
 
@@ -29,7 +32,7 @@ angular.module('workoutClientApp')
         callback(data, status);
       })
       .error(function(err, status) {
-         callback(err, status);
+        callback(err, status);
       });
     }
 
@@ -42,7 +45,7 @@ angular.module('workoutClientApp')
         callback(data, status);
       })
       .error(function(err, status) {
-         callback(err, status);
+        callback(err, status);
       });
     }
 
@@ -58,7 +61,7 @@ angular.module('workoutClientApp')
         callback(data, status);
       })
       .error(function(err, status) {
-         callback(err, status);
+        callback(err, status);
       });
     }
 
@@ -74,7 +77,7 @@ angular.module('workoutClientApp')
         callback(data, status);
       })
       .error(function(err, status) {
-         callback(err, status);
+        callback(err, status);
       });
     }
 
@@ -90,20 +93,72 @@ angular.module('workoutClientApp')
         callback(data, status);
       })
       .error(function(err, status) {
-         callback(err, status);
+        callback(err, status);
+      });
+    }
+
+    function MuscleGroups(callback) {
+      $http({
+        method: 'GET',
+        url: $rootScope.apiEndpoint+'/api/v1/muscleGroups'
+      })
+      .success(function(data, status) {
+        callback(data, status);
+      })
+      .error(function(err, status) {
+        callback(err, status);
       });
     }
 
     function Exercises(filter, callback) {
+      if (typeof filter.search === 'undefined') {
+        filter.search = '';
+      }
+      if (typeof filter.group === 'undefined') {
+        filter.group = 0;
+      }
       $http({
         method: 'GET',
-        url: $rootScope.apiEndpoint+'/api/v1/exercises?filter='+filter
+        url: $rootScope.apiEndpoint+'/api/v1/exercises?filter='+filter.search+'&grouped='+parseInt(filter.group)
       })
       .success(function(data, status) {
-        callback(data);
+        callback(data, status);
       })
       .error(function(err, status) {
-         callback(err);
+        callback(err, status);
+      });
+    }
+
+    function createExercise(ex, callback) {
+      $http({
+        method: 'POST',
+        url: $rootScope.apiEndpoint+'/api/v1/createExercise',
+        data: {
+          name: ex.name,
+          muscle_group_id: ex.muscle_group_id
+        }
+      })
+      .success(function(data, status) {
+        callback(data, status);
+      })
+      .error(function(err, status) {
+        callback(err, status);
+      });
+    }
+
+    function deleteExercise(id, callback) {
+      $http({
+        method: 'DELETE',
+        url: $rootScope.apiEndpoint+'/api/v1/deleteExercise',
+        data: {
+          id: id
+        }
+      })
+      .success(function(data, status) {
+        callback(data, status);
+      })
+      .error(function(err, status) {
+        callback(err, status);
       });
     }
   }]);

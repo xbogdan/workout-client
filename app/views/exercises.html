@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-xs-12 col-md-4 col-md-offset-1">
+    <div class="row">
+    <form ng-submit="submit()" id="exercise-form">
+      <div class="form-group clearfix">
+        <div class="col-xs-12">
+          <input type="text" class="form-control input-lg" placeholder="Exercise name" ng-model="form.name">
+        </div>
+      </div>
+      <div class="form-group clearfix">
+        <div class="col-xs-12 col-md-6">
+          <select name="" id="" ng-model="form.muscle_group_id">
+            <option value="0">Select muscle group</option>
+            <option value="{{ gr.id }}" ng-repeat="gr in muscleGroups">{{ gr.name }}</option>
+          </select>
+        </div>
+        <div class="col-xs-12 col-md-6">
+          <button class="btn btn-md btn-block btn-primary">Save</button>
+        </div>
+      </div>
+    </form>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-md-4 col-md-offset-2">
+    <ul>
+      <li ng-repeat="gr in exercises">
+        {{ gr.muscle_group_name }}
+        <ul>
+          <li ng-repeat="ex in gr.exercises">
+            {{ ex.name }}
+            <a ng-click="deleteExercise(ex)" ng-show="userID == ex.user_id">x</a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

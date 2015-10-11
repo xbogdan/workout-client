@@ -21,11 +21,13 @@ angular.module('workoutClientApp')
         });
     };
     service.SetCredentials = function(user) {
+      console.log(user);
       $rootScope.globals = {
         currentUser: {
           email: user.email,
           name: user.name,
-          token: user.token
+          token: user.token,
+          id: user.id
         }
       };
       $cookies.put('globals', JSON.stringify($rootScope.globals));

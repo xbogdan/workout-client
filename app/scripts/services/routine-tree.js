@@ -32,7 +32,7 @@ angular.module('workoutClientApp')
     };
 
     service.initExercises = function() {
-      ProgramsService.Exercises('', function(data, status) {
+      ProgramsService.Exercises({}, function(data, status) {
         var exercisesFound = [];
         var searchOptions = [];
         for (var i = 0; i < data.exercises.length; i++) {
@@ -44,7 +44,9 @@ angular.module('workoutClientApp')
         window.search = new SearchOverlay({
           values: searchOptions,
           createNewFunction: function() {
-            
+            ProgramsService.createExercise({name: window.search.getCurrentValue()}, function(data, status) {
+
+            });
           }
         });
       });
