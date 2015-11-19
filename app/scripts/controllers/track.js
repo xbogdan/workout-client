@@ -72,7 +72,6 @@ angular.module('workoutClientApp')
 
     function submit() {
       if (!$routeParams.id) {
-        console.log($scope.master);
         TracksService.createTrack($scope.master, function(data, status) {
           if (status === 201) {
             $location.path('/tracks');

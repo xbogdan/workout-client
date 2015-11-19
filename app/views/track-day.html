@@ -1,0 +1,41 @@
+<div class="row nogutter">
+  <div class="col-xs-12">
+    <div id="global-edit" class="clearfix" ng-click="changeGlobalEdit(true, false)">Edit</div>
+    <div id="global-finish" class="clearfix hidden" ng-click="changeGlobalEdit(false, false)">Finish</div>
+    <div id="global-cancel" class="clearfix show-global hidden" ng-click="changeGlobalEdit(false, true)">Cancel</div>
+  </div>
+
+  <div class="col-xs-12">{{ day.date|date }}</div>
+</div>
+
+<div class="row nogutter">
+  <div class="col-xs-12 col-md-4">
+    <!-- exercise list -->
+    <ul class="exercise-list exercise-list--open" ng-model="day.track_day_exercises_attributes">
+      <li ng-repeat="ex in day.track_day_exercises_attributes" class="program-item exercise-item">
+        <routine-exercise></routine-exercise>
+
+        <!-- set list -->
+        <ul class="set-list" ng-model="ex.track_day_exercise_sets_attributes">
+          <li ng-repeat="set in ex.track_day_exercise_sets_attributes" class="program-item set-item">
+            <span class="set-nr" ng-bind="$index+1"></span>
+            <a class="program-item-text set-text">
+              <span class="program-item-value">
+                <span><input class="program-item-value-input" type="text" size="2" ng-model="set.reps" disabled="disabled"> <small>reps</small></span>
+                <span><input class="program-item-value-input" type="text" size="2" ng-model="set.weight" disabled="disabled"> <small>kg</small></span>
+              </span>
+              <div class="program-item-actions">
+                <div class="program-item-action program-item-action_noedit edit-btn show-global hidden" ng-click="toggleSetField($event, set)"><i class="glyphicon glyphicon-pencil"></i></div>
+                <div class="program-item-action program-item-action_editing cancel-edit-btn" ng-click="toggleSetField($event, set)"><i class="glyphicon glyphicon-check"></i></div>
+                <div class="program-item-action remove-btn show-global hidden" ng-click="destroySet(ex, $index, $event)"><i class="glyphicon glyphicon-remove"></i></div>
+              </div>
+            </a>
+          </li>
+          <li class="show-global hidden"><a href ng-click="addSet(ex)" class="add-set-btn"><i class="glyphicon glyphicon-plus"></i> Add set</a></li>
+        </ul> <!-- end set list -->
+      </li>
+
+      <li class="show-global hidden"><a href ng-click="addExercise(day)" class="add-exercise-btn"><i class="glyphicon glyphicon-plus"></i> Add exercise</a></li>
+    </ul> <!-- end exercise list -->
+  </div>
+</div>

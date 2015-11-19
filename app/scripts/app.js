@@ -63,6 +63,11 @@ angular
         controller: 'TrackController',
         controllerAs: 'newTrack'
       })
+      .when('/track/:id/day/:dayId', {
+        templateUrl: 'views/track-day.html',
+        controller: 'TrackDayController',
+        controllerAs: 'trackDay'
+      })
       .when('/track/:id', {
         templateUrl: 'views/track.html',
         controller: 'TrackController',

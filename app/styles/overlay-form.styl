@@ -1,0 +1,71 @@
+/* Search overlay */
+transform($val)
+  -webkit-transform $val
+  -moz-transform $val
+  -ms-transform $val
+  -webkit-transform $val
+  transform $val
+
+flexbox()
+  display -webkit-box
+  display -moz-box
+  display -ms-flexbox
+  display -webkit-flex
+  display flex
+
+flex($values)
+  -webkit-box-flex $values
+  -moz-box-flex  $values
+  -webkit-flex  $values
+  -ms-flex  $values
+  flex  $values
+
+
+.noscroll
+  overflow hidden
+
+.of
+  position fixed
+  top 0
+  bottom 0
+  left 0
+  right 0
+  z-index 99999
+  background-color rgba(0,0,0,0.95)
+
+.of__box
+  position absolute
+  top 50%
+  left 50%
+  transform(translate3d(-50%, -50%, 0))
+  width 80%
+  max-width 300px
+  padding 20px
+  background white
+
+.of__label
+  display block
+
+.of__buttons-box
+  flexbox()
+  margin-top 20px
+
+.of__input
+  display block
+  width 100%
+  outline none
+  text-indent 5px
+
+.of__button
+  flex(1)
+  border 0
+  color white
+  font-weight 100
+  font-size 16px
+  outline none
+
+.of__submit
+  background-color #1abc9c
+
+.of__cancel
+  background-color #c0392b
