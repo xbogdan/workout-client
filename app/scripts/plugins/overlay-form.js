@@ -24,6 +24,9 @@
     if (options.beforeShow && typeof options.beforeShow === 'function') {
       this.beforeShow = options.beforeShow;
     }
+    if (options.afterHide && typeof options.afterHide === 'function') {
+      this.afterHide = options.afterHide;
+    }
     if (options.fields && typeof options.fields === 'object') {
       this.fields = options.fields;
     }
@@ -61,7 +64,7 @@
     this.cancelButton.innerHTML = 'Cancel';
     this.cancelButton.className = 'of__button of__cancel';
     this.cancelButton.setAttribute('type', 'button');
-    this.cancelButton.addEventListener('click', this.hide.bind(this));
+    this.cancelButton.addEventListener('click', this.hideAction.bind(this));
     buttonsBox.appendChild(this.cancelButton);
 
     this.submitButton = document.createElement('button');
@@ -122,6 +125,13 @@
     this.overlay.style.display = 'none';
     document.body.className = document.body.className.replace(/\bnoscroll\b/,'');
     this.clearInputs();
+  };
+
+  of.prototype.hideAction = function() {
+    this.hide();
+    if (typeof this.afterHide !== 'undefined') {
+      this.afterHide();
+    }
   };
 
   of.prototype.show = function() {

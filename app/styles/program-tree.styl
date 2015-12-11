@@ -53,10 +53,14 @@
   display none
   padding 0
   list-style none
-  
-.exercise-list--open {
+  .program-item-value
+    font-size 18px
+    align-items baseline
+    .program-item-unit
+      margin-left 1px
+      font-size 14px
+.exercise-list--open
   display block
-}
 
 .day-item
   background-color white
@@ -86,7 +90,7 @@
   border-bottom 1px solid #EFEFEF
 
 .set-item > .program-item-text
-  height 34px
+  height 38px
 
 .program-item
   flexbox()
@@ -165,8 +169,6 @@
     order(1)
     flex(1)
     flexbox()
-    & > span
-      flex(1)
 
   &.exercise-item > .program-item-text .program-item-value
     padding 10px
@@ -227,7 +229,6 @@
     & > ul
       flex(1 100%)
       display block
-      margin-left 10px
 
   &.exercise-item > .program-item-text > .program-item-actions
     .arrow:after,
@@ -298,7 +299,7 @@
     padding 7px 10px
 
   .set-nr
-    padding 7px 8px
+    padding 9px 8px
     font-size 15px
     line-height 20px
     color #fff

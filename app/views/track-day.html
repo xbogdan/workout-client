@@ -4,8 +4,10 @@
     <div id="global-finish" class="clearfix hidden" ng-click="changeGlobalEdit(false, false)">Finish</div>
     <div id="global-cancel" class="clearfix show-global hidden" ng-click="changeGlobalEdit(false, true)">Cancel</div>
   </div>
+</div>
 
-  <div class="col-xs-12">{{ day.date|date }}</div>
+<div class="row">
+  <div class="col-xs-12 day-date-header">{{ day.date|date:'dd MMMM, yyyy' }}</div>
 </div>
 
 <div class="row nogutter">
@@ -20,10 +22,7 @@
           <li ng-repeat="set in ex.track_day_exercise_sets_attributes" class="program-item set-item">
             <span class="set-nr" ng-bind="$index+1"></span>
             <a class="program-item-text set-text">
-              <span class="program-item-value">
-                <span><input class="program-item-value-input" type="text" size="2" ng-model="set.reps" disabled="disabled"> <small>reps</small></span>
-                <span><input class="program-item-value-input" type="text" size="2" ng-model="set.weight" disabled="disabled"> <small>kg</small></span>
-              </span>
+              <span class="program-item-value">{{set.reps}}<span class="program-item-unit">reps</span> &nbsp;&nbsp;&nbsp;x&nbsp;&nbsp; {{set.weight}}<span class="program-item-unit">kg</span></span>
               <div class="program-item-actions">
                 <div class="program-item-action program-item-action_noedit edit-btn show-global hidden" ng-click="toggleSetField($event, set)"><i class="glyphicon glyphicon-pencil"></i></div>
                 <div class="program-item-action program-item-action_editing cancel-edit-btn" ng-click="toggleSetField($event, set)"><i class="glyphicon glyphicon-check"></i></div>
